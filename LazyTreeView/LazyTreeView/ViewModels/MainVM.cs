@@ -1,4 +1,6 @@
 ﻿using LazyTreeView.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -77,9 +79,46 @@ namespace LazyTreeView.ViewModels
             // Collection PathNodes 객체 생성 
             PathNodes = new();
 
+
             // PathNodes에 LazyTreeNode 아이템 2개 추가 
-            PathNodes.Add(CreateNode("1", "홍길동"));
-            PathNodes.Add(CreateNode("2", "김이박"));
+            //PathNodes.Add(CreateNode("1", "홍길동"));
+            //PathNodes.Add(CreateNode("2", "김이박"));
+
+            //string strJson = @"[
+            //    { ""Key"": ""1"", ""Text"": ""홍길동"" },
+            //    { ""Key"": ""2"", ""Text"": ""김이박"" },
+            // ]";
+
+            string Json = @"[
+                {""Key"": ""1"", ""Text"": ""홍길동"" },
+                {""Key"": ""2"", ""Text"": ""김이박"" },
+             ]";
+
+
+            // TODO : JObject.Parse 실행시 오류 메시지 ": 'Error reading JObject from JsonReader. Current JsonReader item is not an object: StartArray. Path '', line 1, position 1.'" 해결 (2023.07.17 jbh)
+            // 참고 URL - https://blog.naver.com/chandong83/222771357703
+            // JObject jsonObject = JObject.Parse(strJson);
+            JArray jarray = JArray.Parse(Json);
+            
+            foreach (var item in jarray.Children())
+            {
+                JObject jObject = JObject.Parse(item.ToString());
+
+                string key = jObject.First.First.ToString();
+                string text = jObject.Last.Last.ToString();
+
+                PathNodes.Add(CreateNode(key, text));
+            }
+
+            // ObservableCollection<LazyTreeNode> TestPathNodes = JsonConvert.DeserializeObject<ObservableCollection<LazyTreeNode>>(json);
+            // PathNodes = JsonConvert.DeserializeObject<ObservableCollection<LazyTreeNode>>(json);
+
+
+            //foreach (var TestPathNode in TestPathNodes)
+            //{
+            //    PathNodes.Add(CreateNode(TestPathNode.Key, TestPathNode.Text));
+            //}
+
         }
 
         public ObservableCollection<LazyTreeNode> PathNodes { get; set; }
