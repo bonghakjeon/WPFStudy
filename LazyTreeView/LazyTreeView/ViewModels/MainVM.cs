@@ -7,6 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// TODO : LazyTreeView 구현 (2023.07.17 jbh)
+// 유튜브 참고 URL
+// WPF TreeView - LazyTreeNode(지연로드 트리뷰) 만들기 - 1
+// 참고 URL - https://youtu.be/8mCzmlGRU4Y
+   
+// WPF TreeView - LazyTreeNode(지연로드 트리뷰) 만들기 - 2(완)
+// 참고 URL - https://youtu.be/IId6XmwlqlQ
+
 namespace LazyTreeView.ViewModels
 {
     public class MainVM : INotifyPropertyChanged
