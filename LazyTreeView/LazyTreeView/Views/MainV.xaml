@@ -8,8 +8,12 @@
         xmlns:local="clr-namespace:LazyTreeView.Views"
         mc:Ignorable="d"
         x:Name="root"
-        d:DataContext="{d:DesignInstance Type=vm:MainVM}"
+        d:DataContext="{d:DesignInstance Type={x:Type vm:MainVM}}"
         Title="MainV" Height="450" Width="800">
+
+    <!-- TODO : C# WPF 팁 - Xaml 안에서 ViewModel속성을 자동완성 되도록 만들기(d:DataContext="{d:DesignInstance Type=vm:MainVM}") (2023.07.17 jbh) -->
+    <!-- 유튜브 참고 URL - https://youtu.be/A8t5ktSAgdA -->
+
     <!--TODO : LazyTreeView 구현 (2023.07.17 jbh)
                유튜브 참고 URL
                WPF TreeView - LazyTreeNode(지연로드 트리뷰) 만들기 - 1
