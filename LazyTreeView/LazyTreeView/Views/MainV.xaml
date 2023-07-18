@@ -37,9 +37,26 @@
                 <!-- DataType(models:LazyTreeNode) 지정 및 ItemsSource에 Children 바인딩 -->
                 <!-- TreeView에 추가될 하위 노드로는 DataType은 "models:LazyTreeNode" ItemsSource로는 Children Collection 이다. -->
                 <HierarchicalDataTemplate DataType="{x:Type models:LazyTreeNode}" ItemsSource="{Binding Children}">
-                    <!-- TreeView에 추가될 하위 노드 디자인 수정 -->
-                    <!-- <TextBlock>영역의 Text 속성에 Children Collection 안에 존재하는 LazyTreeNode 클래스 타입에 포함된 속성(프로퍼티) Text로 바인딩 처리 -->
-                    <TextBlock Text="{Binding Text}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <!-- 드라이브, 디렉토리, 파일 비트맵 이미지 추가 (Opened, Closed) -->
+                        <Image x:Name="treeImage" Width="24" Height="24" Source="{Binding ClosedImage}"/>
+
+                        <!-- TreeView에 추가될 하위 노드 디자인 수정 -->
+                        <!-- <TextBlock>영역의 Text 속성에 Children Collection 안에 존재하는 LazyTreeNode 클래스 타입에 포함된 속성(프로퍼티) Text로 바인딩 처리 -->
+                        <TextBlock Text="{Binding Text}" FontSize="20"/>
+                    </StackPanel>
+
+                    <!-- Trigger 영역 -->
+                        <!-- 더미노드가 펼쳐졌을 경우 실행되는 Trigger -->
+                    <HierarchicalDataTemplate.Triggers>
+                        <!-- 더미노드가 펼쳐졌을 경우 프로퍼티 IsExpanded의 값(Value)이 True를 의미-->
+                        <DataTrigger Binding="{Binding IsExpanded}" Value="True">
+                            <!-- 더미노드가 펼쳐졌을 경우 x:Name="treeImage"인 <Image> 영역의 Source 프로퍼티가 바인딩하는 객체(Value)가 OpenedImage로 변경 -->
+                            <Setter TargetName="treeImage"
+                                        Property="Source"
+                                        Value="{Binding OpenedImage}"/>
+                        </DataTrigger>
+                    </HierarchicalDataTemplate.Triggers>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>

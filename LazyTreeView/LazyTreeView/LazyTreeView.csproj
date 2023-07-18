@@ -112,6 +112,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\LazyTreeNode.cs" />
+    <Compile Include="Utils\DirectoryUtils.cs" />
+    <Compile Include="Utils\ToggleImageUtils.cs" />
     <Compile Include="ViewModels\MainVM.cs" />
     <Compile Include="Views\MainV.xaml.cs">
       <DependentUpon>MainV.xaml</DependentUpon>
@@ -164,6 +166,13 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\closed-drive.png" />
+    <Resource Include="Images\closed-folder.png" />
+    <Resource Include="Images\file.png" />
+    <Resource Include="Images\opened-drive.png" />
+    <Resource Include="Images\opened-folder.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

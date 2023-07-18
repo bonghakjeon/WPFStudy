@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace LazyTreeView.Models
 {
@@ -36,9 +37,16 @@ namespace LazyTreeView.Models
             }
         }
 
-
+        /// <summary>
+        /// 생성한 노드(아이템 - var node)의 전체 디렉토리(또는 파일) 경로
+        /// </summary>
         public string Key { get; set; } = string.Empty;
+
+        /// <summary>
+        /// 디렉토리(또는 파일) 이름
+        /// </summary>
         public string Text { get; set; } = string.Empty;
+
 
         // TODO: 오류 코드 "CS8370" 오류 메시지 "'nullable 참조 형식' 기능은 C# 7.3에서 사용할 수 없습니다. 8.0 이상의 언어 버전을 사용하세요." .Net 8.0 이상 언어 버전 설치 (2023.07.17 jbh)
         // 참고 URL - https://drehzr.tistory.com/872
@@ -57,6 +65,16 @@ namespace LazyTreeView.Models
         /// 태그
         /// </summary>
         public object? Tag { get; set; }   // nullable 전처리 중이지만 null 허용
+
+        /// <summary>
+        /// 비트맵 이미지 타입 (Opened)
+        /// </summary>
+        public BitmapImage? OpenedImage { get; set; }
+
+        /// <summary>
+        /// 비트맵 이미지 타입 (Closed)
+        /// </summary>
+        public BitmapImage? ClosedImage { get; set; }
 
         /// <summary>
         /// 부모 노드 
@@ -105,6 +123,7 @@ namespace LazyTreeView.Models
                 // TreeView 아이템이 펼쳐졌을 경우 
                 if (_isExpanded)
                 {
+                    Children.Clear();         // 해당 노드의 자식노드로 생성된 더미노드 초기화(삭제) 처리 
                     OnExpanded?.Invoke(this); // OnExpanded 이벤트 호출(Invoke)
                 }
             }
@@ -115,5 +134,16 @@ namespace LazyTreeView.Models
 
 #nullable disable  // nullable 전처리 비활성화
 
+        #region AddDummyNode
+
+        /// <summary>
+        /// 더미노드 생성 
+        /// </summary>
+        public void AddDummyNode()
+        {
+            Children.Add(new LazyTreeNode());
+        }
+
+        #endregion AddDummyNode
     }
 }
