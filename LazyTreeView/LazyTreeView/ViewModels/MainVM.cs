@@ -47,7 +47,7 @@ namespace LazyTreeView.ViewModels
         public LazyTreeNode CreateNode(string key, string text, ExplorerType explorerType)
         {
             var images = ToggleImageUtils.GetExplorers(explorerType);
-            var node   = new LazyTreeNode { Key = key, Text = text };
+            var node   = new LazyTreeNode { Path = key, FileName = text };
 
             // node가 펼쳐졌을 경우(화면에 출력되는 부모노드 (예) "홍길동" 또는 "김이박"을 더블클릭한 경우) 이벤트 "Node_OnExpanded" 추가 
             node.OnExpanded += Node_OnExpanded;
@@ -70,23 +70,33 @@ namespace LazyTreeView.ViewModels
         /// <param name="obj"></param>
         private void Node_OnExpanded(LazyTreeNode node)
         {
+            SubFolderCollection.Clear();    // 하위 폴더 Collection 초기화
+            FileInfoCollection.Clear();     // 파일 정보 Collection 초기화
+                
+            // else if (node.OpenedImage.UriSource.Equals(GetBitmapImageByFileName("file.png").UriSource))     FileInfoCollection.Clear();     // 파일 정보 Collection 초기화
+
             // 하위 디렉토리 추가 
             // 생성한 더미노드(node)의 전체 경로(node.Key)의 하위 폴더(di)들을 반복문으로 돌려서 방문 
-            foreach (var di in DirectoryUtils.GetDirectories(node.Key))
+            foreach (var di in DirectoryUtils.GetDirectories(node.Path))
             {
+                // TODO : 오류 메시지 "System.UnauthorizedAccessException: ''C:\PerfLogs\Admin' 경로에 대한 액세스가 거부되었습니다.'" 추후 보완 예정 (2023.07.19 jbh)
+                
+
                 // 생성한 더미노드(node)의 자식 디렉토리(Children) 경로, 이름, 이미지 추가 - CreateNode(di.FullName, di.Name, ExplorerType.Directory)
                 node.Children.Add(CreateNode(di.FullName, di.Name, ExplorerType.Directory));
+                SubFolderCollection.Add(CreateNode(di.FullName, di.Name, ExplorerType.Directory));     // 하위 폴더 Collection 데이터 추가 
             }
 
             // 하위 파일 추가 
             // 생성한 더미노드(node)의 전체 경로(node.Key)의 하위 파일(fi)들을 반복문으로 돌려서 방문 
-            foreach (var fi in DirectoryUtils.GetFiles(node.Key))
+            foreach (var fi in DirectoryUtils.GetFiles(node.Path))
             {
                 // 생성한 더미노드(node)의 하위 파일(Children) 경로, 이름, 이미지 추가 - CreateNode(fi.FullName, fi.Name, ExplorerType.File)
                 node.Children.Add(CreateNode(fi.FullName, fi.Name, ExplorerType.File));
+                FileInfoCollection.Add(CreateNode(fi.FullName, fi.Name, ExplorerType.File));           // 파일 정보 Collection 데이터 추가 
             }
 
-
+             
 
             // TODO: 테스트 코드 부모 노드(parent) 밑에 자식 노드(Children) "가나다" 추가 구현 (2023.07.18 jbh)
             // Collection Children Nullable(물음표 ?) 삭제 (경고 메시지가 출력되기 때문)
@@ -109,6 +119,15 @@ namespace LazyTreeView.ViewModels
 
             //}
 
+        }
+
+        /// <summary>
+        /// 하위 폴더 컬렉션 생성 
+        /// </summary>
+
+        private void CreateSubFolderCollection(ObservableCollection<LazyTreeNode> children)
+        {
+            //
         }
 
         /// <summary>
@@ -174,5 +193,54 @@ namespace LazyTreeView.ViewModels
         }
 
         public ObservableCollection<LazyTreeNode> PathNodes { get; set; }
+
+
+
+        /// <summary>
+        /// 하위 폴더 Collection
+        /// </summary>
+        public ObservableCollection<LazyTreeNode> SubFolderCollection
+        {
+            get
+            {
+                // 싱글톤 패턴 
+                if (_subFolderCollection == null)
+                {
+                    _subFolderCollection = new ObservableCollection<LazyTreeNode>();
+
+
+                }
+
+                return _subFolderCollection;
+            }
+            set => _subFolderCollection = value;
+        }
+
+        private ObservableCollection<LazyTreeNode> _subFolderCollection;
+
+
+        /// <summary>
+        /// 파일 정보 Collection
+        /// </summary>
+        public ObservableCollection<LazyTreeNode> FileInfoCollection
+        {
+            get
+            {
+                // 싱글톤 패턴 
+                if (_fileInfoCollection == null)
+                {
+                    _fileInfoCollection = new ObservableCollection<LazyTreeNode>();
+
+
+                }
+
+                return _fileInfoCollection;
+            }
+            set => _fileInfoCollection = value;
+        }
+
+        private ObservableCollection<LazyTreeNode> _fileInfoCollection;
+
+
     }
 }

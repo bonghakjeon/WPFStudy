@@ -40,13 +40,14 @@ namespace LazyTreeView.Models
         /// <summary>
         /// 생성한 노드(아이템 - var node)의 전체 디렉토리(또는 파일) 경로
         /// </summary>
-        public string Key { get; set; } = string.Empty;
+        //public string Key { get; set; } = string.Empty;
+        public string Path { get; set; } = string.Empty;
 
         /// <summary>
         /// 디렉토리(또는 파일) 이름
         /// </summary>
-        public string Text { get; set; } = string.Empty;
-
+        //public string Text { get; set; } = string.Empty;
+        public string FileName { get; set; } = string.Empty;
 
         // TODO: 오류 코드 "CS8370" 오류 메시지 "'nullable 참조 형식' 기능은 C# 7.3에서 사용할 수 없습니다. 8.0 이상의 언어 버전을 사용하세요." .Net 8.0 이상 언어 버전 설치 (2023.07.17 jbh)
         // 참고 URL - https://drehzr.tistory.com/872
@@ -99,7 +100,7 @@ namespace LazyTreeView.Models
                 }
             return _children;
           }  
-          set => _children= value;
+          set => _children = value;
           // set { _children = value; NotifyOfPropertyChange(); }
         }
 

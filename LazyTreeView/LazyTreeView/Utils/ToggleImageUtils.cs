@@ -23,7 +23,7 @@ namespace LazyTreeView.Utils
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        static BitmapImage GetBitmapImageByFileName(string fileName)
+        public static BitmapImage GetBitmapImageByFileName(string fileName)
         {
             return new BitmapImage(new Uri($"./../Images/{fileName}", UriKind.Relative));
         }
