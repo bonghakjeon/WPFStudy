@@ -85,28 +85,5 @@ namespace LazyTreeView.Utils
                 return Enumerable.Empty<FileInfo>();
             }
         }
-
-        /// <summary>
-        /// 하위 파일 배열 반환 
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public static FileInfo[] GetFilesInfo(string path)
-        {
-            FileInfo[] fileInfoArray = { };
-
-            DirectoryInfo di = new DirectoryInfo(path);
-            if (di.Exists)
-            {
-                fileInfoArray = di.GetFiles();
-                return fileInfoArray;
-            }
-            else
-            {
-                return fileInfoArray;
-            }
-            
-        }
-
     }
 }
