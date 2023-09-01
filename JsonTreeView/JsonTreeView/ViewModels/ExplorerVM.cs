@@ -1,15 +1,16 @@
 ﻿using Stylet;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Input;
-using System.Threading.Tasks;
-using JsonTreeView.Commands;
-using JsonTreeView.Models.Tree;
 using System.IO;
+using System.Linq;
 using System.Text.Json.Nodes;
 using System.Text.Json;
+using System.Text;
+using System.Windows;
+using System.Windows.Input;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using JsonTreeView.Commands;
+using JsonTreeView.Models.Tree;
 
 namespace JsonTreeView.ViewModels
 {
@@ -108,7 +109,40 @@ namespace JsonTreeView.ViewModels
         public int exp_TreeLevel { get => _exp_TreeLevel; set { _exp_TreeLevel = value; NotifyOfPropertyChange(); } }
         private int _exp_TreeLevel;
 
-        
+        // private RelayCommand folderListCommand;
+
+        /// <summary>
+        /// 폴더 목록 조회 Command
+        /// </summary>
+        public ICommand FolderListCommand { get; set; } = new ButtonCommand(FolderListAsync, CanExecuteMethod);
+
+        #region 기본 메소드
+
+        private static bool CanExecuteMethod(object obj)
+        {
+            return true;
+        }
+
+        #endregion 기본 메소드
+
+        #region FolderListAsync
+
+        // TODO : 프로젝트 클릭시 폴더 리스트 출력되도록 메서드 "FolderListAsync" 구현하기 (2023.09.01 jbh) 
+        public static async Task FolderListAsync(object obj)
+        {
+            try
+            {
+                MessageBox.Show("폴더 리스트 테스트 출력");
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
+        #endregion FolderListAsync
+
+
     }
 
     public class ExplorerVM : Screen
@@ -117,16 +151,30 @@ namespace JsonTreeView.ViewModels
 
         public BindableCollection<ExplorerLevel> LevelDatas { get; } = new BindableCollection<ExplorerLevel>();
 
+
         #endregion 프로퍼티 
 
         #region 생성자 
 
         public ExplorerVM()
         {
-
+            
         }
 
         #endregion 생성자 
+
+        #region FolderListCommand
+
+        /// <summary>
+        /// FolderListCommand
+        /// </summary>
+        //public ICommand FolderListCommand => _FolderListCommand = new RelayCommand(parameter =>
+        //{
+        //    MessageBox.Show("폴더 리스트 테스트 출력");
+        //});
+        //private ICommand _FolderListCommand;
+
+        #endregion FolderListCommand
 
         #region LoadCommand
 
