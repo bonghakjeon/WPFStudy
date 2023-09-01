@@ -1,0 +1,429 @@
+﻿// Decompiled with JetBrains decompiler
+// Type: UniBiz.Bo.Models.UniBase.Eod.EodInfo.EodInfoView
+// Assembly: UniBiz.Bo.Models, Version=0.1.48.4101, Culture=neutral, PublicKeyToken=null
+// MVID: 27E62FA1-F3BF-4DFF-9EBE-A4E798D683E5
+// Assembly location: E:\유니정보\20230411_UniBizBoTest\UniBiz.Bo.Models.dll
+
+using Serilog;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using UniBiz.Bo.Models.Converter;
+using UniBiz.Bo.Models.TableInfo;
+using UniBiz.Bo.Models.UniBase.Employee.Employee;
+using UniBizUtil.Util;
+using UniOleDbLib;
+
+namespace UniBiz.Bo.Models.UniBase.Eod.EodInfo
+{
+  public class EodInfoView : TEodInfo<EodInfoView>
+  {
+    private string _emp_Name;
+
+    public string emp_Name
+    {
+      get => this._emp_Name;
+      set
+      {
+        this._emp_Name = value;
+        this.Changed(nameof (emp_Name));
+      }
+    }
+
+    public override Dictionary<string, TTableColumn> ToColumnInfo()
+    {
+      Dictionary<string, TTableColumn> columnInfo = base.ToColumnInfo();
+      columnInfo.Add("emp_Name", new TTableColumn()
+      {
+        tc_orgin_name = "emp_Name",
+        tc_trans_name = "등록사원",
+        tc_col_status = 1
+      });
+      return columnInfo;
+    }
+
+    public override void Clear()
+    {
+      base.Clear();
+      this.emp_Name = string.Empty;
+    }
+
+    protected override UbModelBase CreateClone => (UbModelBase) new EodInfoView();
+
+    public override object Clone()
+    {
+      EodInfoView eodInfoView = base.Clone() as EodInfoView;
+      eodInfoView.emp_Name = this.emp_Name;
+      return (object) eodInfoView;
+    }
+
+    public void PutData(EodInfoView pSource)
+    {
+      this.PutData((TEodInfo) pSource);
+      this.emp_Name = pSource.emp_Name;
+    }
+
+    protected override EnumDataCheck DataCheck()
+    {
+      if (this.eod_SiteID == 0L)
+      {
+        this.message = "싸이트(eod_SiteID)  " + EnumDataCheck.CodeZero.ToDescription();
+        return EnumDataCheck.CodeZero;
+      }
+      if (this.eod_Type != 0)
+        return EnumDataCheck.Success;
+      this.message = "타입(eod_Type)  " + EnumDataCheck.CodeZero.ToDescription();
+      return EnumDataCheck.CodeZero;
+    }
+
+    protected override EnumDataCheck DataCheck(UniOleDatabase p_db) => base.DataCheck(p_db);
+
+    protected override bool IsPermit(EmployeeView p_app_employee)
+    {
+      if (p_app_employee == null)
+      {
+        this.message = "사용자 정보 NULL.";
+        return false;
+      }
+      if (p_app_employee.emp_Code != 0 && !p_app_employee.IsAdmin)
+      {
+        this.message = p_app_employee.emp_Name + "님(Permit) 변경불가.";
+        return false;
+      }
+      return EnumDataCheck.Success == this.DataCheck(this.OleDB);
+    }
+
+    public override string CreateCodeQuery()
+    {
+      base.CreateCodeQuery();
+      return " SELECT " + DbQueryHelper.ToIsNULL() + "(MAX(eod_ID), 0)+1 AS eod_ID" + string.Format(" FROM {0}{1} {2}", (object) DbQueryHelper.ToDBNameBridge(UbModelBase.UNI_BASE), (object) this.TableCode, (object) DbQueryHelper.ToWithNolock());
+    }
+
+    public override bool CreateCode(UniOleDatabase p_db)
+    {
+      UniOleDbRecordset uniOleDbRecordset = (UniOleDbRecordset) null;
+      UniOleDatabase pOleDB = (UniOleDatabase) null;
+      try
+      {
+        pOleDB = new UniOleDatabase(p_db.ConnectionUrl);
+        uniOleDbRecordset = new UniOleDbRecordset(pOleDB, pOleDB.CommandTimeout);
+        string codeQuery = this.CreateCodeQuery();
+        if (!uniOleDbRecordset.Open(codeQuery))
+        {
+          this.message = " 실패\n--------------------------------------------------------------------------------------------------\n 테이블 : " + this.TableCode.ToDescription() + "\n 메소드 : " + MethodBase.GetCurrentMethod().ReflectedType.Name + "==>" + MethodBase.GetCurrentMethod().Name + "\n" + string.Format(" LINE : {0} 행\n", (object) new StackFrame(0, true).GetFileLineNumber()) + "--------------------------------------------------------------------------------------------------\n" + string.Format(" 에러 : {0}\n", (object) pOleDB.LastErrorID) + " 내용 : " + pOleDB.LastErrorMessage + "\n--------------------------------------------------------------------------------------------------\n";
+          return false;
+        }
+        if (uniOleDbRecordset.IsDataRead())
+          this.eod_ID = uniOleDbRecordset.GetFieldInt(0);
+        return this.eod_ID > 0;
+      }
+      finally
+      {
+        uniOleDbRecordset?.Close();
+        pOleDB?.Close();
+      }
+    }
+
+    public override async Task<bool> CreateCodeAsync(UniOleDatabase p_db)
+    {
+      EodInfoView eodInfoView = this;
+      UniOleDbRecordset rs = (UniOleDbRecordset) null;
+      UniOleDatabase db = (UniOleDatabase) null;
+      try
+      {
+        db = new UniOleDatabase(p_db.ConnectionUrl);
+        rs = new UniOleDbRecordset(db, db.CommandTimeout);
+        if (!await rs.OpenAsync(eodInfoView.CreateCodeQuery()))
+        {
+          eodInfoView.message = " 실패\n--------------------------------------------------------------------------------------------------\n 테이블 : " + eodInfoView.TableCode.ToDescription() + "\n 메소드 : " + MethodBase.GetCurrentMethod().ReflectedType.Name + "==>" + MethodBase.GetCurrentMethod().Name + "\n" + string.Format(" LINE : {0} 행\n", (object) new StackFrame(0, true).GetFileLineNumber()) + "--------------------------------------------------------------------------------------------------\n" + string.Format(" 에러 : {0}\n", (object) db.LastErrorID) + " 내용 : " + db.LastErrorMessage + "\n--------------------------------------------------------------------------------------------------\n";
+          return false;
+        }
+        if (await rs.IsDataReadAsync())
+          eodInfoView.eod_ID = rs.GetFieldInt(0);
+        return eodInfoView.eod_ID > 0;
+      }
+      finally
+      {
+        rs?.Close();
+        db?.Close();
+      }
+    }
+
+    public override bool InsertData(
+      UniOleDatabase p_db,
+      EmployeeView p_app_employee,
+      bool p_is_trans = false)
+    {
+      try
+      {
+        this.SetAdoDatabase(p_db);
+        if (p_app_employee == null)
+        {
+          if (EnumDataCheck.Success != this.DataCheck(p_db))
+            throw new UniServiceException(this.message, this.TableCode.ToDescription() + " 유효성 검사 실패");
+        }
+        else
+        {
+          if (this.eod_SiteID == 0L)
+            this.eod_SiteID = p_app_employee.emp_SiteID;
+          if (!this.IsPermit(p_app_employee))
+            throw new UniServiceException(this.message, this.TableCode.ToDescription() + " 권한 검사 실패");
+        }
+        if (this.eod_ID == 0 && !this.CreateCode(p_db))
+          throw new UniServiceException(this.message, this.TableCode.ToDescription() + " 코드 생성 오류", 2);
+        if (!this.Insert())
+          throw new UniServiceException(this.message, this.TableCode.ToDescription() + " 등록 오류");
+        this.db_status = 4;
+        this.RowErrorStatus = EnumRowStatus.Success;
+        return true;
+      }
+      catch (UniServiceException ex)
+      {
+        this.message = ex.UserMessage + "\n" + ex.Message;
+      }
+      catch (Exception ex)
+      {
+        this.message = ex.Message;
+      }
+      return false;
+    }
+
+    public override async Task<bool> InsertDataAsync(
+      UniOleDatabase p_db,
+      EmployeeView p_app_employee,
+      bool p_is_trans = false)
+    {
+      EodInfoView eodInfoView = this;
+      try
+      {
+        eodInfoView.SetAdoDatabase(p_db);
+        if (p_app_employee == null)
+        {
+          if (EnumDataCheck.Success != eodInfoView.DataCheck(p_db))
+            throw new UniServiceException(eodInfoView.message, eodInfoView.TableCode.ToDescription() + " 유효성 검사 실패");
+        }
+        else
+        {
+          if (eodInfoView.eod_SiteID == 0L)
+            eodInfoView.eod_SiteID = p_app_employee.emp_SiteID;
+          if (!eodInfoView.IsPermit(p_app_employee))
+            throw new UniServiceException(eodInfoView.message, eodInfoView.TableCode.ToDescription() + " 권한 검사 실패");
+        }
+        if (eodInfoView.eod_ID == 0)
+        {
+          if (!await eodInfoView.CreateCodeAsync(p_db))
+            throw new UniServiceException(eodInfoView.message, eodInfoView.TableCode.ToDescription() + " 코드 생성 오류", 2);
+        }
+        if (!await eodInfoView.InsertAsync())
+          throw new UniServiceException(eodInfoView.message, eodInfoView.TableCode.ToDescription() + " 등록 오류");
+        eodInfoView.db_status = 4;
+        eodInfoView.RowErrorStatus = EnumRowStatus.Success;
+        return true;
+      }
+      catch (UniServiceException ex)
+      {
+        eodInfoView.message = ex.UserMessage + "\n" + ex.Message;
+      }
+      catch (Exception ex)
+      {
+        eodInfoView.message = ex.Message;
+      }
+      return false;
+    }
+
+    public override bool UpdateData(
+      UniOleDatabase p_db,
+      EmployeeView p_app_employee,
+      bool p_is_trans = false)
+    {
+      try
+      {
+        this.SetAdoDatabase(p_db);
+        if (p_app_employee == null)
+        {
+          if (EnumDataCheck.Success != this.DataCheck(p_db))
+            throw new UniServiceException(this.message, this.TableCode.ToDescription() + " 유효성 검사 실패");
+        }
+        else if (!this.IsPermit(p_app_employee))
+          throw new UniServiceException(this.message, this.TableCode.ToDescription() + " 권한 검사 실패");
+        if (this.eod_ID == 0)
+          throw new UniServiceException(this.message, this.TableCode.ToDescription() + " EOD ID(eod_ID)  " + EnumDataCheck.CodeZero.ToDescription() + " 오류", 2);
+        if (!this.Update())
+          throw new UniServiceException(this.message, this.TableCode.ToDescription() + " 변경 오류");
+        this.db_status = 4;
+        this.RowErrorStatus = EnumRowStatus.Success;
+        return true;
+      }
+      catch (UniServiceException ex)
+      {
+        this.message = ex.UserMessage + "\n" + ex.Message;
+      }
+      catch (Exception ex)
+      {
+        this.message = ex.Message;
+      }
+      return false;
+    }
+
+    public override async Task<bool> UpdateDataAsync(
+      UniOleDatabase p_db,
+      EmployeeView p_app_employee,
+      bool p_is_trans = false)
+    {
+      EodInfoView eodInfoView = this;
+      try
+      {
+        eodInfoView.SetAdoDatabase(p_db);
+        if (p_app_employee == null)
+        {
+          if (EnumDataCheck.Success != eodInfoView.DataCheck(p_db))
+            throw new UniServiceException(eodInfoView.message, eodInfoView.TableCode.ToDescription() + " 유효성 검사 실패");
+        }
+        else if (!eodInfoView.IsPermit(p_app_employee))
+          throw new UniServiceException(eodInfoView.message, eodInfoView.TableCode.ToDescription() + " 권한 검사 실패");
+        if (eodInfoView.eod_ID == 0)
+          throw new UniServiceException(eodInfoView.message, eodInfoView.TableCode.ToDescription() + " EOD ID(eod_ID)  " + EnumDataCheck.CodeZero.ToDescription() + " 오류", 2);
+        if (!await eodInfoView.UpdateAsync())
+          throw new UniServiceException(eodInfoView.message, eodInfoView.TableCode.ToDescription() + " 변경 오류");
+        eodInfoView.db_status = 4;
+        eodInfoView.RowErrorStatus = EnumRowStatus.Success;
+        return true;
+      }
+      catch (UniServiceException ex)
+      {
+        eodInfoView.message = ex.UserMessage + "\n" + ex.Message;
+      }
+      catch (Exception ex)
+      {
+        eodInfoView.message = ex.Message;
+      }
+      return false;
+    }
+
+    public override bool GetFieldValues(UniOleDbRecordset p_rs)
+    {
+      if (!base.GetFieldValues(p_rs))
+        return false;
+      this.emp_Name = p_rs.GetFieldString("emp_Name");
+      return true;
+    }
+
+    public async Task<EodInfoView> SelectOneAsync(int p_eod_ID, long p_eod_SiteID = 0)
+    {
+      EodInfoView eodInfoView = this;
+      Hashtable p_param = new Hashtable()
+      {
+        {
+          (object) "eod_ID",
+          (object) p_eod_ID
+        }
+      };
+      if (p_eod_SiteID > 0L)
+        p_param.Add((object) "eod_SiteID", (object) p_eod_SiteID);
+      return await eodInfoView.SelectOneTAsync<EodInfoView>((object) p_param);
+    }
+
+    public async Task<IList<EodInfoView>> SelectListAsync(object p_param)
+    {
+      EodInfoView eodInfoView1 = this;
+      UniOleDbRecordset rs = (UniOleDbRecordset) null;
+      UniOleDatabase db = (UniOleDatabase) null;
+      try
+      {
+        db = new UniOleDatabase(eodInfoView1.OleDB.ConnectionUrl);
+        rs = new UniOleDbRecordset(db, eodInfoView1.OleDB.CommandTimeout);
+        if (!await rs.OpenAsync(eodInfoView1.GetSelectQuery(p_param)))
+        {
+          eodInfoView1.SetErrorInfo(rs.LastErrorID, "검색 오류 - SQL OPEN 실패\n--------------------------------------------------------------------------------------------------\n 테이블 : " + eodInfoView1.TableCode.ToDescription() + "\n 메소드 : " + MethodBase.GetCurrentMethod().ReflectedType.Name + "==>" + MethodBase.GetCurrentMethod().Name + "\n" + string.Format(" LINE : {0} 행\n", (object) new StackFrame(0, true).GetFileLineNumber()) + "--------------------------------------------------------------------------------------------------\n" + string.Format(" 에러 : {0}\n", (object) rs.LastErrorID) + " 내용 : " + rs.LastErrorMessage + "\n--------------------------------------------------------------------------------------------------\n");
+          return (IList<EodInfoView>) null;
+        }
+        IList<EodInfoView> lt_list = (IList<EodInfoView>) new List<EodInfoView>();
+        if (await rs.IsDataReadAsync())
+        {
+          do
+          {
+            EodInfoView eodInfoView2 = eodInfoView1.OleDB.Create<EodInfoView>();
+            if (eodInfoView2.GetFieldValues(rs))
+            {
+              eodInfoView2.row_number = lt_list.Count + 1;
+              lt_list.Add(eodInfoView2);
+            }
+          }
+          while (await rs.IsDataReadAsync());
+        }
+        return lt_list;
+      }
+      catch (Exception ex)
+      {
+        throw new Exception(" 검색 실패\n--------------------------------------------------------------------------------------------------\n 테이블 : " + eodInfoView1.TableCode.ToDescription() + "\n 메소드 : " + MethodBase.GetCurrentMethod().ReflectedType.Name + "==>" + MethodBase.GetCurrentMethod().Name + "\n" + string.Format(" LINE : {0} 행\n", (object) new StackFrame(0, true).GetFileLineNumber()) + "--------------------------------------------------------------------------------------------------\n 내용 : " + ex.Message + "\n--------------------------------------------------------------------------------------------------\n");
+      }
+      finally
+      {
+        rs?.Close();
+        db?.Close();
+      }
+    }
+
+    public override string GetSelectWhereAnd(object p_param)
+    {
+      StringBuilder stringBuilder = new StringBuilder(this.GetSelectWhereAnd(p_param, false));
+      if (string.IsNullOrWhiteSpace(stringBuilder.ToString()))
+        stringBuilder.Append(" WHERE");
+      if (p_param is Hashtable hashtable && hashtable.ContainsKey((object) "_KEY_WORD_") && hashtable[(object) "_KEY_WORD_"].ToString().Trim().Length > 0)
+      {
+        stringBuilder.Append(string.Format(" AND ({0} LIKE '%{1}%'", (object) "eod_Message", hashtable[(object) "_KEY_WORD_"]));
+        stringBuilder.Append(string.Format(" OR {0} LIKE '%{1}%'", (object) "emp_Name", hashtable[(object) "_KEY_WORD_"]));
+        stringBuilder.Append(")");
+      }
+      return !stringBuilder.ToString().Equals(" WHERE") ? stringBuilder.Replace("WHERE AND", "WHERE").ToString() : string.Empty;
+    }
+
+    public override string GetSelectQuery(object p_param)
+    {
+      StringBuilder stringBuilder = new StringBuilder();
+      Hashtable hashtable1 = new Hashtable();
+      try
+      {
+        string uniBase = UbModelBase.UNI_BASE;
+        string str = this.TableCode.ToString();
+        string empty = string.Empty;
+        if (p_param is Hashtable hashtable2)
+        {
+          if (hashtable2.ContainsKey((object) "DBMS") && hashtable2[(object) "DBMS"].ToString().Length > 0)
+            uniBase = hashtable2[(object) "DBMS"].ToString();
+          if (hashtable2.ContainsKey((object) "table") && hashtable2[(object) "table"].ToString().Length > 0)
+            str = hashtable2[(object) "table"].ToString();
+          if (hashtable2.ContainsKey((object) "_ORDER_BY_COL_") && hashtable2[(object) "_ORDER_BY_COL_"].ToString().Length > 0)
+            empty = hashtable2[(object) "_ORDER_BY_COL_"].ToString();
+          if (hashtable2.ContainsKey((object) "eod_SiteID") && Convert.ToInt64(hashtable2[(object) "eod_SiteID"].ToString()) > 0L)
+            Convert.ToInt64(hashtable2[(object) "eod_SiteID"].ToString());
+        }
+        stringBuilder.Append("WITH T_EMPLOYEE_IN AS ( SELECT emp_Code,emp_Name" + string.Format(" FROM {0}{1} {2}", (object) DbQueryHelper.ToDBNameBridge(uniBase), (object) TableCodeType.Employee, (object) DbQueryHelper.ToWithNolock()) + ") ");
+        stringBuilder.Append("\n");
+        stringBuilder.Append(" SELECT  eod_ID,eod_SiteID,eod_Date,eod_Type,eod_Status,eod_Count,eod_StartDate,eod_EndDate,eod_Success,eod_Message,eod_EmpCode,emp_Name\n FROM " + DbQueryHelper.ToDBNameBridge(uniBase) + str + " " + DbQueryHelper.ToWithNolock() + "\n LEFT OUTER JOIN T_EMPLOYEE_IN ON eod_EmpCode=emp_Code");
+        stringBuilder.Append("\n");
+        if (p_param is Hashtable)
+          stringBuilder.Append(this.GetSelectWhereAnd(p_param));
+        if (!string.IsNullOrEmpty(empty))
+          stringBuilder.Append(" ORDER BY " + empty);
+        else
+          stringBuilder.Append(" ORDER BY eod_Date,eod_Type DESC,eod_Status");
+      }
+      catch (Exception ex)
+      {
+        this.message = " " + this.TableCode.ToDescription() + " 실패\n--------------------------------------------------------------------------------------------------\n 테이블 : " + this.TableCode.ToDescription() + "\n 메소드 : " + MethodBase.GetCurrentMethod().ReflectedType.Name + "==>" + MethodBase.GetCurrentMethod().Name + "\n" + string.Format(" LINE : {0} 행\n", (object) new StackFrame(0, true).GetFileLineNumber()) + "--------------------------------------------------------------------------------------------------\n" + string.Format(" 에러 : {0}\n", (object) ex.GetHashCode()) + " 내용 : " + ex.Message + "\n" + string.Format(" Query : {0}\n", (object) stringBuilder) + "--------------------------------------------------------------------------------------------------\n";
+        Log.Logger.ErrorColor(this.message);
+        stringBuilder.Clear();
+      }
+      finally
+      {
+        hashtable1.Clear();
+      }
+      return stringBuilder.ToString();
+    }
+  }
+}

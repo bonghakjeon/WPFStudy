@@ -1,0 +1,145 @@
+<UserControl x:Class="UniBizBO.Views.V0.Page.TabPageContainerV"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:UniBizBO.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+             xmlns:local="clr-namespace:UniBizBO.Views.V0.Page"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:res="clr-namespace:UniBizBO.Composition.Resource"
+             xmlns:s="https://github.com/canton7/Stylet"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
+             xmlns:wpf="clr-namespace:UniinfoNet.Windows.Wpf;assembly=UniinfoNet.Windows.Wpf"
+             Background="{DynamicResource App.Brush.TabPageContainer.Background}">
+  <Grid>
+    <FrameworkElement.Resources>
+      <Style BasedOn="{StaticResource App.Image.Icon}" TargetType="{x:Type Image}"/>
+      <Style x:Key="_Button.TapControl" BasedOn="{StaticResource App.Button.Transparent}"
+             TargetType="{x:Type Button}">
+        <Setter Property="FrameworkElement.Width" Value="29"/>
+        <Setter Property="FrameworkElement.Margin" Value="0"/>
+        <Setter Property="Control.Padding" Value="0"/>
+        <Setter Property="Control.BorderThickness" Value="0"/>
+        <Setter Property="Control.Background"
+                Value="{DynamicResource App.Brush.TabablzControl.ItemContainer.Background}"/>
+        <Setter Property="FrameworkElement.VerticalAlignment" Value="Stretch"/>
+      </Style>
+      <converters:DashBoardCollapsedConverter x:Key="DashBoardCollapsedConverter"/>
+    </FrameworkElement.Resources>
+    <wpf:OverlayLayout Focusable="False">
+      <TabablzControl FrameworkElement.Margin="0,10,0,0"
+                      Control.Background="{DynamicResource App.Brush.TabablzControl.Background}"
+                      Control.BorderThickness="0" UIElement.Focusable="False" ItemsControl.ItemsSource="{Binding Items}"
+                      Selector.SelectedItem="{Binding ActiveItem}">
+        <ItemsControl.ItemContainerStyle>
+          <Style BasedOn="{StaticResource SizableFromBottomRightDragablzItemStyle}"
+                 TargetType="{x:Type DragablzItem}">
+            <Setter Property="Control.Foreground"
+                    Value="{DynamicResource App.Brush.TabablzControl.ItemContainer.Foreground}"/>
+            <Setter Property="Control.Background"
+                    Value="{DynamicResource App.Brush.TabablzControl.ItemContainer.Background}"/>
+            <Setter Property="FrameworkElement.Margin" Value="1,0,0,0"/>
+            <Setter Property="Control.Padding" Value="0,1,0,0"/>
+            <Setter Property="Control.BorderBrush"
+                    Value="{DynamicResource App.Brush.TabablzControl.ItemContainer.Background}"/>
+            <Setter Property="FrameworkElement.Height" Value="28"/>
+            <Setter Property="Control.BorderThickness" Value="0,0,0,0"/>
+            <Setter Property="mah:VisibilityHelper.IsCollapsed"
+                    Value="{Binding MenuInfo.Name, Converter={StaticResource DashBoardCollapsedConverter}}"/>
+            <Style.Triggers>
+              <Trigger Property="DragablzItem.IsSelected" Value="True">
+                <Setter Property="Control.BorderThickness" Value="0,0,0,2"/>
+                <Setter Property="Control.BorderBrush"
+                        Value="{DynamicResource App.Brush.TabablzControl.ItemContainer.BorderBrush.Selected}"/>
+                <Setter Property="Control.Foreground"
+                        Value="{DynamicResource App.Brush.TabablzControl.ItemContainer.Foreground.Selected}"/>
+                <Setter Property="Control.Background"
+                        Value="{DynamicResource App.Brush.TabablzControl.ItemContainer.Background.Selected}"/>
+              </Trigger>
+              <Trigger Property="UIElement.IsMouseOver" Value="True">
+                <Setter Property="Control.Background"
+                        Value="{DynamicResource App.Brush.TabablzControl.ItemContainer.Background.PointerOver}"/>
+              </Trigger>
+              <MultiTrigger>
+                <MultiTrigger.Conditions>
+                  <Condition Property="DragablzItem.IsSelected" Value="True"/>
+                  <Condition Property="UIElement.IsMouseOver" Value="True"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Control.Background"
+                        Value="{DynamicResource App.Brush.TabablzControl.ItemContainer.Background.SelectedPointerOver}"/>
+              </MultiTrigger>
+            </Style.Triggers>
+          </Style>
+        </ItemsControl.ItemContainerStyle>
+        <TabablzControl.HeaderPrefixContent>
+          <Border Height="28">
+            <StackPanel Orientation="Horizontal">
+              <Button Style="{StaticResource _Button.TapControl}" Command="{Binding CmdSelectHomeItem}">
+                <Image Source="{Binding Source={x:Static res:Icons.Default}, Path=PageContainer_Tab_Button_Home.FullPath}"/>
+              </Button>
+            </StackPanel>
+          </Border>
+        </TabablzControl.HeaderPrefixContent>
+        <TabablzControl.HeaderSuffixContent>
+          <DockPanel Height="28" Margin="0,0,10,0">
+            <StackPanel HorizontalAlignment="Right" DockPanel.Dock="Right" Orientation="Horizontal">
+              <Button Padding="10,0,10,0" Background="Transparent" BorderThickness="0"
+                      Command="{Binding CmdCloseAllItem}">
+                <ui:SimpleStackPanel Orientation="Horizontal" Spacing="4">
+                  <ui:ClipBorder Width="16"
+                                 Background="{DynamicResource App.Brush.TabablzControl.HeaderSuffixContent.ClipBorder.CloseAllItem}"
+                                 CornerRadius="5">
+                    <Border>
+                      <Image Width="8" Stretch="Uniform"
+                             Source="{Binding Source={x:Static res:Icons.Default}, Path=PageContainer_TabHeader_Button_Close.FullPath}"/>
+                    </Border>
+                  </ui:ClipBorder>
+                  <TextBlock Foreground="{DynamicResource App.Brush.TabablzControl.HeaderSuffixContent.TextBlock.CloseAllItem}"
+                             Text="전체삭제"/>
+                </ui:SimpleStackPanel>
+              </Button>
+            </StackPanel>
+          </DockPanel>
+        </TabablzControl.HeaderSuffixContent>
+        <TabablzControl.HeaderItemTemplate>
+          <DataTemplate>
+            <DockPanel Margin="0,0,10,0">
+              <Button Margin="0" Padding="0" VerticalAlignment="Stretch" Background="Transparent" BorderThickness="0"
+                      DockPanel.Dock="Right" Style="{StaticResource App.Button.Fixed}" s:View.ActionTarget="{Binding}"
+                      Command="{s:Action TryClose}">
+                <Image Width="8" Height="8" Margin="5" RenderTransformOrigin="0.5,0.5"
+                       Source="{Binding Source={x:Static res:Icons.Default}, Path=PageContainer_TabHeader_Button_Close.FullPath}">
+                  <FrameworkElement.Style>
+                    <Style BasedOn="{StaticResource {x:Type Image}}" TargetType="{x:Type Image}">
+                      <Style.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}"
+                                     Value="True">
+                          <Setter Property="UIElement.RenderTransform">
+                            <Setter.Value>
+                              <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                            </Setter.Value>
+                          </Setter>
+                        </DataTrigger>
+                      </Style.Triggers>
+                    </Style>
+                  </FrameworkElement.Style>
+                </Image>
+              </Button>
+              <Grid>
+                <TextBlock Margin="12,4,10,4" VerticalAlignment="Center" Text="{Binding MenuInfo.Name}"/>
+                <Thumb IsCustomThumb="True" Style="{DynamicResource InvisibleThumbStyle}"/>
+              </Grid>
+            </DockPanel>
+          </DataTemplate>
+        </TabablzControl.HeaderItemTemplate>
+        <TabControl.ContentTemplate>
+          <DataTemplate>
+            <ContentControl Margin="8" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+                            Focusable="False" s:View.Model="{Binding IsAsync=True}"/>
+          </DataTemplate>
+        </TabControl.ContentTemplate>
+      </TabablzControl>
+    </wpf:OverlayLayout>
+  </Grid>
+</UserControl>

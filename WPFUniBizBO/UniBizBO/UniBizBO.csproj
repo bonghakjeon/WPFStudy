@@ -1,0 +1,1240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--Project was exported from assembly: E:\유니정보\20230411_UniBizBoTest\UniBizBO.dll-->
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D818ABBF-2047-4479-8E55-D372DB631589}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>UniBizBO</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <FileAlignment>512</FileAlignment>
+    <RootNamespace>UniBizBO</RootNamespace>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ClosedXML">
+      <HintPath>lib\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation">
+      <HintPath>lib\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="GongSolutions.WPF.DragDrop">
+      <HintPath>lib\GongSolutions.WPF.DragDrop.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro">
+      <HintPath>lib\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AppCenter">
+      <HintPath>lib\Microsoft.AppCenter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AppCenter.Analytics">
+      <HintPath>lib\Microsoft.AppCenter.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AppCenter.Crashes">
+      <HintPath>lib\Microsoft.AppCenter.Crashes.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore">
+      <HintPath>lib\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore.Relational">
+      <HintPath>lib\Microsoft.EntityFrameworkCore.Relational.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore.Sqlite">
+      <HintPath>lib\Microsoft.EntityFrameworkCore.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.DependencyInjection.5.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.DependencyInjection.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Logging.5.0.0\lib\net461\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Logging.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Options.5.0.0\lib\net461\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Primitives.5.0.0\lib\net461\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors">
+      <HintPath>lib\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="Models.Addr">
+      <HintPath>lib\Models.Addr.dll</HintPath>
+    </Reference>
+    <Reference Include="ModernWpf">
+      <HintPath>lib\ModernWpf.dll</HintPath>
+    </Reference>
+    <Reference Include="ModernWpf.Controls">
+      <HintPath>lib\ModernWpf.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="MoreLinq">
+      <HintPath>lib\MoreLinq.dll</HintPath>
+    </Reference>
+    <Reference Include="Pather.CSharp">
+      <HintPath>lib\Pather.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="ReachFramework" />
+    <Reference Include="Serilog">
+      <HintPath>lib\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.Debug">
+      <HintPath>lib\Serilog.Sinks.Debug.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File">
+      <HintPath>lib\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
+    <Reference Include="Stylet">
+      <HintPath>lib\Stylet.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections" />
+    <Reference Include="System.Collections.Concurrent" />
+    <Reference Include="System.Collections.Immutable" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.Primitives" />
+    <Reference Include="System.Data.Common" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Diagnostics.DiagnosticSource.5.0.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Process">
+      <HintPath>lib\System.Diagnostics.Process.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing.Primitives" />
+    <Reference Include="System.IO.FileSystem" />
+    <Reference Include="System.Linq" />
+    <Reference Include="System.Linq.Expressions" />
+    <Reference Include="System.Linq.Parallel" />
+    <Reference Include="System.Linq.Queryable" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Primitives" />
+    <Reference Include="System.Net.WebSockets" />
+    <Reference Include="System.Net.WebSockets.Client" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ObjectModel" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Private.CoreLib">
+      <HintPath>C:\Users\bhjeon\Downloads\20230411_UniBizBoTest\System.Private.CoreLib.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime">
+      <HintPath>C:\Users\bhjeon\Downloads\20230411_UniBizBoTest\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json" />
+    <Reference Include="System.Threading" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Extensions">
+      <HintPath>C:\Users\bhjeon\Downloads\20230411_UniBizBoTest\System.Windows.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="UniBiz.Bo.Models">
+      <HintPath>lib\UniBiz.Bo.Models.dll</HintPath>
+    </Reference>
+    <Reference Include="UniBizSM">
+      <HintPath>lib\UniBizSM.dll</HintPath>
+    </Reference>
+    <Reference Include="UniBizUtil">
+      <HintPath>lib\UniBizUtil.dll</HintPath>
+    </Reference>
+    <Reference Include="UniinfoNet">
+      <HintPath>lib\UniinfoNet.dll</HintPath>
+    </Reference>
+    <Reference Include="UniinfoNet.Http.UniBiz">
+      <HintPath>lib\UniinfoNet.Http.UniBiz.dll</HintPath>
+    </Reference>
+    <Reference Include="UniinfoNet.Windows">
+      <HintPath>lib\UniinfoNet.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="UniinfoNet.Windows.Wmi">
+      <HintPath>lib\UniinfoNet.Windows.Wmi.dll</HintPath>
+    </Reference>
+    <Reference Include="UniinfoNet.Windows.Wpf">
+      <HintPath>lib\UniinfoNet.Windows.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppEventLog.cs" />
+    <Compile Include="StyletBootstrapper.cs" />
+    <Compile Include="SystemCurrentInfo.cs" />
+    <Compile Include="Views\V0\AppInitV.xaml.cs">
+      <DependentUpon>v0appinitv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\AppMainV.xaml.cs">
+      <DependentUpon>v0appmainv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Tool\MenuBookMarkToolV.xaml.cs">
+      <DependentUpon>toolmenubookmarktoolv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Part\Sub\DataModLogPartV.xaml.cs">
+      <DependentUpon>subdatamodlogpartv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Part\Sub\Category\GoodsCountByCategoryPartV.xaml.cs">
+      <DependentUpon>categorygoodscountbycategorypartv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Part\Parent\TabParentPartV.xaml.cs">
+      <DependentUpon>parenttabparentpartv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Part\Main\PageCategoryMPartV.xaml.cs">
+      <DependentUpon>mainpagecategorympartv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Part\Main\PageDeptMPartV.xaml.cs">
+      <DependentUpon>mainpagedeptmpartv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Part\Main\Code\Supplier\PageAutoOrderConitionMPartV.xaml.cs">
+      <DependentUpon>supplierpageautoorderconitionmpartv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Part\Main\Code\Supplier\PagePayContionMPartV.xaml.cs">
+      <DependentUpon>supplierpagepaycontionmpartv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Part\Main\Code\Supplier\PageRebateContionMPartV.xaml.cs">
+      <DependentUpon>supplierpagerebatecontionmpartv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Part\Main\Code\Supplier\PageSupplierMPartV.xaml.cs">
+      <DependentUpon>supplierpagesuppliermpartv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Part\Main\Code\Store\PageStoreGroupMPartV.xaml.cs">
+      <DependentUpon>storepagestoregroupmpartv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Part\Main\Code\Store\PageStoreMPartV.xaml.cs">
+      <DependentUpon>storepagestorempartv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Part\Main\Code\Employee\PageAuthMPartV.xaml.cs">
+      <DependentUpon>employeepageauthmpartv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Part\Main\Code\Employee\PageAuthStoreMPartV.xaml.cs">
+      <DependentUpon>employeepageauthstorempartv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Part\Main\Code\Employee\PageAuthSupplierMPartV.xaml.cs">
+      <DependentUpon>employeepageauthsuppliermpartv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Part\Main\Code\Employee\PageEmployeeMPartV.xaml.cs">
+      <DependentUpon>employeepageemployeempartv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Part\Containers\PageCategoryPartConV.xaml.cs">
+      <DependentUpon>containerspagecategorypartconv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Part\Containers\PageDeptPartConV.xaml.cs">
+      <DependentUpon>containerspagedeptpartconv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Part\Containers\Code\Supplier\PageSupplierPartConV.xaml.cs">
+      <DependentUpon>supplierpagesupplierpartconv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Part\Containers\Code\Store\PageStoreGroupPartConV.xaml.cs">
+      <DependentUpon>storepagestoregrouppartconv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Part\Containers\Code\Store\PageStorePartConV.xaml.cs">
+      <DependentUpon>storepagestorepartconv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Part\Containers\Code\Employee\PageEmployeePartConV.xaml.cs">
+      <DependentUpon>employeepageemployeepartconv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\DashBoardPageV.xaml.cs">
+      <DependentUpon>pagedashboardpagev.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\TabPageContainerV.xaml.cs">
+      <DependentUpon>pagetabpagecontainerv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\UniSales\Systems\Security\OuterConnAuth\OuterConnAuthListPageV.xaml.cs">
+      <DependentUpon>outerconnauthouterconnauthlistpagev.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\UniSales\Systems\Program\ProgMenu\ProgMenuListPageV.xaml.cs">
+      <DependentUpon>progmenuprogmenulistpagev.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\UniSales\Systems\Program\ProgMenuProp\ProgMenuPropListPageV.xaml.cs">
+      <DependentUpon>progmenupropprogmenuproplistpagev.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\UniSales\Systems\Program\CommonCode\CommonCodeListPageV.xaml.cs">
+      <DependentUpon>commoncodecommoncodelistpagev.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\UniSales\Sales\Supplier\Sales\CategoryPageV.xaml.cs">
+      <DependentUpon>salescategorypagev.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\UniSales\Sales\Supplier\Sales\GoodsPageV.xaml.cs">
+      <DependentUpon>salesgoodspagev.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\UniSales\Sales\Supplier\Sales\SupplierPageV.xaml.cs">
+      <DependentUpon>salessupplierpagev.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\UniSales\Pos\BaseInfo\RegPos\RegPosPageV.xaml.cs">
+      <DependentUpon>regposregpospagev.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\UniSales\Member\BaseInfo\RegType\RegTypeHistoryPageV.xaml.cs">
+      <DependentUpon>regtyperegtypehistorypagev.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\UniSales\Member\BaseInfo\RegType\RegTypePageV.xaml.cs">
+      <DependentUpon>regtyperegtypepagev.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\UniSales\Code\CodeInfo\Supplier\SupplierListPageV.xaml.cs">
+      <DependentUpon>suppliersupplierlistpagev.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\UniSales\Code\CodeInfo\Maker\MakerListPageV.xaml.cs">
+      <DependentUpon>makermakerlistpagev.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\UniSales\Code\CodeInfo\Dept\DeptDepthPageV.xaml.cs">
+      <DependentUpon>deptdeptdepthpagev.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\UniSales\Code\CodeInfo\Dept\DeptListPageV.xaml.cs">
+      <DependentUpon>deptdeptlistpagev.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\UniSales\Code\CodeInfo\Category\CategoryDepthPageV.xaml.cs">
+      <DependentUpon>categorycategorydepthpagev.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\UniSales\Code\CodeInfo\Category\CategoryListPageV.xaml.cs">
+      <DependentUpon>categorycategorylistpagev.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\UniSales\Code\CodeInfo\Brand\BrandListPageV.xaml.cs">
+      <DependentUpon>brandbrandlistpagev.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\UniSales\Code\BasicInfo\Store\StoreGroupPageV.xaml.cs">
+      <DependentUpon>storestoregrouppagev.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\UniSales\Code\BasicInfo\Store\StoreListPageV.xaml.cs">
+      <DependentUpon>storestorelistpagev.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\UniSales\Code\BasicInfo\Employee\EmployeeListPageV.xaml.cs">
+      <DependentUpon>employeeemployeelistpagev.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Page\Parents\TabParentPageV.xaml.cs">
+      <DependentUpon>parentstabparentpagev.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Board\LoginBoardV.xaml.cs">
+      <DependentUpon>boardloginboardv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Board\WebSocket\TestWebSoketWsBoardV.xaml.cs">
+      <DependentUpon>websockettestwebsoketwsboardv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Board\Sys\DataGridExportSysBoardV.xaml.cs">
+      <DependentUpon>sysdatagridexportsysboardv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Board\Sys\UniDataGridPrintSysBoardV.xaml.cs">
+      <DependentUpon>sysunidatagridprintsysboardv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Board\Setting\SettingBoardV.xaml.cs">
+      <DependentUpon>settingsettingboardv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Board\Common\AddrInfoBoardV.xaml.cs">
+      <DependentUpon>commonaddrinfoboardv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Board\Common\BookmarkGoodsCommonBoardV.xaml.cs">
+      <DependentUpon>commonbookmarkgoodscommonboardv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Board\Common\CategoryCommonBoardV.xaml.cs">
+      <DependentUpon>commoncategorycommonboardv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Board\Common\DeptCommonBoardV.xaml.cs">
+      <DependentUpon>commondeptcommonboardv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Board\Common\EmployeeCommonBoardV.xaml.cs">
+      <DependentUpon>commonemployeecommonboardv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Board\Common\EmployeePasswordBoardV.xaml.cs">
+      <DependentUpon>commonemployeepasswordboardv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Board\Common\StoreCommonBoardV.xaml.cs">
+      <DependentUpon>commonstorecommonboardv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\V0\Board\Common\SupplierCommonBoardV.xaml.cs">
+      <DependentUpon>commonsuppliercommonboardv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ViewModels\AppInitVM.cs" />
+    <Compile Include="ViewModels\AppMainVM.cs" />
+    <Compile Include="ViewModels\Tool\MenuBookMarkToolVM.cs" />
+    <Compile Include="ViewModels\Part\Sub\DataModLogPartVM.cs" />
+    <Compile Include="ViewModels\Part\Sub\Sales\DaySalesVerticalPartVM.cs" />
+    <Compile Include="ViewModels\Part\Sub\Category\GoodsCountByCategoryPartVM.cs" />
+    <Compile Include="ViewModels\Part\Parent\TabParentPartVM.cs" />
+    <Compile Include="ViewModels\Part\Main\PageCategoryMPartVM.cs" />
+    <Compile Include="ViewModels\Part\Main\PageDeptMPartVM.cs" />
+    <Compile Include="ViewModels\Part\Main\Code\Supplier\PageAutoOrderConitionMPartVM.cs" />
+    <Compile Include="ViewModels\Part\Main\Code\Supplier\PagePayContionMPartVM.cs" />
+    <Compile Include="ViewModels\Part\Main\Code\Supplier\PageRebateContionMPartVM.cs" />
+    <Compile Include="ViewModels\Part\Main\Code\Supplier\PageSupplierMPartVM.cs" />
+    <Compile Include="ViewModels\Part\Main\Code\Store\PageStoreGroupMPartVM.cs" />
+    <Compile Include="ViewModels\Part\Main\Code\Store\PageStoreMPartVM.cs" />
+    <Compile Include="ViewModels\Part\Main\Code\Employee\PageAuthMPartVM.cs" />
+    <Compile Include="ViewModels\Part\Main\Code\Employee\PageAuthStoreMPartVM.cs" />
+    <Compile Include="ViewModels\Part\Main\Code\Employee\PageAuthSupplierMPartVM.cs" />
+    <Compile Include="ViewModels\Part\Main\Code\Employee\PageEmployeeMPartVM.cs" />
+    <Compile Include="ViewModels\Part\Containers\PageCategoryPartConVM.cs" />
+    <Compile Include="ViewModels\Part\Containers\PageDeptPartConVM.cs" />
+    <Compile Include="ViewModels\Part\Containers\Code\Supplier\PageSupplierPartConVM.cs" />
+    <Compile Include="ViewModels\Part\Containers\Code\Store\PageStoreGroupPartConVM.cs" />
+    <Compile Include="ViewModels\Part\Containers\Code\Store\PageStorePartConVM.cs" />
+    <Compile Include="ViewModels\Part\Containers\Code\Employee\PageEmployeePartConVM.cs" />
+    <Compile Include="ViewModels\Page\DashBoardPageVM.cs" />
+    <Compile Include="ViewModels\Page\IPageVMBase.cs" />
+    <Compile Include="ViewModels\Page\TabPageContainerVM.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Systems\Security\OuterConnAuth\OuterConnAuthListPageVM.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Systems\Security\OuterConnAuth\OuterConnAuthLevel.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Systems\Program\ProgMenu\ProgMenuListPageVM.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Systems\Program\ProgMenuProp\ProgMenuPropListPageVM.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Systems\Program\CommonCode\CommonCodeListPageVM.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Sales\Supplier\Sales\CategoryPageVM.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Sales\Supplier\Sales\GoodsPageVM.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Sales\Supplier\Sales\SupplierPageBase.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Sales\Supplier\Sales\SupplierPageVM.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Pos\BaseInfo\RegPos\RegPosPageVM.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Member\BaseInfo\RegType\RegTypeHistoryPageVM.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Member\BaseInfo\RegType\RegTypePageBase.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Member\BaseInfo\RegType\RegTypePageVM.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Code\CodeInfo\Supplier\SupplierListPageVM.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Code\CodeInfo\Maker\MakerListPageVM.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Code\CodeInfo\Dept\DeptDepthPageVM.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Code\CodeInfo\Dept\DeptListPageVM.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Code\CodeInfo\Category\CategoryDepthPageVM.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Code\CodeInfo\Category\CategoryListPageVM.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Code\CodeInfo\Brand\BrandListPageVM.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Code\BasicInfo\Store\StoreGroupPageVM.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Code\BasicInfo\Store\StoreListPageVM.cs" />
+    <Compile Include="ViewModels\Page\UniSales\Code\BasicInfo\Employee\EmployeeListPageVM.cs" />
+    <Compile Include="ViewModels\Page\Parents\TabParentPageVM.cs" />
+    <Compile Include="ViewModels\Message\AppWinMsg.cs" />
+    <Compile Include="ViewModels\Message\CloseTabPageItemMsg.cs" />
+    <Compile Include="ViewModels\Message\DashBoardCloseMsg.cs" />
+    <Compile Include="ViewModels\Message\MenuBookMarkChangeMsg.cs" />
+    <Compile Include="ViewModels\Message\MenuBookMarkSelectedMsg.cs" />
+    <Compile Include="ViewModels\Message\MsgBase.cs" />
+    <Compile Include="ViewModels\Message\MsgBase`1.cs" />
+    <Compile Include="ViewModels\Message\OpenPageMsg.cs" />
+    <Compile Include="ViewModels\Message\OpenedPageMsg.cs" />
+    <Compile Include="ViewModels\Box\CommonMsgVM.cs" />
+    <Compile Include="ViewModels\Box\MsgBoxLevel.cs" />
+    <Compile Include="ViewModels\Box\MsgBoxButton.cs" />
+    <Compile Include="ViewModels\Board\LoginBoardVMValidater.cs" />
+    <Compile Include="ViewModels\Board\LoginBoardVM.cs" />
+    <Compile Include="ViewModels\Board\WebSocket\TestWebSoketWsBoardVM.cs" />
+    <Compile Include="ViewModels\Board\Sys\DataGridExportSysBoardVM.cs" />
+    <Compile Include="ViewModels\Board\Sys\XlsxExportOptions.cs" />
+    <Compile Include="ViewModels\Board\Sys\UniDataGridPrintSysBoardVM.cs" />
+    <Compile Include="ViewModels\Board\Setting\SettingBoardVM.cs" />
+    <Compile Include="ViewModels\Board\Common\AddrInfoBoardVM.cs" />
+    <Compile Include="ViewModels\Board\Common\BookmarkGoodsCommonBoardVM.cs" />
+    <Compile Include="ViewModels\Board\Common\CategoryCommonBoardVM.cs" />
+    <Compile Include="ViewModels\Board\Common\DeptCommonBoardVM.cs" />
+    <Compile Include="ViewModels\Board\Common\EmployeeCommonBoardVM.cs" />
+    <Compile Include="ViewModels\Board\Common\EmployeePasswordBoardVM.cs" />
+    <Compile Include="ViewModels\Board\Common\StoreCommonBoardVM.cs" />
+    <Compile Include="ViewModels\Board\Common\SupplierCommonBoardVM.cs.cs" />
+    <Compile Include="ViewModels\Base\CsConductorStack.cs" />
+    <Compile Include="ViewModels\Base\ICsVM.cs" />
+    <Compile Include="ViewModels\Base\IExportUniDataGridVM.cs" />
+    <Compile Include="ViewModels\Base\IPrintElementDocumentVM.cs" />
+    <Compile Include="Store\LocalStatusDb.cs" />
+    <Compile Include="Store\TableBase.cs" />
+    <Compile Include="Store\TableBase`1.cs" />
+    <Compile Include="Store\LocalStatusStore.cs" />
+    <Compile Include="Store\Tables\CommonStatusTable.cs" />
+    <Compile Include="Settings\AppSetting.cs" />
+    <Compile Include="Settings\LoginSetting.cs" />
+    <Compile Include="Settings\SettingPartBase.cs" />
+    <Compile Include="Settings\UiSettingPart.cs" />
+    <Compile Include="Services\DefaultFuncBase.cs" />
+    <Compile Include="Services\FluentModelValidator.cs" />
+    <Compile Include="Services\HiddenVmAttribute.cs" />
+    <Compile Include="Services\IAppWinMsgEventArgs.cs" />
+    <Compile Include="Services\IDefaultFuncAbleVM.cs" />
+    <Compile Include="Services\IUbVM.cs" />
+    <Compile Include="Services\ManagedStatusAttribute.cs" />
+    <Compile Include="Services\ManagedStatusPropertyInfo.cs" />
+    <Compile Include="Services\ParamBase.cs" />
+    <Compile Include="Services\UbAppStatus.cs" />
+    <Compile Include="Services\UbConductorOne.cs" />
+    <Compile Include="Services\UbScreen.cs" />
+    <Compile Include="Services\ObservableDataSet`1.cs" />
+    <Compile Include="Services\WorkDataSet`1.cs" />
+    <Compile Include="Services\WorkDataSet.cs" />
+    <Compile Include="Services\Part\DefaultPartFunc.cs" />
+    <Compile Include="Services\Part\IMPart.cs" />
+    <Compile Include="Services\Part\IParentPart.cs" />
+    <Compile Include="Services\Part\IPart.cs" />
+    <Compile Include="Services\Part\ISPart.cs" />
+    <Compile Include="Services\Part\MPartBase.cs" />
+    <Compile Include="Services\Part\ParentPartOneBase.cs" />
+    <Compile Include="Services\Part\PartBase.cs" />
+    <Compile Include="Services\Part\PartContainerBase`2.cs" />
+    <Compile Include="Services\Part\PartContainerBase`1.cs" />
+    <Compile Include="Services\Part\PartContainerBase.cs" />
+    <Compile Include="Services\Part\SPartBase.cs" />
+    <Compile Include="Services\Page\DefaultPageFunc.cs" />
+    <Compile Include="Services\Page\IPage.cs" />
+    <Compile Include="Services\Page\IPageContainer.cs" />
+    <Compile Include="Services\Page\IParentPage.cs" />
+    <Compile Include="Services\Page\ISystemPage.cs" />
+    <Compile Include="Services\Page\PageBase`1.cs" />
+    <Compile Include="Services\Page\PageBase.cs" />
+    <Compile Include="Services\Page\PageContainerBase.cs" />
+    <Compile Include="Services\Page\ParentOnePageBase.cs" />
+    <Compile Include="Services\Page\SystemPageAttribute.cs" />
+    <Compile Include="Services\Box\MsgBoxBase.cs" />
+    <Compile Include="Services\Board\BoardBase.cs" />
+    <Compile Include="Services\Board\BoardBase`1.cs" />
+    <Compile Include="Services\Board\CommonBoardBase.cs" />
+    <Compile Include="Services\Board\DefaultBoardFunc.cs" />
+    <Compile Include="Migrations\20221201003938_Init.cs" />
+    <Compile Include="Migrations\LocalStatusDbModelSnapshot.cs" />
+    <Compile Include="Exceptions\UniUserException.cs" />
+    <Compile Include="Exceptions\UniUserException`1.cs" />
+    <Compile Include="Exceptions\EnumUniUserException.cs" />
+    <Compile Include="Document\TemplateFixedDocumentCreater.cs" />
+    <Compile Include="Document\TemplateFixedDocumentCreaterArg.cs" />
+    <Compile Include="Document\UniXlToClosedXmlWriter.cs" />
+    <Compile Include="Document\UniXlToClosedXmlWriterBase`1.cs" />
+    <Compile Include="Document\UniXlToCsvWriter.cs" />
+    <Compile Include="Document\UniXlToCsvWriterBase`1.cs" />
+    <Compile Include="Converters\Base64ToImageConverter.cs" />
+    <Compile Include="Converters\CommonCodeGroupConverter.cs" />
+    <Compile Include="Converters\CommonCodeMultiConvereter.cs" />
+    <Compile Include="Converters\DashBoardCollpasedConverter.cs" />
+    <Compile Include="Converters\EqualsMultiConvereter.cs" />
+    <Compile Include="Converters\IconPathConverter.cs" />
+    <Compile Include="Converters\IEnumerableAndFuncConverter.cs" />
+    <Compile Include="Converters\IEnumerbleBindingPathAndFuncConverter.cs" />
+    <Compile Include="Converters\IEnumerbleBindingPathFuncConverter.cs" />
+    <Compile Include="Converters\StatementBindingPathFuncConverter.cs" />
+    <Compile Include="Converters\ImagePathConverter.cs" />
+    <Compile Include="Converters\MenuLevelConverter.cs" />
+    <Compile Include="Converters\NavPaneOpenBtnMarginConverter.cs" />
+    <Compile Include="Converters\NavViewIconConverter.cs" />
+    <Compile Include="Converters\NotNavViewMarginConverter.cs" />
+    <Compile Include="Converters\PageAndNotParentPageFilterConverter.cs" />
+    <Compile Include="Converters\UseYnToNullBoolConverter.cs" />
+    <Compile Include="Controls\BoardTitleControl.xaml.cs">
+      <DependentUpon>controlsboardtitlecontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\DataHeaderDebugControl.xaml.cs">
+      <DependentUpon>controlsdataheaderdebugcontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\PageTitleControl.xaml.cs">
+      <DependentUpon>controlspagetitlecontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\PartModifyInfoControl.xaml.cs">
+      <DependentUpon>controlspartmodifyinfocontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\PartTitleControl.xaml.cs">
+      <DependentUpon>controlsparttitlecontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\SelectBoardActionControl.xaml.cs">
+      <DependentUpon>controlsselectboardactioncontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\SelectBoardSearchControl.xaml.cs">
+      <DependentUpon>controlsselectboardsearchcontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\BookmarkGoodsCommonControl.xaml.cs">
+      <DependentUpon>commonbookmarkgoodscommoncontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\CategoryCommonControl.xaml.cs">
+      <DependentUpon>commoncategorycommoncontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\CommonControlBase.cs" />
+    <Compile Include="Controls\Common\DeptCommonControl.xaml.cs">
+      <DependentUpon>commondeptcommoncontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\EmployeeCommonControl.xaml.cs">
+      <DependentUpon>commonemployeecommoncontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\StoreCommonControl.xaml.cs">
+      <DependentUpon>commonstorecommoncontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\StoreStdCommonControl.xaml.cs">
+      <DependentUpon>commonstorestdcommoncontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\SupplierCommonControl.xaml.cs">
+      <DependentUpon>commonsuppliercommoncontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\ComboBox\CommonCodeComboControl.xaml.cs">
+      <DependentUpon>comboboxcommoncodecombocontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\ComboBox\UseYnComboControl.xaml.cs">
+      <DependentUpon>comboboxuseyncombocontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\CheckBox\UseYnCheckControl.xaml.cs">
+      <DependentUpon>checkboxuseyncheckcontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Config\BOConfig.cs" />
+    <Compile Include="Config\PathInfo.cs" />
+    <Compile Include="Composition\AppSystemManager.cs" />
+    <Compile Include="Composition\CommonCode.cs" />
+    <Compile Include="Composition\CommonCodeInfoExtension.cs" />
+    <Compile Include="Composition\LocalSettingManager.cs" />
+    <Compile Include="Composition\MenuInfo.cs" />
+    <Compile Include="Composition\MenuInfo`1.cs" />
+    <Compile Include="Composition\PageMenuInfo.cs" />
+    <Compile Include="Composition\PageMenuInfoDic.cs" />
+    <Compile Include="Composition\PartMenuInfo.cs" />
+    <Compile Include="Composition\TableColumnDictionary.cs" />
+    <Compile Include="Composition\TableColumnInfo.cs" />
+    <Compile Include="Composition\TableColumnInfoExtension.cs" />
+    <Compile Include="Composition\UniApiWsManager.cs" />
+    <Compile Include="Composition\UniApiWsJobEvtMsg`1.cs" />
+    <Compile Include="Composition\UniApiWsJobEvtString.cs" />
+    <Compile Include="Composition\UserInfo.cs" />
+    <Compile Include="Composition\UserManager.cs" />
+    <Compile Include="Composition\ProcMessages.cs" />
+    <Compile Include="Composition\VKeys.cs" />
+    <Compile Include="Composition\VKeyManager.cs" />
+    <Compile Include="Composition\Resource\IconInfo.cs" />
+    <Compile Include="Composition\Resource\Icons.cs" />
+    <Compile Include="Common\CategoryViewCollection.cs" />
+    <Compile Include="Common\ColumnCategoryDictionary.cs" />
+    <Compile Include="Common\DataViewDescription.cs" />
+    <Compile Include="Common\DefaultPaths.cs" />
+    <Compile Include="Common\FlagNotifyPropertyChanged.cs" />
+    <Compile Include="Common\FluentValidationBindableBase.cs" />
+    <Compile Include="Common\DefaultAbstractValidator`2.cs" />
+    <Compile Include="Common\ThemeSetting.cs" />
+    <Compile Include="Common\Theme.cs" />
+    <Compile Include="Common\ObservableDataSet`1.cs" />
+    <Compile Include="Common\WorkDataSet`1.cs" />
+    <Compile Include="Common\WorkDataSet.cs" />
+    <Compile Include="Common\Options\StringFormatOptions.cs" />
+    <Compile Include="Behaviors\MenuBookMarkButtonBehavior.cs" />
+    <Compile Include="Behaviors\NavigationViewBehavior.cs" />
+    <Compile Include="Behaviors\NavigationViewItemBehavior.cs" />
+    <Compile Include="Behaviors\ScrollControllerBehaviorBase.cs" />
+    <Compile Include="Behaviors\IScrollController.cs" />
+    <Compile Include="Behaviors\ScrollSizeChangeBehavior.cs" />
+    <Compile Include="Behaviors\ScrollViewerControllerBehavior.cs" />
+    <Compile Include="Services\1IAppWinMsgEventArgs.cs" />
+    <Compile Include="Services\1ParamBase.cs" />
+    <Compile Include="Services\Part\IHaveWorkDataSet`1.cs" />
+    <Compile Include="Services\Part\IHaveWorkDataSet.cs" />
+    <Compile Include="Services\Part\IPartContainer`1.cs" />
+    <Compile Include="Services\Part\IPartContainer.cs" />
+    <Compile Include="Views\V0\BoxCommonMsgV.xaml.cs">
+      <DependentUpon>boxcommonmsgv.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>app.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\font\var\pretendard-black.ttf" />
+    <Resource Include="resources\font\var\pretendard-bold.ttf" />
+    <Resource Include="resources\font\var\pretendard-extrabold.ttf" />
+    <Resource Include="resources\font\var\pretendard-extralight.ttf" />
+    <Resource Include="resources\font\var\pretendard-light.ttf" />
+    <Resource Include="resources\font\var\pretendard-medium.ttf" />
+    <Resource Include="resources\font\var\pretendard-regular.ttf" />
+    <Resource Include="resources\font\var\pretendard-semibold.ttf" />
+    <Resource Include="resources\font\var\pretendard-thin.ttf" />
+    <Resource Include="resources\font\var\pretendardvariable.ttf" />
+    <Resource Include="resources\icon\navclosebtn.png" />
+    <Resource Include="resources\icon\navopenbtn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="app.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="controls\boardtitlecontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="controls\checkbox\useyncheckcontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="controls\combobox\commoncodecombocontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="controls\combobox\useyncombocontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="controls\common\base.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="controls\common\bookmarkgoodscommoncontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="controls\common\categorycommoncontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="controls\common\deptcommoncontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="controls\common\employeecommoncontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="controls\common\storecommoncontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="controls\common\storestdcommoncontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="controls\common\suppliercommoncontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="controls\dataheaderdebugcontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="controls\pagetitlecontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="controls\partmodifyinfocontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="controls\parttitlecontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="controls\selectboardactioncontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="controls\selectboardsearchcontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="properties\designtimeresources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\all.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\base.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\board\all.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\brown\all.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\control\all.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\control\border.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\control\button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\control\checkbox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\control\combobox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\control\datagrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\control\datapicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\control\foldablebox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\control\image.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\control\jobitemscontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\control\modernwpf\all.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\control\scrollbar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\control\scrollviewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\control\stackpanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\control\tabcontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\control\textblock.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\control\textbox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\control\togglebutton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\control\treeview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\control\unidatagrid.sub.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\control\unidatagrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\format.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\navy\all.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\page\all.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\part\all.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="themes\browntheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="themes\navytheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\appinitv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\appmaincommon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\appmainv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\board\common\addrinfoboardv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\board\common\bookmarkgoodscommonboardv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\board\common\categorycommonboardv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\board\common\deptcommonboardv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\board\common\employeecommonboardv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\board\common\employeepasswordboardv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\board\common\storecommonboardv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\board\common\suppliercommonboardv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\board\loginboardv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\board\setting\settingboardv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\board\sys\datagridexportsysboardv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\board\sys\unidatagridprintsysboardv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\board\websocket\testwebsoketwsboardv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\box\commonmsgv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\dashboardpagev.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\pagecommon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\parents\tabparentpagev.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\tabpagecontainerv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\unisales\code\basicinfo\employee\employeelistpagev.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\unisales\code\basicinfo\store\storegrouppagev.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\unisales\code\basicinfo\store\storelistpagev.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\unisales\code\codeinfo\brand\brandlistpagev.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\unisales\code\codeinfo\category\categorydepthpagev.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\unisales\code\codeinfo\category\categorylistpagev.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\unisales\code\codeinfo\dept\deptdepthpagev.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\unisales\code\codeinfo\dept\deptlistpagev.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\unisales\code\codeinfo\maker\makerlistpagev.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\unisales\code\codeinfo\supplier\supplierlistpagev.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\unisales\member\baseinfo\regtype\regtypehistorypagev.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\unisales\member\baseinfo\regtype\regtypepagev.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\unisales\pos\baseinfo\regpos\regpospagev.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\unisales\sales\supplier\sales\categorypagev.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\unisales\sales\supplier\sales\goodspagev.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\unisales\sales\supplier\sales\supplierpagev.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\unisales\systems\program\commoncode\commoncodelistpagev.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\unisales\systems\program\progmenu\progmenulistpagev.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\unisales\systems\program\progmenuprop\progmenuproplistpagev.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\page\unisales\systems\security\outerconnauth\outerconnauthlistpagev.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\part\containers\code\employee\pageemployeepartconv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\part\containers\code\store\pagestoregrouppartconv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\part\containers\code\store\pagestorepartconv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\part\containers\code\supplier\pagesupplierpartconv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\part\containers\pagecategorypartconv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\part\containers\pagedeptpartconv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\part\main\code\employee\pageauthmpartv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\part\main\code\employee\pageauthstorempartv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\part\main\code\employee\pageauthsuppliermpartv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\part\main\code\employee\pageemployeempartv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\part\main\code\store\pagestoregroupmpartv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\part\main\code\store\pagestorempartv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\part\main\code\supplier\pageautoorderconitionmpartv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\part\main\code\supplier\pagepaycontionmpartv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\part\main\code\supplier\pagerebatecontionmpartv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\part\main\code\supplier\pagesuppliermpartv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\part\main\pagecategorympartv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\part\main\pagedeptmpartv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\part\parent\tabparentpartv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\part\sub\category\goodscountbycategorypartv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\part\sub\datamodlogpartv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\v0\tool\menubookmarktoolv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

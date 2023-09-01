@@ -1,0 +1,16 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="Button.xaml"/>
+  </ResourceDictionary.MergedDictionaries>
+  <Style x:Key="GridBottomControllerBtnStyle" BasedOn="{StaticResource App.Button}"
+         TargetType="{x:Type ToggleButton}">
+    <Setter Property="Control.Background" Value="#FFFFFF"/>
+    <Setter Property="Control.BorderBrush" Value="#DFDFDF"/>
+    <Setter Property="FrameworkElement.MinWidth" Value="72"/>
+    <Setter Property="FrameworkElement.MinHeight" Value="24"/>
+    <Setter Property="FrameworkElement.VerticalAlignment" Value="Center"/>
+    <Setter Property="mah:ControlsHelper.CornerRadius" Value="2"/>
+  </Style>
+</ResourceDictionary>

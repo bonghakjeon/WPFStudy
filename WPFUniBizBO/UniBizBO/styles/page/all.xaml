@@ -1,0 +1,52 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vmbase="clr-namespace:UniBizBO.Services.Page"
+                    xmlns:wpf="clr-namespace:UniinfoNet.Windows.Wpf;assembly=UniinfoNet.Windows.Wpf">
+  <Style x:Key="App.UniDataGrid.Page.Default" BasedOn="{StaticResource {x:Type wpf:UniDataGrid}}"
+         TargetType="{x:Type wpf:UniDataGrid}">
+    <Setter Property="DataGrid.CurrentItem" Value="{Binding SelectedData}"/>
+    <Setter Property="DataGrid.SelectionUnit" Value="CellOrRowHeader"/>
+    <Setter Property="DataGrid.HeadersVisibility" Value="Column"/>
+    <Style.Triggers>
+      <MultiTrigger>
+        <MultiTrigger.Conditions>
+          <Condition Property="ItemsControl.IsGrouping" Value="true"/>
+          <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false"/>
+        </MultiTrigger.Conditions>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+      </MultiTrigger>
+      <Trigger Property="ItemsControl.IsGrouping" Value="True">
+        <Setter Property="VirtualizingPanel.ScrollUnit" Value="Pixel"/>
+        <Setter Property="VirtualizingPanel.VirtualizationMode" Value="Standard"/>
+      </Trigger>
+      <Trigger Property="DataGrid.SelectionMode" Value="Extended">
+        <Setter Property="wpf:MultiSelectorHelper.SelectedItems" Value="{Binding SelectedDatas}"/>
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+  <InputBindingCollection x:Key="App.InputBindings.Page.Default" x:Shared="false">
+    <KeyBinding Key="F1" CommandParameter="{x:Static vmbase:DefaultPageFunc.Help}"
+                Command="{Binding CmdDefaultFunc}"/>
+    <KeyBinding Key="F2" CommandParameter="{x:Static vmbase:DefaultPageFunc.Create}"
+                Command="{Binding CmdDefaultFunc}"/>
+    <KeyBinding Key="F3" CommandParameter="{x:Static vmbase:DefaultPageFunc.Search}"
+                Command="{Binding CmdDefaultFunc}"/>
+    <KeyBinding Key="F4" CommandParameter="{x:Static vmbase:DefaultPageFunc.Save}"
+                Command="{Binding CmdDefaultFunc}"/>
+    <KeyBinding Key="F5" CommandParameter="{x:Static vmbase:DefaultPageFunc.Clear}"
+                Command="{Binding CmdDefaultFunc}"/>
+    <KeyBinding Key="F6" CommandParameter="{x:Static vmbase:DefaultPageFunc.Print}"
+                Command="{Binding CmdDefaultFunc}"/>
+    <KeyBinding Key="F7" CommandParameter="{x:Static vmbase:DefaultPageFunc.ExportExcel}"
+                Command="{Binding CmdDefaultFunc}"/>
+    <KeyBinding Key="F8" CommandParameter="{x:Static vmbase:DefaultPageFunc.PrintLabel}"
+                Command="{Binding CmdDefaultFunc}"/>
+    <KeyBinding Key="F12" CommandParameter="{x:Static vmbase:DefaultPageFunc.Close}"
+                Command="{Binding CmdDefaultFunc}"/>
+  </InputBindingCollection>
+  <Style x:Key="App.UserControl.Page.Default" BasedOn="{StaticResource {x:Type UserControl}}"
+         TargetType="{x:Type UserControl}">
+    <Setter Property="wpf:UIElementHelper.InputBindings"
+            Value="{StaticResource App.InputBindings.Page.Default}"/>
+  </Style>
+</ResourceDictionary>

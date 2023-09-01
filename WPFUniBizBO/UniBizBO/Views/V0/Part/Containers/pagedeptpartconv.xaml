@@ -1,0 +1,22 @@
+<mah:MetroWindow x:Class="UniBizBO.Views.V0.Part.Containers.PageDeptPartConV"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:local="clr-namespace:UniBizBO.Views.V0.Part.Containers"
+                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:s="https://github.com/canton7/Stylet"
+                 xmlns:wpf="clr-namespace:UniinfoNet.Windows.Wpf;assembly=UniinfoNet.Windows.Wpf"
+                 Width="1000" Height="700" Style="{StaticResource App.MetroWindow.Part}"
+                 Title="{Binding ContainerTitle}">
+  <Grid>
+    <wpf:OverlayLayout Style="{DynamicResource App.OverlayLayout.Job}" OverlayContent="{Binding Job}">
+      <DockPanel>
+        <Border DockPanel.Dock="Top"/>
+        <Border>
+          <TabControl x:Name="Items" Style="{StaticResource App.TabControl.PartContainer.Children}"/>
+        </Border>
+      </DockPanel>
+    </wpf:OverlayLayout>
+  </Grid>
+</mah:MetroWindow>

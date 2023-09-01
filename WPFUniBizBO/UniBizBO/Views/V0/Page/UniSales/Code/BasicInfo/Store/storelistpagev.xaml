@@ -1,0 +1,277 @@
+<UserControl x:Class="UniBizBO.Views.V0.Page.UniSales.Code.BasicInfo.Store.StoreListPageV"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:boconverter="clr-namespace:UniBiz.Bo.Models.Converter;assembly=UniBiz.Bo.Models"
+             xmlns:columnconverter="clr-namespace:UniBiz.Bo.Models.UniBase.Store;assembly=UniBiz.Bo.Models"
+             xmlns:control="clr-namespace:UniBizBO.Controls"
+             xmlns:control_combo="clr-namespace:UniBizBO.Controls.ComboBox"
+             xmlns:converters="clr-namespace:UniBizBO.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:UniBizBO.Views.V0.Page.UniSales.Code.BasicInfo.Store"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:res="clr-namespace:UniBizBO.Composition.Resource"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
+             xmlns:vm="clr-namespace:UniBizBO.ViewModels.Page.UniSales.Code.BasicInfo.Store"
+             xmlns:vmbase="clr-namespace:UniBizBO.Services.Page"
+             xmlns:wpf="clr-namespace:UniinfoNet.Windows.Wpf;assembly=UniinfoNet.Windows.Wpf"
+             x:Name="root" Style="{StaticResource App.UserControl.Page.Default}">
+  <FrameworkElement.Resources>
+    <ResourceDictionary Source="pack://application:,,,/UniBizBO;component/Views/V0/Page/PageCommon.xaml"/>
+  </FrameworkElement.Resources>
+  <Grid>
+    <wpf:OverlayLayout Style="{DynamicResource App.OverlayLayout.Job.Page}" OverlayContent="{Binding Job}">
+      <DockPanel>
+        <ui:SimpleStackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+          <control:PageTitleControl/>
+          <Button Content="테스트용 버튼" Style="{StaticResource Page.Button.Title}"/>
+          <Button Style="{StaticResource Page.Button.Close}"/>
+        </ui:SimpleStackPanel>
+        <Border>
+          <DockPanel>
+            <DockPanel Style="{StaticResource Page.DockPanel.Search}">
+              <wpf:FoldableBox DockPanel.Dock="Top" ExpandsCount="2">
+                <DockPanel>
+                  <wpf:AutoGrid AutoColumnsString=",*">
+                    <control_combo:UseYnComboControl wpf:FocusMoveHelper.Left="{Binding RelativeSource={RelativeSource self}}"
+                                                     wpf:FocusMoveHelper.Right="{Binding ElementName=ctr_tb_keyword}" UseYn="{Binding Path=Param.Use}"/>
+                    <TextBox x:Name="ctr_tb_keyword" Margin="12,0,0,0" mah:TextBoxHelper.SelectAllOnFocus="True"
+                             mah:TextBoxHelper.Watermark="키워드:지점명,대표자,사업자번호" wpf:FocusHelper.IsSetFocusWhenLoad="True"
+                             Style="{DynamicResource App.TextBox.Search}" wpf:FocusMoveHelper.Down="{Binding ElementName=Datas}"
+                             Text="{Binding Param.Keyword, UpdateSourceTrigger=PropertyChanged}">
+                      <UIElement.InputBindings>
+                        <KeyBinding Key="Return" CommandParameter="Search" Command="{Binding CmdDefaultFunc}"/>
+                      </UIElement.InputBindings>
+                    </TextBox>
+                  </wpf:AutoGrid>
+                </DockPanel>
+                <DockPanel>
+                  <wpf:AutoGrid AutoColumnsString=",*">
+                    <control_combo:UseYnComboControl wpf:FocusMoveHelper.Left="{Binding RelativeSource={RelativeSource self}}"
+                                                     wpf:FocusMoveHelper.Right="{Binding ElementName=ctr_tb_keyword}" UseYn="{Binding Path=Param.Use}"/>
+                    <TextBox x:Name="ctr_tb_keyword1" Margin="12,0,0,0" mah:TextBoxHelper.SelectAllOnFocus="True"
+                             mah:TextBoxHelper.Watermark="키워드:지점명,대표자,사업자번호" wpf:FocusHelper.IsSetFocusWhenLoad="True"
+                             Style="{DynamicResource App.TextBox.Search}" wpf:FocusMoveHelper.Down="{Binding ElementName=Datas}"
+                             Text="{Binding Param.Keyword, UpdateSourceTrigger=PropertyChanged}">
+                      <UIElement.InputBindings>
+                        <KeyBinding Key="Return" CommandParameter="Search" Command="{Binding CmdDefaultFunc}"/>
+                      </UIElement.InputBindings>
+                    </TextBox>
+                  </wpf:AutoGrid>
+                </DockPanel>
+                <DockPanel>
+                  <wpf:AutoGrid AutoColumnsString=",*">
+                    <control_combo:UseYnComboControl wpf:FocusMoveHelper.Left="{Binding RelativeSource={RelativeSource self}}"
+                                                     wpf:FocusMoveHelper.Right="{Binding ElementName=ctr_tb_keyword}" UseYn="{Binding Path=Param.Use}"/>
+                    <TextBox x:Name="ctr_tb_keyword2" Margin="12,0,0,0" mah:TextBoxHelper.SelectAllOnFocus="True"
+                             mah:TextBoxHelper.Watermark="키워드:지점명,대표자,사업자번호" wpf:FocusHelper.IsSetFocusWhenLoad="True"
+                             Style="{DynamicResource App.TextBox.Search}" wpf:FocusMoveHelper.Down="{Binding ElementName=Datas}"
+                             Text="{Binding Param.Keyword, UpdateSourceTrigger=PropertyChanged}">
+                      <UIElement.InputBindings>
+                        <KeyBinding Key="Return" CommandParameter="Search" Command="{Binding CmdDefaultFunc}"/>
+                      </UIElement.InputBindings>
+                    </TextBox>
+                  </wpf:AutoGrid>
+                </DockPanel>
+              </wpf:FoldableBox>
+              <TextBlock Margin="42,0,0,4" FontWeight="Bold" Text="{Binding DisplaySearchCountDesc}"/>
+            </DockPanel>
+            <Border>
+              <wpf:UniDataGrid x:Name="Datas" AutoGenerateColumns="False" CanUserEditGroupingView="False" IsReadOnly="true"
+                               wpf:DataGridEventHelper.RowLeftDoubleClickCommand="{Binding CmdDataOpen}"
+                               wpf:FocusMoveHelper.Down="{Binding RelativeSource={RelativeSource self}}"
+                               wpf:FocusMoveHelper.Up="{Binding ElementName=ctr_tb_keyword}" ItemsSource="{Binding Datas}">
+                <behavior:Interaction.Behaviors>
+                  <wpf:UniDataGridViewerProxyBehavior Viewer="{Binding GridViewer, Mode=OneWayToSource}"/>
+                </behavior:Interaction.Behaviors>
+                <FrameworkElement.Resources>
+                  <Style x:Key="_si_StoreName.Value" TargetType="{x:Type TextBlock}">
+                    <Setter Property="TextBlock.Text" Value="{Binding si_StoreName}"/>
+                    <Setter Property="FrameworkElement.Margin" Value="4,0"/>
+                    <Style.Triggers>
+                      <DataTrigger Binding="{Binding si_IsUseYn}" Value="False">
+                        <Setter Property="TextBlock.TextDecorations" Value="Strikethrough"/>
+                      </DataTrigger>
+                    </Style.Triggers>
+                  </Style>
+                </FrameworkElement.Resources>
+                <DataGrid.Columns>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.row_number}" wpf:UniDataGrid.ColumnKey="row_number"
+                                      ElementStyle="{DynamicResource DataGridCellElement.Text.Right}"
+                                      HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Right}"
+                                      Binding="{Binding row_number, StringFormat={StaticResource NumberFormat.Number}}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[row_number]}"/>
+                  <DataGridTemplateColumn Width="{StaticResource DataGridHeaderWidth.si_StoreName}" wpf:UniDataGrid.ColumnKey="si_StoreName"
+                                          SortMemberPath="si_StoreName" ClipboardContentBinding="{Binding si_StoreName}"
+                                          Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[si_StoreName]}">
+                    <DataGridColumn.HeaderTemplate>
+                      <DataTemplate>
+                        <Border ToolTip="{Binding Description}">
+                          <TextBlock Text="{Binding}"/>
+                        </Border>
+                      </DataTemplate>
+                    </DataGridColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                      <DataTemplate>
+                        <TextBlock Style="{StaticResource _si_StoreName.Value}"/>
+                      </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                  </DataGridTemplateColumn>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.si_StoreViewCode}"
+                                      wpf:UniDataGrid.ColumnKey="si_StoreViewCode"
+                                      ElementStyle="{StaticResource DataGridCellElement.Text.Center}"
+                                      HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Center}"
+                                      Binding="{Binding si_StoreViewCode}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[si_StoreViewCode]}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.UseYnDesc}" wpf:UniDataGrid.ColumnKey="si_UseYn"
+                                      ElementStyle="{StaticResource DataGridCellElement.Text.Center}"
+                                      HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Center}"
+                                      Binding="{Binding si_UseYnDesc}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[si_UseYn]}"/>
+                  <DataGridComboBoxColumn Width="{StaticResource DataGridHeaderWidth.si_StoreType}" wpf:UniDataGrid.ColumnKey="si_StoreType"
+                                          DisplayMemberPath="comm_TypeNoMemo" SelectedValuePath="comm_TypeNo"
+                                          Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[si_StoreType]}"
+                                          ItemsSource="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[si_StoreType].CTypeGroup}"
+                                          SelectedValueBinding="{Binding si_StoreType}">
+                    <DataGridComboBoxColumn.ClipboardContentBinding>
+                      <MultiBinding Converter="{x:Static converters:CommonCodeMultiConvereter.Instance}">
+                        <Binding Path="Data.App.Sys.CommonCodes" Source="{StaticResource vm}"/>
+                        <Binding Source="{x:Static boconverter:CommonCodeTypes.StoreType}"/>
+                        <Binding Path="si_StoreType"/>
+                      </MultiBinding>
+                    </DataGridComboBoxColumn.ClipboardContentBinding>
+                  </DataGridComboBoxColumn>
+                  <DataGridTemplateColumn Width="{StaticResource DataGridHeaderWidth.si_StoreName}"
+                                          wpf:UniDataGrid.ColumnKey="si_StoreNameMember" wpf:UniDataGrid.UseDuplicateVisual="True"
+                                          SortMemberPath="si_StoreNameMember" ClipboardContentBinding="{Binding si_StoreNameMember}"
+                                          Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[si_StoreNameMember]}">
+                    <DataGridColumn.HeaderTemplate>
+                      <DataTemplate>
+                        <Border ToolTip="{Binding Description}">
+                          <TextBlock Text="{Binding}"/>
+                        </Border>
+                      </DataTemplate>
+                    </DataGridColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                      <DataTemplate>
+                        <TextBlock Text="{Binding si_StoreNameMember}"/>
+                      </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                  </DataGridTemplateColumn>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.sgh_GroupName}"
+                                      wpf:UniDataGrid.ColumnKey="sgh_GroupName" Binding="{Binding sgh_GroupName}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[sgh_GroupName]}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.Tel}" wpf:UniDataGrid.ColumnKey="si_Tel1"
+                                      ElementStyle="{StaticResource DataGridCellElement.Text.Center}"
+                                      HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Center}"
+                                      Binding="{Binding si_Tel1}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[si_Tel1]}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.Tel}" wpf:UniDataGrid.ColumnKey="si_Tel2"
+                                      ElementStyle="{StaticResource DataGridCellElement.Text.Center}" Header="팩스"
+                                      HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Center}"
+                                      Binding="{Binding si_Tel2}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.BizNo}" wpf:UniDataGrid.ColumnKey="si_BizNo"
+                                      ElementStyle="{StaticResource DataGridCellElement.Text.Center}"
+                                      HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Center}"
+                                      Binding="{Binding si_DisplayBizNo}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[si_BizNo]}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.BizCeo}" wpf:UniDataGrid.ColumnKey="si_BizCeo"
+                                      ElementStyle="{StaticResource DataGridCellElement.Text.Center}"
+                                      HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Center}"
+                                      Binding="{Binding si_BizCeo}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[si_BizCeo]}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.BizType}" wpf:UniDataGrid.ColumnKey="si_BizType"
+                                      Binding="{Binding si_BizType}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[si_BizType]}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.BizCategory}" wpf:UniDataGrid.ColumnKey="si_BizCategory"
+                                      Binding="{Binding si_BizCategory}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[si_BizCategory]}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.ZipCode}" wpf:UniDataGrid.ColumnKey="si_ZipCode"
+                                      ElementStyle="{StaticResource DataGridCellElement.Text.Center}"
+                                      HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Center}"
+                                      Binding="{Binding si_ZipCode}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[si_ZipCode]}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.ADDR}" wpf:UniDataGrid.ColumnKey="si_BizAddr1"
+                                      Binding="{Binding si_BizAddr1}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[si_BizAddr1]}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.ADDR}" wpf:UniDataGrid.ColumnKey="si_BizAddr2"
+                                      Binding="{Binding si_BizAddr2}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[si_BizAddr2]}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.Email}" wpf:UniDataGrid.ColumnKey="si_Email"
+                                      Binding="{Binding si_Email}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[si_Email]}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.IP4}" wpf:UniDataGrid.ColumnKey="si_LocalIP"
+                                      Binding="{Binding si_LocalIP}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[si_LocalIP]}"/>
+                  <DataGridTemplateColumn Width="{StaticResource DataGridHeaderWidth.DATE}" wpf:UniDataGrid.ColumnKey="si_BuyConfirmDate"
+                                          SortMemberPath="si_BuyConfirmDate"
+                                          ClipboardContentBinding="{Binding si_BuyConfirmDate, StringFormat={StaticResource DateTimeFormat.Date}}"
+                                          Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[si_BuyConfirmDate]}">
+                    <DataGridColumn.HeaderTemplate>
+                      <DataTemplate>
+                        <Border ToolTip="{Binding Description}">
+                          <TextBlock TextAlignment="Center" Text="{Binding}"/>
+                        </Border>
+                      </DataTemplate>
+                    </DataGridColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                      <DataTemplate>
+                        <TextBlock TextAlignment="Center"
+                                   Text="{Binding si_BuyConfirmDate, StringFormat={StaticResource DateTimeFormat.Date}}"/>
+                      </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                  </DataGridTemplateColumn>
+                  <DataGridTemplateColumn Width="{StaticResource DataGridHeaderWidth.DATE}" wpf:UniDataGrid.ColumnKey="si_StockConfirmDate"
+                                          SortMemberPath="si_StockConfirmDate"
+                                          ClipboardContentBinding="{Binding si_StockConfirmDate, StringFormat={StaticResource DateTimeFormat.Date}}"
+                                          Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[si_StockConfirmDate]}">
+                    <DataGridColumn.HeaderTemplate>
+                      <DataTemplate>
+                        <Border ToolTip="{Binding Description}">
+                          <TextBlock TextAlignment="Center" Text="{Binding}"/>
+                        </Border>
+                      </DataTemplate>
+                    </DataGridColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                      <DataTemplate>
+                        <TextBlock TextAlignment="Center"
+                                   Text="{Binding si_StockConfirmDate, StringFormat={StaticResource DateTimeFormat.Date}}"/>
+                      </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                  </DataGridTemplateColumn>
+                  <DataGridTemplateColumn Width="{StaticResource DataGridHeaderWidth.DATE}" wpf:UniDataGrid.ColumnKey="si_SaleConfirmDate"
+                                          SortMemberPath="si_SaleConfirmDate"
+                                          ClipboardContentBinding="{Binding si_SaleConfirmDate, StringFormat={StaticResource DateTimeFormat.Date}}"
+                                          Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[si_SaleConfirmDate]}">
+                    <DataGridColumn.HeaderTemplate>
+                      <DataTemplate>
+                        <Border ToolTip="{Binding Description}">
+                          <TextBlock TextAlignment="Center" Text="{Binding}"/>
+                        </Border>
+                      </DataTemplate>
+                    </DataGridColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                      <DataTemplate>
+                        <TextBlock TextAlignment="Center"
+                                   Text="{Binding si_SaleConfirmDate, StringFormat={StaticResource DateTimeFormat.Date}}"/>
+                      </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                  </DataGridTemplateColumn>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.DATETIME}" wpf:UniDataGrid.ColumnKey="si_ModDate"
+                                      ElementStyle="{StaticResource DataGridCellElement.Text.Center}"
+                                      HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Center}"
+                                      Binding="{Binding ModDate, StringFormat={StaticResource DateTimeFormat.Default}}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[si_ModDate]}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.EmpName}" wpf:UniDataGrid.ColumnKey="modEmpName"
+                                      ElementStyle="{StaticResource DataGridCellElement.Text.Center}" Binding="{Binding EmpName}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[modEmpName]}"/>
+                </DataGrid.Columns>
+              </wpf:UniDataGrid>
+            </Border>
+          </DockPanel>
+        </Border>
+      </DockPanel>
+    </wpf:OverlayLayout>
+  </Grid>
+</UserControl>

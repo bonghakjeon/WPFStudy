@@ -1,0 +1,28 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+  <Double x:Key="App.Double.FontSize.H0">40</Double>
+  <Double x:Key="App.Double.FontSize.H1">12</Double>
+  <Double x:Key="App.Double.FontSize.H2">13</Double>
+  <Style x:Key="App.TextBlock" TargetType="{x:Type TextBlock}"/>
+  <Style x:Key="App.TextBlock.H1.Regular" BasedOn="{StaticResource App.TextBlock}"
+         TargetType="{x:Type TextBlock}">
+    <Setter Property="TextBlock.FontSize" Value="{DynamicResource App.Double.FontSize.H1}"/>
+    <Setter Property="TextBlock.FontWeight" Value="Regular"/>
+  </Style>
+  <Style x:Key="App.TextBlock.H1.Bold" BasedOn="{StaticResource App.TextBlock}"
+         TargetType="{x:Type TextBlock}">
+    <Setter Property="TextBlock.FontSize" Value="{DynamicResource App.Double.FontSize.H1}"/>
+    <Setter Property="TextBlock.FontWeight" Value="Bold"/>
+  </Style>
+  <Style x:Key="App.TextBlock.H2.Regular" BasedOn="{StaticResource App.TextBlock}"
+         TargetType="{x:Type TextBlock}">
+    <Setter Property="TextBlock.FontSize" Value="{DynamicResource App.Double.FontSize.H2}"/>
+    <Setter Property="TextBlock.FontWeight" Value="Regular"/>
+  </Style>
+  <Style x:Key="App.TextBlock.H2.Bold" BasedOn="{StaticResource App.TextBlock}"
+         TargetType="{x:Type TextBlock}">
+    <Setter Property="TextBlock.FontSize" Value="{DynamicResource App.Double.FontSize.H2}"/>
+    <Setter Property="TextBlock.FontWeight" Value="Bold"/>
+  </Style>
+</ResourceDictionary>

@@ -1,0 +1,199 @@
+<UserControl x:Class="UniBizBO.Views.V0.Page.UniSales.Systems.Program.CommonCode.CommonCodeListPageV"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:boconverter="clr-namespace:UniBiz.Bo.Models.Converter;assembly=UniBiz.Bo.Models"
+             xmlns:control="clr-namespace:UniBizBO.Controls"
+             xmlns:control_combo="clr-namespace:UniBizBO.Controls.ComboBox"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ex="urn:controlzex"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:local="clr-namespace:UniBizBO.Views.V0.Page.UniSales.Systems.Program.CommonCode"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:res="clr-namespace:UniBizBO.Composition.Resource"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
+             xmlns:vm="clr-namespace:UniBizBO.ViewModels.Page.UniSales.Systems.Program.CommonCode"
+             xmlns:wpf="clr-namespace:UniinfoNet.Windows.Wpf;assembly=UniinfoNet.Windows.Wpf"
+             x:Name="root" Style="{StaticResource App.UserControl.Page.Default}">
+  <FrameworkElement.Resources>
+    <ResourceDictionary Source="pack://application:,,,/UniBizBO;component/Views/V0/Page/PageCommon.xaml"/>
+  </FrameworkElement.Resources>
+  <Grid>
+    <FrameworkElement.Resources>
+      <wpf:BindingProxy x:Key="vm" Data="{Binding}"/>
+    </FrameworkElement.Resources>
+    <PopupEx FrameworkElement.Style="{StaticResource App.PopupEx.PopupMenu}"
+             Popup.IsOpen="{Binding Source={StaticResource vm}, Path=Data.IsOpenExcelPopup}">
+      <FrameworkElement.Resources>
+        <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
+          <Setter Property="mah:VisibilityHelper.IsVisible"
+                  Value="{Binding RelativeSource={RelativeSource self}, Path=Command.IsCanDisplay, FallbackValue=false}"/>
+          <Setter Property="Control.Padding" Value="8"/>
+          <Setter Property="Control.BorderThickness" Value="0"/>
+        </Style>
+      </FrameworkElement.Resources>
+      <mah:ClipBorder Style="{StaticResource App.ClipBorder.PopupMenu.Space}">
+        <StackPanel Orientation="Vertical">
+          <Button Command="{Binding CmdExportExcel}">
+            <StackPanel Orientation="Horizontal">
+              <Image Style="{StaticResource App.Image.Icon}"
+                     Source="{Binding Source={x:Static res:Icons.Default}, Path=Common_Excel.FullPath}"/>
+              <TextBlock Text="출력"/>
+            </StackPanel>
+          </Button>
+          <Border Style="{DynamicResource App.Border.PopupMenu.Separator}"
+                  mah:VisibilityHelper.IsVisible="{Binding CmdDownloadExcelSample.IsCanDisplay}"/>
+          <Button Command="{Binding CmdDownloadExcelSample}">
+            <StackPanel Orientation="Horizontal">
+              <Image Style="{StaticResource App.Image.Icon}"
+                     Source="{Binding Source={x:Static res:Icons.Default}, Path=Common_Button_DownLoad.FullPath}"/>
+              <TextBlock Text="샘플 다운로드"/>
+            </StackPanel>
+          </Button>
+          <Border Style="{DynamicResource App.Border.PopupMenu.Separator}"
+                  mah:VisibilityHelper.IsVisible="{Binding CmdDownloadExcelSample.IsCanDisplay}"/>
+          <Button Command="{Binding CmdUploadExcelFile}">
+            <StackPanel Orientation="Horizontal">
+              <Image Style="{StaticResource App.Image.Icon}"
+                     Source="{Binding Source={x:Static res:Icons.Default}, Path=Common_Button_UpLoad.FullPath}"/>
+              <TextBlock Text="엑셀파일 업로드"/>
+            </StackPanel>
+          </Button>
+        </StackPanel>
+      </mah:ClipBorder>
+    </PopupEx>
+    <wpf:OverlayLayout Style="{DynamicResource App.OverlayLayout.Job.Page}" OverlayContent="{Binding Job}">
+      <DockPanel>
+        <ui:SimpleStackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+          <control:PageTitleControl/>
+          <Button Style="{StaticResource Page.Button.Close}"/>
+        </ui:SimpleStackPanel>
+        <Border>
+          <DockPanel>
+            <DockPanel Style="{StaticResource Page.DockPanel.Search}">
+              <wpf:FoldableBox DockPanel.Dock="Top" ExpandsCount="1">
+                <wpf:AutoGrid AutoColumnsString=",,*">
+                  <control_combo:UseYnComboControl x:Name="Use" Width="70" wpf:FocusMoveHelper.Left="{Binding RelativeSource={RelativeSource self}}"
+                                                   wpf:FocusMoveHelper.Right="{Binding ElementName=CommonType}" UseYn="{Binding Path=Param.Use}"/>
+                  <ComboBox x:Name="CommonType" Width="160" Margin="12,0,0,0" mah:TextBoxHelper.Watermark="타입"
+                            DisplayMemberPath="comm_TypeMemo" IsReadOnly="True" SelectedValuePath="comm_Type"
+                            Style="{DynamicResource App.ComboBox.Search}" wpf:FocusMoveHelper.Left="{Binding ElementName=Use}"
+                            wpf:FocusMoveHelper.Right="{Binding ElementName=ctr_tb_keyword}"
+                            ItemsSource="{Binding CommonTypeList}" SelectedValue="{Binding Param.comm_Type, Mode=TwoWay}"/>
+                  <TextBox x:Name="ctr_tb_keyword" Margin="12,0,0,0" mah:TextBoxHelper.SelectAllOnFocus="True"
+                           mah:TextBoxHelper.Watermark="키워드:타입명,코드명" wpf:FocusHelper.IsSetFocusWhenIsVisible="True"
+                           wpf:FocusHelper.IsSetFocusWhenLoad="True" Style="{DynamicResource App.TextBox.Search}"
+                           wpf:FocusMoveHelper.Down="{Binding ElementName=Datas}"
+                           wpf:FocusMoveHelper.Left="{Binding ElementName=CommonType}"
+                           wpf:FocusMoveHelper.Right="{Binding RelativeSource={RelativeSource self}}"
+                           wpf:FocusMoveHelper.Up="{Binding RelativeSource={RelativeSource self}}"
+                           Text="{Binding Param.Keyword, UpdateSourceTrigger=PropertyChanged}">
+                    <UIElement.InputBindings>
+                      <KeyBinding Key="Return" CommandParameter="Search" Command="{Binding CmdDefaultFunc}"/>
+                    </UIElement.InputBindings>
+                  </TextBox>
+                </wpf:AutoGrid>
+              </wpf:FoldableBox>
+              <TextBlock Margin="42,0,0,4" FontWeight="Bold" Text="{Binding DisplaySearchCountDesc}"/>
+            </DockPanel>
+            <Border>
+              <wpf:UniDataGrid x:Name="Datas" AutoGenerateColumns="False" CanUserEditGroupingView="False" IsReadOnly="True"
+                               wpf:DataGridEventHelper.RowLeftDoubleClickCommand="{Binding CmdDataOpen}"
+                               wpf:FocusMoveHelper.Down="{Binding RelativeSource={RelativeSource self}}"
+                               wpf:FocusMoveHelper.Up="{Binding ElementName=ctr_tb_keyword}" DataView="{Binding DataView}"
+                               ItemsSource="{Binding Datas}">
+                <i:Interaction.Behaviors>
+                  <wpf:UniDataGridViewerProxyBehavior Viewer="{Binding GridViewer, Mode=OneWayToSource}"/>
+                  <wpf:UniDataGridDuplicatorProxyBehavior Duplicator="{Binding Duplicator, Mode=OneWayToSource}"/>
+                  <wpf:UniDataGridExporterProxyBehavior Exporter="{Binding Exporter, Mode=OneWayToSource}"/>
+                </i:Interaction.Behaviors>
+                <FrameworkElement.Resources>
+                  <Style x:Key="_comm_IsFixed.Image.Style" TargetType="{x:Type Image}">
+                    <Style.Triggers>
+                      <DataTrigger Binding="{Binding comm_IsFixed}" Value="True">
+                        <Setter Property="Image.Source"
+                                Value="{Binding Source={x:Static res:Icons.Default}, Path=Common_Fixed.FullPath}"/>
+                      </DataTrigger>
+                    </Style.Triggers>
+                  </Style>
+                </FrameworkElement.Resources>
+                <DataGrid.Columns>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.row_number}" wpf:UniDataGrid.ColumnFooterSpan="3"
+                                      wpf:UniDataGrid.ColumnKey="row_number"
+                                      ElementStyle="{DynamicResource DataGridCellElement.Text.Center}"
+                                      HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Center}"
+                                      Binding="{Binding row_number, StringFormat={StaticResource NumberFormat.Number}}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[row_number]}"/>
+                  <DataGridTemplateColumn Width="20" wpf:UniDataGrid.ColumnKey="comm_IsFixed" Header="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                      <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                          <Image Width="16" Height="16" Margin="2" Style="{StaticResource _comm_IsFixed.Image.Style}"/>
+                        </StackPanel>
+                      </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                  </DataGridTemplateColumn>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.comm_Type}" wpf:UniDataGrid.ColumnKey="comm_Type"
+                                      wpf:UniDataGrid.UseDuplicateVisual="True"
+                                      ElementStyle="{DynamicResource DataGridCellElement.Text.Center}"
+                                      HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Center}"
+                                      Binding="{Binding comm_Type, StringFormat={StaticResource NumberFormat.Number}}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[comm_Type]}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.comm_TypeMemo}"
+                                      wpf:UniDataGrid.ColumnKey="comm_TypeMemo" wpf:UniDataGrid.UseDuplicateVisual="True"
+                                      HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Center}"
+                                      Binding="{Binding comm_TypeMemo}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[comm_TypeMemo]}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.comm_Type}" wpf:UniDataGrid.ColumnKey="comm_SortNo"
+                                      ElementStyle="{DynamicResource DataGridCellElement.Text.Center}"
+                                      HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Center}"
+                                      Binding="{Binding comm_SortNo, StringFormat={StaticResource NumberFormat.Number}}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[comm_SortNo]}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.comm_TypeNo}" wpf:UniDataGrid.ColumnKey="comm_TypeNo"
+                                      ElementStyle="{DynamicResource DataGridCellElement.Text.Center}"
+                                      HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Center}"
+                                      Binding="{Binding comm_TypeNo, StringFormat={StaticResource NumberFormat.Number.0}}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[comm_TypeNo]}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.comm_TypeNoMemo}"
+                                      wpf:UniDataGrid.ColumnKey="comm_TypeNoMemo"
+                                      HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Center}"
+                                      Binding="{Binding comm_TypeNoMemo}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[comm_TypeNoMemo]}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.comm_Data}" wpf:UniDataGrid.ColumnKey="comm_DataMoney"
+                                      ElementStyle="{DynamicResource DataGridCellElement.Text.Center}"
+                                      HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Center}"
+                                      Binding="{Binding comm_DataMoney, StringFormat={StaticResource NumberFormat.Double.2}}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[comm_DataMoney]}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.comm_Data}" wpf:UniDataGrid.ColumnKey="comm_DataInt"
+                                      ElementStyle="{DynamicResource DataGridCellElement.Text.Center}"
+                                      HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Center}"
+                                      Binding="{Binding comm_DataInt, StringFormat={StaticResource NumberFormat.Number}}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[comm_DataInt]}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.comm_Data}" wpf:UniDataGrid.ColumnKey="comm_DataString"
+                                      HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Center}"
+                                      Binding="{Binding comm_DataString}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[comm_DataString]}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.UseYnDesc}" wpf:UniDataGrid.ColumnKey="comm_UseYn"
+                                      ElementStyle="{StaticResource DataGridCellElement.Text.Center}"
+                                      HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Center}"
+                                      Binding="{Binding comm_UseYnDesc}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[comm_UseYn]}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.DATETIME}" wpf:UniDataGrid.ColumnKey="comm_ModDate"
+                                      ElementStyle="{StaticResource DataGridCellElement.Text.Center}"
+                                      HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Center}"
+                                      Binding="{Binding ModDate, StringFormat={StaticResource DateTimeFormat.Default}}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[comm_ModDate]}"/>
+                  <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.EmpName}" wpf:UniDataGrid.ColumnKey="comm_ModUser"
+                                      ElementStyle="{StaticResource DataGridCellElement.Text.Center}"
+                                      HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Center}"
+                                      Binding="{Binding modEmpName}"
+                                      Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[comm_ModUser]}"/>
+                </DataGrid.Columns>
+              </wpf:UniDataGrid>
+            </Border>
+          </DockPanel>
+        </Border>
+      </DockPanel>
+    </wpf:OverlayLayout>
+  </Grid>
+</UserControl>

@@ -1,0 +1,159 @@
+<UserControl x:Class="UniBizBO.Views.V0.Page.UniSales.Code.BasicInfo.Store.StoreGroupPageV"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:boconverter="clr-namespace:UniBiz.Bo.Models.Converter;assembly=UniBiz.Bo.Models"
+             xmlns:bomodel_storedetail="clr-namespace:UniBiz.Bo.Models.UniBase.Store.StoreGroupDetail;assembly=UniBiz.Bo.Models"
+             xmlns:bomodel_storeheader="clr-namespace:UniBiz.Bo.Models.UniBase.Store.StoreGroupHeader;assembly=UniBiz.Bo.Models"
+             xmlns:control="clr-namespace:UniBizBO.Controls"
+             xmlns:control_combo="clr-namespace:UniBizBO.Controls.ComboBox"
+             xmlns:converter="clr-namespace:UniBizBO.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:s="https://github.com/canton7/Stylet"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
+             xmlns:vm="clr-namespace:UniBizBO.ViewModels.Page.UniSales.Code.BasicInfo.Store"
+             xmlns:wpf="clr-namespace:UniinfoNet.Windows.Wpf;assembly=UniinfoNet.Windows.Wpf">
+  <FrameworkElement.Resources>
+    <ResourceDictionary Source="pack://application:,,,/UniBizBO;component/Views/V0/Page/PageCommon.xaml"/>
+  </FrameworkElement.Resources>
+  <Grid>
+    <FrameworkElement.Resources>
+      <Style x:Key="_sgh_GroupName.Value" TargetType="{x:Type TextBlock}">
+        <Setter Property="TextBlock.Text" Value="{Binding sgh_GroupName}"/>
+        <Style.Triggers>
+          <DataTrigger Binding="{Binding sgh_IsUse}" Value="False">
+            <Setter Property="TextBlock.TextDecorations" Value="Strikethrough"/>
+          </DataTrigger>
+        </Style.Triggers>
+      </Style>
+    </FrameworkElement.Resources>
+    <wpf:OverlayLayout Style="{DynamicResource App.OverlayLayout.Job.Page}" OverlayContent="{Binding Job}">
+      <DockPanel>
+        <ui:SimpleStackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+          <control:PageTitleControl/>
+          <Button Style="{StaticResource Page.Button.Close}"/>
+        </ui:SimpleStackPanel>
+        <Border>
+          <DockPanel>
+            <Border Style="{StaticResource App.Border.Page.SearchBox}">
+              <wpf:FoldableBox DockPanel.Dock="Top" ExpandsCount="1">
+                <DockPanel>
+                  <wpf:AutoGrid AutoColumnsString=",,*,">
+                    <control_combo:UseYnComboControl Width="80" wpf:FocusMoveHelper.Left="{Binding RelativeSource={RelativeSource self}}"
+                                                     wpf:FocusMoveHelper.Right="{Binding ElementName=ctr_tb_keyword}" UseYn="{Binding Path=Param.Use}"/>
+                    <ComboBox Margin="12,0,0,0" wpf:FocusMoveHelper.Left="" wpf:FocusMoveHelper.Right=""
+                              DisplayMemberPath="comm_TypeNoMemo" Foreground="Black"
+                              Style="{DynamicResource App.ComboBox.Search}"
+                              ItemsSource="{Binding App.Sys.CommonCodes, Converter={x:Static converter:CommonCodeGroupConverter.Instance}, ConverterParameter={x:Static boconverter:CommonCodeTypes.StoreGroupType}}"
+                              SelectedItem="{Binding Param.StoreGroupType}"/>
+                    <TextBox x:Name="ctr_tb_keyword" Margin="12,0,0,0" mah:TextBoxHelper.SelectAllOnFocus="True"
+                             mah:TextBoxHelper.Watermark="키워드:그룹명,메모" wpf:FocusHelper.IsSetFocusWhenLoad="True"
+                             Style="{DynamicResource App.TextBox.Search}" wpf:FocusMoveHelper.Down="{Binding ElementName=Datas}"
+                             Text="{Binding Param.Keyword, UpdateSourceTrigger=PropertyChanged}">
+                      <UIElement.InputBindings>
+                        <KeyBinding Key="Return" CommandParameter="Search" Command="{Binding CmdDefaultFunc}"/>
+                      </UIElement.InputBindings>
+                    </TextBox>
+                  </wpf:AutoGrid>
+                </DockPanel>
+              </wpf:FoldableBox>
+            </Border>
+            <DockPanel LastChildFill="True">
+              <Border Width="240" DockPanel.Dock="Right" Style="{DynamicResource App.TreeView.Border}">
+                <TreeView Style="{DynamicResource App.TreeView}" ItemsSource="{Binding StoreGroupDatas}">
+                  <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                      <Setter Property="TreeViewItem.IsExpanded" Value="True"/>
+                    </Style>
+                  </ItemsControl.ItemContainerStyle>
+                  <FrameworkElement.Resources>
+                    <HierarchicalDataTemplate x:Key="{DataTemplateKey {x:Type bomodel_storeheader:StoreGroupHeaderView}}"
+                                              DataType="{x:Type bomodel_storeheader:StoreGroupHeaderView}" ItemsSource="{Binding Lt_Details}">
+                      <Button Style="{DynamicResource App.Button.Transparent}" Command="{s:Action DepthBtnClick}"
+                              CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+                        <StackPanel Orientation="Horizontal">
+                          <TextBlock Style="{StaticResource _sgh_GroupName.Value}"/>
+                          <TextBlock Foreground="Blue" Text="{Binding sgh_GroupTypeDescEx}"/>
+                        </StackPanel>
+                      </Button>
+                    </HierarchicalDataTemplate>
+                    <HierarchicalDataTemplate x:Key="{DataTemplateKey {x:Type bomodel_storedetail:StoreGroupDetailView}}"
+                                              DataType="{x:Type bomodel_storedetail:StoreGroupDetailView}">
+                      <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{DynamicResource App.TextBlock.Search.Label}" Text="{Binding si_StoreName}"/>
+                      </StackPanel>
+                    </HierarchicalDataTemplate>
+                  </FrameworkElement.Resources>
+                </TreeView>
+              </Border>
+              <Border>
+                <wpf:UniDataGrid x:Name="Datas" AutoGenerateColumns="False" CanUserEditGroupingView="False" IsReadOnly="true"
+                                 wpf:DataGridEventHelper.RowLeftDoubleClickCommand="{Binding CmdDataOpen}"
+                                 wpf:FocusMoveHelper.Down="{Binding RelativeSource={RelativeSource self}}"
+                                 wpf:FocusMoveHelper.Up="{Binding ElementName=ctr_tb_keyword}" DataView="{Binding DataView}"
+                                 ItemsSource="{Binding Datas}">
+                  <behavior:Interaction.Behaviors>
+                    <wpf:UniDataGridViewerProxyBehavior Viewer="{Binding GridViewer, Mode=OneWayToSource}"/>
+                    <wpf:UniDataGridDuplicatorProxyBehavior Duplicator="{Binding Duplicator, Mode=OneWayToSource}"/>
+                    <wpf:UniDataGridExporterProxyBehavior Exporter="{Binding Exporter, Mode=OneWayToSource}"/>
+                  </behavior:Interaction.Behaviors>
+                  <FrameworkElement.Resources>
+                    <ResourceDictionary/>
+                  </FrameworkElement.Resources>
+                  <DataGrid.Columns>
+                    <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.row_number}" wpf:UniDataGrid.ColumnKey="row_number"
+                                        ElementStyle="{DynamicResource DataGridCellElement.Text.Right}"
+                                        HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Right}"
+                                        Binding="{Binding row_number, StringFormat={StaticResource NumberFormat.Number}}"
+                                        Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[row_number]}"/>
+                    <DataGridTemplateColumn Width="{StaticResource DataGridHeaderWidth.sgh_GroupName}"
+                                            wpf:UniDataGrid.ColumnKey="sgh_GroupName" SortMemberPath="sgh_GroupName"
+                                            ClipboardContentBinding="{Binding sgh_GroupName}"
+                                            Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[sgh_GroupName]}">
+                      <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                          <TextBlock Style="{StaticResource _sgh_GroupName.Value}"/>
+                        </DataTemplate>
+                      </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridComboBoxColumn Width="{StaticResource DataGridHeaderWidth.si_StoreType}" wpf:UniDataGrid.ColumnKey="sgh_GroupType"
+                                            DisplayMemberPath="comm_TypeNoMemo" SelectedValuePath="comm_TypeNo"
+                                            Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[sgh_GroupType]}"
+                                            ItemsSource="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[sgh_GroupType].CTypeGroupRaw}"
+                                            SelectedValueBinding="{Binding sgh_GroupType}">
+                      <DataGridComboBoxColumn.ClipboardContentBinding>
+                        <MultiBinding Converter="{x:Static converter:CommonCodeMultiConvereter.Instance}">
+                          <Binding Path="Data.App.Sys.CommonCodes" Source="{StaticResource vm}"/>
+                          <Binding Source="{x:Static boconverter:CommonCodeTypes.StoreGroupType}"/>
+                          <Binding Path="sgh_GroupType"/>
+                        </MultiBinding>
+                      </DataGridComboBoxColumn.ClipboardContentBinding>
+                    </DataGridComboBoxColumn>
+                    <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.MEMO}" wpf:UniDataGrid.ColumnKey="sgh_Memo"
+                                        Binding="{Binding sgh_MemoEnterSkip}"
+                                        Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[sgh_Memo]}"/>
+                    <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.UseYnDesc}" wpf:UniDataGrid.ColumnKey="sgh_UseYn"
+                                        ElementStyle="{StaticResource DataGridCellElement.Text.Center}"
+                                        HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Center}"
+                                        Binding="{Binding sgh_UseYnDesc}"
+                                        Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[sgh_UseYn]}"/>
+                    <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.DATETIME}" wpf:UniDataGrid.ColumnKey="sgh_ModDate"
+                                        ElementStyle="{StaticResource DataGridCellElement.Text.Center}"
+                                        HeaderTemplate="{StaticResource _DataTemplate.DataGridColumnHeader.Center}"
+                                        Binding="{Binding ModDate, StringFormat={StaticResource DateTimeFormat.Default}}"
+                                        Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[sgh_ModDate]}"/>
+                    <DataGridTextColumn Width="{StaticResource DataGridHeaderWidth.EmpName}" wpf:UniDataGrid.ColumnKey="modEmpName"
+                                        ElementStyle="{StaticResource DataGridCellElement.Text.Center}" Binding="{Binding EmpName}"
+                                        Header="{Binding Source={StaticResource vm}, Path=Data.DataHeaders[modEmpName]}"/>
+                  </DataGrid.Columns>
+                </wpf:UniDataGrid>
+              </Border>
+            </DockPanel>
+          </DockPanel>
+        </Border>
+      </DockPanel>
+    </wpf:OverlayLayout>
+  </Grid>
+</UserControl>

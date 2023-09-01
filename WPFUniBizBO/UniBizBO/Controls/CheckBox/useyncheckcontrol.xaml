@@ -1,0 +1,29 @@
+<UserControl x:Class="UniBizBO.Controls.CheckBox.UseYnCheckControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:UniBizBO.Controls.CheckBox"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Name="root" MinWidth="10" HorizontalAlignment="Left">
+  <StackPanel Orientation="Horizontal">
+    <CheckBox Margin="3,0" VerticalContentAlignment="Center"
+              IsChecked="{Binding ElementName=root, Path=UseYn, Mode=TwoWay}"
+              IsThreeState="{Binding ElementName=root, Path=IsThreeState}">사용여부</CheckBox>
+    <Border Width="3"/>
+    <TextBlock VerticalAlignment="Center" Opacity="0.5">
+      <FrameworkElement.Style>
+        <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="{x:Type TextBlock}">
+          <Setter Property="TextBlock.Text" Value="선택안함"/>
+          <Style.Triggers>
+            <DataTrigger Binding="{Binding ElementName=root, Path=UseYn}" Value="true">
+              <Setter Property="TextBlock.Text" Value="사용"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ElementName=root, Path=UseYn}" Value="false">
+              <Setter Property="TextBlock.Text" Value="미사용"/>
+            </DataTrigger>
+          </Style.Triggers>
+        </Style>
+      </FrameworkElement.Style>
+    </TextBlock>
+  </StackPanel>
+</UserControl>

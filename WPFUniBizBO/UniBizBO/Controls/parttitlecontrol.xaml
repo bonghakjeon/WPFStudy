@@ -1,0 +1,45 @@
+<UserControl x:Class="UniBizBO.Controls.PartTitleControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:UniBizBO.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:UniBizBO.Controls"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Name="root">
+  <Grid>
+    <Border Padding="6">
+      <StackPanel Orientation="Vertical">
+        <DockPanel>
+          <Border DockPanel.Dock="Left">
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+              <Image Margin="4" VerticalAlignment="Center" Style="{DynamicResource App.Image.Icon}"
+                     Source="{Binding MenuInfo.IconPath, Converter={x:Static converters:IconPathConverter.Instance}}">
+                <FrameworkElement.ToolTip>
+                  <TextBlock Text="{Binding MenuInfo.IconPath}"/>
+                </FrameworkElement.ToolTip>
+              </Image>
+              <TextBlock VerticalAlignment="Center" Text="{Binding ElementName=root, Path=Title, FallbackValue=타이틀}"/>
+            </StackPanel>
+          </Border>
+          <Border DockPanel.Dock="Right">
+            <ContentControl Content="{Binding ElementName=root, Path=CommandContent, FallbackValue=설명}">
+              <FrameworkElement.Resources>
+                <Style BasedOn="{StaticResource App.Button}" TargetType="{x:Type Button}">
+                  <Setter Property="FrameworkElement.Width" Value="70"/>
+                  <Setter Property="FrameworkElement.VerticalAlignment" Value="Stretch"/>
+                  <Setter Property="FrameworkElement.Margin" Value="0"/>
+                </Style>
+              </FrameworkElement.Resources>
+            </ContentControl>
+          </Border>
+          <Border/>
+        </DockPanel>
+        <Border Padding="4">
+          <ContentControl TextElement.Foreground="{DynamicResource App.Brush.Foreground.L4}"
+                          Content="{Binding ElementName=root, Path=ExplainContent, FallbackValue=설명}"/>
+        </Border>
+      </StackPanel>
+    </Border>
+  </Grid>
+</UserControl>

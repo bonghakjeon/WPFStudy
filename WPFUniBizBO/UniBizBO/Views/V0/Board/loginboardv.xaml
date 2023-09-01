@@ -1,0 +1,39 @@
+<Window x:Class="UniBizBO.Views.V0.Board.LoginBoardV"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:UniBizBO.Views.V0.Board"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        xmlns:wpf="clr-namespace:UniinfoNet.Windows.Wpf;assembly=UniinfoNet.Windows.Wpf"
+        Title="LoginBoardV" Width="800" Height="450">
+  <Grid>
+    <ui:SimpleStackPanel Width="500" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+      <ui:SimpleStackPanel Orientation="Horizontal" Spacing="10">
+        <TextBlock Width="50" Text="사이트ID"/>
+        <TextBox Width="400" Text="{Binding SiteViewCode, UpdateSourceTrigger=PropertyChanged}"/>
+      </ui:SimpleStackPanel>
+      <ui:SimpleStackPanel Orientation="Horizontal" Spacing="10">
+        <TextBlock Width="50" Text="사이트명"/>
+        <TextBox Width="400"/>
+      </ui:SimpleStackPanel>
+      <ui:SimpleStackPanel Orientation="Horizontal" Spacing="10">
+        <TextBlock Width="50" Text="ID"/>
+        <TextBox Width="400" Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}"/>
+      </ui:SimpleStackPanel>
+      <ui:SimpleStackPanel Orientation="Horizontal" Spacing="10">
+        <TextBlock Width="50" Text="비밀번호"/>
+        <PasswordBox Width="400" wpf:PasswordBoxHelper.BindPassword="true" PasswordChar="*"
+                     wpf:PasswordBoxHelper.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+      </ui:SimpleStackPanel>
+      <ui:SimpleStackPanel Orientation="Horizontal" Spacing="10">
+        <TextBlock Width="50" Text="서버주소"/>
+        <TextBox Width="400" Text="{Binding ServerPath, UpdateSourceTrigger=PropertyChanged}"/>
+      </ui:SimpleStackPanel>
+      <ui:SimpleStackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="10">
+        <Button Width="100" Height="40" Content="닫기" Command="{Binding CmdClose}"/>
+        <Button Width="100" Height="40" Content="로그인" Command="{Binding CmdLogin}"/>
+      </ui:SimpleStackPanel>
+    </ui:SimpleStackPanel>
+  </Grid>
+</Window>

@@ -1,0 +1,45 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ex="urn:controlzex"
+                    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="Base.xaml"/>
+    <ResourceDictionary Source="Control/All.xaml"/>
+    <ResourceDictionary Source="Format.xaml"/>
+    <ResourceDictionary Source="Part/All.xaml"/>
+    <ResourceDictionary Source="Page/All.xaml"/>
+    <ResourceDictionary Source="Part/All.xaml"/>
+    <ResourceDictionary Source="Board/All.xaml"/>
+  </ResourceDictionary.MergedDictionaries>
+  <Style x:Key="App.UserControl.SearchControl" BasedOn="{StaticResource {x:Type UserControl}}"
+         TargetType="{x:Type UserControl}">
+    <Setter Property="FrameworkElement.Margin" Value="0"/>
+    <Setter Property="FrameworkElement.MinWidth" Value="100"/>
+    <Setter Property="FrameworkElement.MinHeight" Value="24"/>
+    <Setter Property="FrameworkElement.VerticalAlignment" Value="Center"/>
+    <Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
+  </Style>
+  <Style x:Key="App.PopupEx.PopupMenu" TargetType="{x:Type PopupEx}">
+    <Setter Property="Popup.AllowsTransparency" Value="True"/>
+    <Setter Property="Popup.StaysOpen" Value="False"/>
+    <Setter Property="Panel.ZIndex" Value="1000"/>
+    <Setter Property="Popup.Placement" Value="Mouse"/>
+  </Style>
+  <Style x:Key="App.ClipBorder.PopupMenu.Space" TargetType="{x:Type mah:ClipBorder}">
+    <Setter Property="FrameworkElement.Margin" Value="3"/>
+    <Setter Property="mah:ClipBorder.Background" Value="{DynamicResource App.Brush.Background.D1}"/>
+    <Setter Property="mah:ClipBorder.CornerRadius" Value="8"/>
+    <Setter Property="mah:ClipBorder.BorderThickness" Value="1"/>
+    <Setter Property="mah:ClipBorder.BorderBrush" Value="{DynamicResource App.Brush.Foreground.L8}"/>
+    <Setter Property="UIElement.Effect">
+      <Setter.Value>
+        <DropShadowEffect BlurRadius="3" Opacity="0.5" ShadowDepth="0" Color="Black"/>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="App.Border.PopupMenu.Separator" TargetType="{x:Type Border}">
+    <Setter Property="Border.Background" Value="{DynamicResource App.Brush.Background.D9}"/>
+    <Setter Property="FrameworkElement.Margin" Value="0,0"/>
+    <Setter Property="Border.Padding" Value="0.5"/>
+  </Style>
+</ResourceDictionary>

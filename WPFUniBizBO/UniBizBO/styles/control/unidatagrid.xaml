@@ -1,0 +1,1151 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:bocommon="clr-namespace:UniBizBO.Common"
+                    xmlns:conv="http://metro.mahapps.com/winfx/xaml/shared"
+                    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                    xmlns:wpf="clr-namespace:UniinfoNet.Windows.Wpf;assembly=UniinfoNet.Windows.Wpf">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.CheckBox.xaml"/>
+    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.ComboBox.xaml"/>
+    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.TextBlock.xaml"/>
+    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.TextBox.xaml"/>
+    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.Expander.xaml"/>
+    <ResourceDictionary Source="JobItemsControl.xaml"/>
+    <ResourceDictionary Source="UniDataGrid.Sub.xaml"/>
+  </ResourceDictionary.MergedDictionaries>
+  <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+  <Style x:Key="App.GroupItem.UniDataGrid.ColumnDisplay" BasedOn="{StaticResource {x:Type GroupItem}}"
+         TargetType="{x:Type GroupItem}">
+    <Setter Property="Control.Template">
+      <Setter.Value>
+        <ControlTemplate>
+          <Border>
+            <DockPanel>
+              <Border DockPanel.Dock="Top">
+                <StackPanel Orientation="Vertical">
+                  <TextBlock Text="{Binding Name}"/>
+                  <TextBlock Text="{Binding ItemCount}"/>
+                </StackPanel>
+              </Border>
+              <ItemsPresenter/>
+            </DockPanel>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="App.DataGridRow.UniDataGrid" TargetType="{x:Type DataGridRow}">
+    <Setter Property="Control.Background" Value="{DynamicResource App.Brush.DataGrid.DataGridRow.Background}"/>
+    <Setter Property="FrameworkElement.Margin" Value="0"/>
+    <Setter Property="UIElement.SnapsToDevicePixels" Value="True"/>
+    <Setter Property="Control.Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type DataGridRow}">
+          <Grid>
+            <Border x:Name="DGR_Border" Background="{TemplateBinding Control.Background}"
+                    SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}">
+              <SelectiveScrollingGrid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="*"/>
+                  <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <DataGridCellsPresenter Grid.Column="1" ItemsPanel="{TemplateBinding DataGridRow.ItemsPanel}"
+                                        SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"/>
+                <DataGridDetailsPresenter Grid.Row="1" Grid.Column="1" Visibility="{TemplateBinding DataGridRow.DetailsVisibility}"
+                                          SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=AreRowDetailsFrozen, FallbackValue={x:Static SelectiveScrollingOrientation.Both}, TargetNullValue={x:Static SelectiveScrollingOrientation.Both}, Converter={x:Static DataGrid.RowDetailsScrollingConverter}, ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical}}"/>
+                <DataGridRowHeader Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
+                                   SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical"
+                                   Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=HeadersVisibility, FallbackValue={x:Static Visibility.Visible}, TargetNullValue={x:Static Visibility.Visible}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, ConverterParameter={x:Static DataGridHeadersVisibility.Row}}"/>
+              </SelectiveScrollingGrid>
+            </Border>
+            <Border Margin="0,-1,0,0" BorderBrush="{TemplateBinding Control.BorderBrush}"
+                    BorderThickness="{TemplateBinding Control.BorderThickness}" IsHitTestVisible="False"/>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="Validation.ErrorTemplate" Value="{x:Null}"/>
+    <Setter Property="DataGridRow.ValidationErrorTemplate"
+            Value="{DynamicResource MahApps.Templates.DataGridRow.ValidationError}"/>
+    <Setter Property="mah:DataGridHelper.CellPadding"
+            Value="{Binding Path=(mah:DataGridHelper.CellPadding), FallbackValue=0, TargetNullValue=0, Mode=OneWay, RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}}"/>
+    <Setter Property="mah:DataGridHelper.SelectionUnit"
+            Value="{Binding Path=SelectionUnit, FallbackValue={x:Static DataGridSelectionUnit.FullRow}, TargetNullValue={x:Static DataGridSelectionUnit.FullRow}, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+    <Style.Triggers>
+      <Trigger Property="DataGridRow.IsNewItem" Value="True">
+        <Setter Property="FrameworkElement.Margin"
+                Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=NewItemMargin}"/>
+      </Trigger>
+      <MultiTrigger>
+        <MultiTrigger.Conditions>
+          <Condition Property="mah:DataGridHelper.SelectionUnit" Value="FullRow"/>
+          <Condition Property="UIElement.IsMouseOver" Value="True"/>
+        </MultiTrigger.Conditions>
+        <Setter Property="Control.Background"
+                Value="{DynamicResource App.Brush.DataGrid.DataGridRow.Background.PointerOver}"/>
+        <Setter Property="Panel.ZIndex" Value="200"/>
+      </MultiTrigger>
+      <MultiTrigger>
+        <MultiTrigger.Conditions>
+          <Condition Property="mah:DataGridHelper.SelectionUnit" Value="FullRow"/>
+          <Condition Property="DataGridRow.IsSelected" Value="True"/>
+        </MultiTrigger.Conditions>
+        <Setter Property="Control.Background"
+                Value="{DynamicResource App.Brush.DataGrid.DataGridRow.Background.Selected}"/>
+        <Setter Property="Panel.ZIndex" Value="100"/>
+      </MultiTrigger>
+      <MultiTrigger>
+        <MultiTrigger.Conditions>
+          <Condition Property="mah:DataGridHelper.SelectionUnit" Value="FullRow"/>
+          <Condition Property="DataGridRow.IsSelected" Value="True"/>
+          <Condition Property="Selector.IsSelectionActive" Value="False"/>
+        </MultiTrigger.Conditions>
+        <Setter Property="Control.Background"
+                Value="{DynamicResource App.Brush.DataGrid.DataGridRow.Background.Selected}"/>
+        <Setter Property="Panel.ZIndex" Value="100"/>
+      </MultiTrigger>
+      <MultiTrigger>
+        <MultiTrigger.Conditions>
+          <Condition Property="mah:DataGridHelper.SelectionUnit" Value="FullRow"/>
+          <Condition Property="UIElement.IsEnabled" Value="False"/>
+        </MultiTrigger.Conditions>
+        <Setter Property="Control.Foreground" Value="{DynamicResource App.Brush.DataGrid.DataGridRow.Foreground}"/>
+      </MultiTrigger>
+    </Style.Triggers>
+  </Style>
+  <Style TargetType="{x:Type wpf:UniDataGridFooter}">
+    <Setter Property="Control.Background"
+            Value="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=FooterBackground}"/>
+    <Setter Property="Control.Foreground"
+            Value="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=FooterForeground}"/>
+    <Setter Property="Control.BorderBrush"
+            Value="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=VerticalGridLinesBrush, FallbackValue=Transparent}"/>
+    <Setter Property="Control.BorderThickness" Value="0,0,0,0"/>
+    <Setter Property="FrameworkElement.VerticalAlignment" Value="Center"/>
+  </Style>
+  <DataTemplate x:Key="App.DataTemplate.UniDataGrid.CategoryContent"
+                DataType="{x:Type bocommon:CategoryViewCollection}">
+    <ItemsControl HorizontalAlignment="Right"
+                  ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=DataView.CategoryViews}">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <WrapPanel IsItemsHost="False" Orientation="Horizontal"/>
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+      <ItemsControl.ItemContainerStyle>
+        <Style TargetType="{x:Type ContentPresenter}">
+          <Setter Property="FrameworkElement.Margin" Value="4,0"/>
+          <Setter Property="mah:VisibilityHelper.IsVisible" Value="{Binding IsExist}"/>
+        </Style>
+      </ItemsControl.ItemContainerStyle>
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <CheckBox VerticalContentAlignment="Center" Content="{Binding Name}"
+                    IsChecked="{Binding IsDisplay, Mode=TwoWay}"/>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+  </DataTemplate>
+  <Style x:Key="MahApps.Styles.ToggleButton.ExpanderHeader.Down.DataGrid.GroupItem"
+         BasedOn="{StaticResource MahApps.Styles.ToggleButton.ExpanderHeader.Down}"
+         TargetType="{x:Type ToggleButton}">
+    <Setter Property="FrameworkElement.MinHeight" Value="25"/>
+    <Setter Property="FrameworkElement.MinWidth" Value="0"/>
+    <Setter Property="Control.Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ToggleButton}">
+          <Grid Background="{TemplateBinding Control.Background}">
+            <Grid x:Name="RowGroupHeaderRoot" Margin="{TemplateBinding Control.Padding}" Background="Transparent"
+                  SnapsToDevicePixels="False">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="22"/>
+                <ColumnDefinition Width="*"/>
+              </Grid.ColumnDefinitions>
+              <Path x:Name="Arrow" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Data="M 1,1.5 L 4.5,5 8,1.5 " SnapsToDevicePixels="False"
+                    Stroke="{TemplateBinding Control.Foreground}" StrokeThickness="2"/>
+              <mah:ContentControlEx Grid.Column="1" Margin="4,0,0,0"
+                                    HorizontalContentAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
+                                    VerticalContentAlignment="{TemplateBinding Control.VerticalContentAlignment}"
+                                    Content="{TemplateBinding ContentControl.Content}"
+                                    ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}"
+                                    ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"
+                                    ContentTemplateSelector="{TemplateBinding ContentControl.ContentTemplateSelector}"
+                                    RecognizesAccessKey="{TemplateBinding mah:ControlsHelper.RecognizesAccessKey}"
+                                    SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"
+                                    ContentCharacterCasing="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ControlsHelper.ContentCharacterCasing)}"/>
+            </Grid>
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger Property="ToggleButton.IsChecked" Value="true">
+              <Setter TargetName="Arrow" Property="Path.Data" Value="M 1,4.5 L 4.5,1 8,4.5 "/>
+            </Trigger>
+            <Trigger Property="UIElement.IsMouseOver" Value="true">
+              <Setter Value="{DynamicResource MahApps.Brushes.Gray8}" Property="Control.Background"/>
+              <Setter TargetName="Arrow" Value="{DynamicResource MahApps.Brushes.Gray2}" Property="Shape.Stroke"/>
+            </Trigger>
+            <Trigger Property="ButtonBase.IsPressed" Value="true">
+              <Setter Value="{DynamicResource MahApps.Brushes.Gray9}" Property="Control.Background"/>
+              <Setter TargetName="Arrow" Value="{DynamicResource MahApps.Brushes.ThemeForeground}"
+                      Property="Shape.Stroke"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="MahApps.Styles.GroupItem.DataGrid" TargetType="{x:Type GroupItem}">
+    <Setter Property="FrameworkElement.MinHeight" Value="25"/>
+    <Setter Property="Control.Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type GroupItem}">
+          <Expander x:Name="PART_Header" Padding="0"
+                    mah:ExpanderHelper.HeaderDownStyle="{DynamicResource MahApps.Styles.ToggleButton.ExpanderHeader.Down.DataGrid.GroupItem}"
+                    mah:HeaderedControlHelper.HeaderBackground="{DynamicResource MahApps.Brushes.Gray8}"
+                    BorderThickness="0" Header="{TemplateBinding ContentControl.Content}"
+                    HeaderStringFormat="{TemplateBinding ContentControl.ContentStringFormat}"
+                    HeaderTemplate="{TemplateBinding ContentControl.ContentTemplate}"
+                    HeaderTemplateSelector="{TemplateBinding ContentControl.ContentTemplateSelector}" IsExpanded="True"
+                    mah:ExpanderHelper.CollapseStoryboard="{x:Null}" mah:ExpanderHelper.ExpandStoryboard="{x:Null}">
+            <ItemsPresenter x:Name="ItemsPresenter"/>
+          </Expander>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="App.ItemsControl.UniDataGrid.GroupingFooter"
+         TargetType="{x:Type wpf:UniDataGridGroupingFooterItemsControl}">
+    <Setter Property="UIElement.SnapsToDevicePixels" Value="True"/>
+    <Setter Property="ItemsControl.ItemsSource"
+            Value="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=Columns, Mode=OneWay}"/>
+    <Setter Property="ItemsControl.ItemsPanel">
+      <Setter.Value>
+        <ItemsPanelTemplate>
+          <StackPanel IsItemsHost="False" Orientation="Horizontal"/>
+        </ItemsPanelTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="ItemsControl.ItemContainerStyle">
+      <Setter.Value>
+        <Style TargetType="{x:Type ContentPresenter}">
+          <Setter Property="FrameworkElement.MinHeight" Value="26"/>
+          <Setter Property="FrameworkElement.Width" Value="{Binding ActualWidth}"/>
+          <Setter Property="UIElement.Visibility" Value="{Binding Visibility}"/>
+        </Style>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="ItemsControl.ItemTemplate">
+      <Setter.Value>
+        <DataTemplate>
+          <Border Padding="7,3" BorderThickness="0,0,1,0"
+                  BorderBrush="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=VerticalGridLinesBrush, FallbackValue=Transparent}">
+            <FrameworkElement.Style>
+              <Style TargetType="{x:Type Border}">
+                <Setter Property="UIElement.Visibility" Value="Visible"/>
+                <Style.Triggers>
+                  <DataTrigger Binding="{Binding Path=(wpf:UniDataGrid.GroupingFooterTemplate)}" Value="{x:Null}">
+                    <Setter Property="UIElement.Visibility" Value="Collapsed"/>
+                  </DataTrigger>
+                </Style.Triggers>
+              </Style>
+            </FrameworkElement.Style>
+            <wpf:UniDataGridGroupingFooterContentControl Content="{Binding}" ContentTemplate="{Binding Path=(wpf:UniDataGrid.GroupingFooterTemplate)}"/>
+          </Border>
+        </DataTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="App.Expander.UniDataGrid" TargetType="{x:Type Expander}">
+    <Setter Property="Control.BorderBrush" Value="{DynamicResource MahApps.Brushes.Accent}"/>
+    <Setter Property="Control.BorderThickness" Value="1"/>
+    <Setter Property="mah:ControlsHelper.ContentCharacterCasing" Value="Upper"/>
+    <Setter Property="mah:ExpanderHelper.CollapseStoryboard"
+            Value="{StaticResource MahApps.Storyboard.Expander.Collapse}"/>
+    <Setter Property="mah:ExpanderHelper.ExpandStoryboard"
+            Value="{StaticResource MahApps.Storyboard.Expander.Expand}"/>
+    <Setter Property="mah:ExpanderHelper.HeaderDownStyle"
+            Value="{StaticResource MahApps.Styles.ToggleButton.ExpanderHeader.Down}"/>
+    <Setter Property="mah:ExpanderHelper.HeaderLeftStyle"
+            Value="{StaticResource MahApps.Styles.ToggleButton.ExpanderHeader.Left}"/>
+    <Setter Property="mah:ExpanderHelper.HeaderRightStyle"
+            Value="{StaticResource MahApps.Styles.ToggleButton.ExpanderHeader.Right}"/>
+    <Setter Property="mah:ExpanderHelper.HeaderUpStyle"
+            Value="{StaticResource MahApps.Styles.ToggleButton.ExpanderHeader.Up}"/>
+    <Setter Property="mah:HeaderedControlHelper.HeaderBackground"
+            Value="{DynamicResource MahApps.Brushes.Accent}"/>
+    <Setter Property="mah:HeaderedControlHelper.HeaderFontSize"
+            Value="{DynamicResource MahApps.Font.Size.Content}"/>
+    <Setter Property="mah:HeaderedControlHelper.HeaderForeground" Value="{x:Null}"/>
+    <Setter Property="Control.Foreground" Value="{DynamicResource App.Brush.Foreground.L1}"/>
+    <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
+    <Setter Property="Expander.IsExpanded" Value="True"/>
+    <Setter Property="Control.Padding" Value="0"/>
+    <Setter Property="UIElement.SnapsToDevicePixels" Value="True"/>
+    <Setter Property="Control.Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Expander}">
+          <Grid>
+            <Rectangle x:Name="DisabledVisualElement" Fill="{DynamicResource MahApps.Brushes.Control.Disabled}"
+                       IsHitTestVisible="false" Opacity="0"/>
+            <DockPanel x:Name="ExpanderRoot">
+              <Border x:Name="HeaderSite" Background="{TemplateBinding mah:HeaderedControlHelper.HeaderBackground}"
+                      BorderBrush="{TemplateBinding Control.BorderBrush}"
+                      BorderThickness="{TemplateBinding Control.BorderThickness}" DockPanel.Dock="Top"
+                      SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" UseLayoutRounding="True"
+                      CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ControlsHelper.CornerRadius), Converter={StaticResource CornerRadiusBindingConverter}, ConverterParameter={x:Static mah:RadiusType.Bottom}}">
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=InnerScrollViewer.HorizontalOffset}"/>
+                    <ColumnDefinition Width="*"/>
+                  </Grid.ColumnDefinitions>
+                  <ToggleButton x:Name="ToggleSite" Grid.Column="1" Content="{TemplateBinding HeaderedContentControl.Header}"
+                                ContentStringFormat="{TemplateBinding HeaderedContentControl.HeaderStringFormat}"
+                                ContentTemplate="{TemplateBinding HeaderedContentControl.HeaderTemplate}"
+                                ContentTemplateSelector="{TemplateBinding HeaderedContentControl.HeaderTemplateSelector}"
+                                FontFamily="{TemplateBinding mah:HeaderedControlHelper.HeaderFontFamily}"
+                                FontSize="{TemplateBinding mah:HeaderedControlHelper.HeaderFontSize}"
+                                FontStretch="{TemplateBinding mah:HeaderedControlHelper.HeaderFontStretch}"
+                                FontWeight="{TemplateBinding mah:HeaderedControlHelper.HeaderFontWeight}" UseLayoutRounding="False"
+                                mah:ControlsHelper.ContentCharacterCasing="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ControlsHelper.ContentCharacterCasing)}"
+                                IsChecked="{Binding Path=IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                Style="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ExpanderHelper.HeaderDownStyle)}">
+                    <Control.Foreground>
+                      <MultiBinding Converter="{x:Static mah:BackgroundToForegroundConverter.Instance}">
+                        <Binding Mode="OneWay" Path="(mah:HeaderedControlHelper.HeaderBackground)"
+                                 RelativeSource="{RelativeSource TemplatedParent}"/>
+                        <Binding Mode="OneWay" Path="(mah:HeaderedControlHelper.HeaderForeground)"
+                                 RelativeSource="{RelativeSource TemplatedParent}"/>
+                      </MultiBinding>
+                    </Control.Foreground>
+                  </ToggleButton>
+                </Grid>
+              </Border>
+              <Border x:Name="ExpandSite" HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
+                      VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}"
+                      Background="{TemplateBinding Control.Background}"
+                      BorderBrush="{TemplateBinding Control.BorderBrush}" DockPanel.Dock="Bottom" Focusable="false"
+                      Opacity="0" SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"
+                      UseLayoutRounding="True"
+                      BorderThickness="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, Converter={StaticResource ThicknessBindingConverter}, ConverterParameter={x:Static mah:ThicknessSideType.Top}}"
+                      CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ControlsHelper.CornerRadius), Converter={StaticResource CornerRadiusBindingConverter}, ConverterParameter={x:Static mah:RadiusType.Top}}">
+                <StackPanel Orientation="Vertical">
+                  <ContentPresenter Margin="{TemplateBinding Control.Padding}" Content="{TemplateBinding ContentControl.Content}"
+                                    ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"
+                                    Cursor="{TemplateBinding FrameworkElement.Cursor}" UseLayoutRounding="False"/>
+                  <Border x:Name="FooterSite"
+                          mah:VisibilityHelper.IsVisible="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=DataView.IsUseGroupingFooter}">
+                    <Grid>
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                      </Grid.ColumnDefinitions>
+                      <wpf:UniDataGridGroupingFooterItemsControl x:Name="PART_FooterItemsControl" Grid.Column="1" SnapsToDevicePixels="True"
+                                                                 Style="{DynamicResource App.ItemsControl.UniDataGrid.GroupingFooter}"/>
+                    </Grid>
+                  </Border>
+                </StackPanel>
+              </Border>
+            </DockPanel>
+            <VisualStateManager.VisualStateGroups>
+              <VisualStateGroup x:Name="CommonStates">
+                <VisualState x:Name="Normal"/>
+                <VisualState x:Name="MouseOver"/>
+                <VisualState x:Name="Disabled">
+                  <Storyboard>
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DisabledVisualElement" Storyboard.TargetProperty="Opacity">
+                      <SplineDoubleKeyFrame KeyTime="0" Value="0.7"/>
+                    </DoubleAnimationUsingKeyFrames>
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ExpanderRoot" Storyboard.TargetProperty="(UIElement.Opacity)">
+                      <EasingDoubleKeyFrame KeyTime="0" Value="0.3"/>
+                    </DoubleAnimationUsingKeyFrames>
+                  </Storyboard>
+                </VisualState>
+              </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger Property="Expander.IsExpanded" Value="True">
+              <Setter TargetName="ExpandSite" Property="UIElement.Opacity" Value="1"/>
+              <Setter TargetName="ExpandSite" Property="UIElement.Visibility" Value="Visible"/>
+            </Trigger>
+            <Trigger Property="Expander.IsExpanded" Value="False">
+              <Setter TargetName="ExpandSite" Property="UIElement.Opacity" Value="0"/>
+              <Setter TargetName="ExpandSite" Property="UIElement.Visibility" Value="Collapsed"/>
+            </Trigger>
+            <Trigger Property="Expander.ExpandDirection" Value="Right">
+              <Setter TargetName="ExpandSite"
+                      Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, Converter={StaticResource ThicknessBindingConverter}, ConverterParameter={x:Static mah:ThicknessSideType.Left}}"
+                      Property="Border.BorderThickness"/>
+              <Setter TargetName="ExpandSite"
+                      Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ControlsHelper.CornerRadius), Converter={StaticResource CornerRadiusBindingConverter}, ConverterParameter={x:Static mah:RadiusType.Left}}"
+                      Property="Border.CornerRadius"/>
+              <Setter TargetName="ExpandSite" Property="DockPanel.Dock" Value="Right"/>
+              <Setter TargetName="HeaderSite"
+                      Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ControlsHelper.CornerRadius), Converter={StaticResource CornerRadiusBindingConverter}, ConverterParameter={x:Static mah:RadiusType.Right}}"
+                      Property="Border.CornerRadius"/>
+              <Setter TargetName="HeaderSite" Property="DockPanel.Dock" Value="Left"/>
+              <Setter TargetName="ToggleSite"
+                      Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ExpanderHelper.HeaderRightStyle)}"
+                      Property="FrameworkElement.Style"/>
+            </Trigger>
+            <Trigger Property="Expander.ExpandDirection" Value="Up">
+              <Setter TargetName="ExpandSite"
+                      Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, Converter={StaticResource ThicknessBindingConverter}, ConverterParameter={x:Static mah:ThicknessSideType.Bottom}}"
+                      Property="Border.BorderThickness"/>
+              <Setter TargetName="ExpandSite"
+                      Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ControlsHelper.CornerRadius), Converter={StaticResource CornerRadiusBindingConverter}, ConverterParameter={x:Static mah:RadiusType.Bottom}}"
+                      Property="Border.CornerRadius"/>
+              <Setter TargetName="ExpandSite" Property="DockPanel.Dock" Value="Top"/>
+              <Setter TargetName="HeaderSite"
+                      Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ControlsHelper.CornerRadius), Converter={StaticResource CornerRadiusBindingConverter}, ConverterParameter={x:Static mah:RadiusType.Top}}"
+                      Property="Border.CornerRadius"/>
+              <Setter TargetName="HeaderSite" Property="DockPanel.Dock" Value="Bottom"/>
+              <Setter TargetName="ToggleSite"
+                      Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ExpanderHelper.HeaderUpStyle)}"
+                      Property="FrameworkElement.Style"/>
+            </Trigger>
+            <Trigger Property="Expander.ExpandDirection" Value="Left">
+              <Setter TargetName="ExpandSite"
+                      Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, Converter={StaticResource ThicknessBindingConverter}, ConverterParameter={x:Static mah:ThicknessSideType.Right}}"
+                      Property="Border.BorderThickness"/>
+              <Setter TargetName="ExpandSite"
+                      Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ControlsHelper.CornerRadius), Converter={StaticResource CornerRadiusBindingConverter}, ConverterParameter={x:Static mah:RadiusType.Right}}"
+                      Property="Border.CornerRadius"/>
+              <Setter TargetName="ExpandSite" Property="DockPanel.Dock" Value="Left"/>
+              <Setter TargetName="HeaderSite"
+                      Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ControlsHelper.CornerRadius), Converter={StaticResource CornerRadiusBindingConverter}, ConverterParameter={x:Static mah:RadiusType.Left}}"
+                      Property="Border.CornerRadius"/>
+              <Setter TargetName="HeaderSite" Property="DockPanel.Dock" Value="Right"/>
+              <Setter TargetName="ToggleSite"
+                      Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ExpanderHelper.HeaderLeftStyle)}"
+                      Property="FrameworkElement.Style"/>
+            </Trigger>
+            <Trigger Property="Expander.IsExpanded" Value="false">
+              <Setter TargetName="HeaderSite"
+                      Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ControlsHelper.CornerRadius)}"
+                      Property="Border.CornerRadius"/>
+            </Trigger>
+            <Trigger Property="UIElement.IsEnabled" Value="false">
+              <Setter Value="{DynamicResource {x:Static JetSystemColors.GrayTextBrushKey}}" Property="Control.Foreground"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="App.GroupItem.UniDataGrid.RowGroup" TargetType="{x:Type GroupItem}">
+    <Setter Property="FrameworkElement.MinHeight" Value="25"/>
+    <Setter Property="UIElement.SnapsToDevicePixels" Value="True"/>
+    <Setter Property="Control.Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type GroupItem}">
+          <Expander x:Name="PART_Header" Padding="0"
+                    mah:ExpanderHelper.HeaderDownStyle="{DynamicResource MahApps.Styles.ToggleButton.ExpanderHeader.Down.DataGrid.GroupItem}"
+                    mah:HeaderedControlHelper.HeaderBackground="{DynamicResource App.Brush.Background.D6}"
+                    BorderThickness="0" Header="{TemplateBinding ContentControl.Content}"
+                    HeaderStringFormat="{TemplateBinding ContentControl.ContentStringFormat}"
+                    HeaderTemplate="{TemplateBinding ContentControl.ContentTemplate}"
+                    HeaderTemplateSelector="{TemplateBinding ContentControl.ContentTemplateSelector}" IsExpanded="True"
+                    Style="{DynamicResource App.Expander.UniDataGrid}" mah:ExpanderHelper.CollapseStoryboard="{x:Null}"
+                    mah:ExpanderHelper.ExpandStoryboard="{x:Null}">
+            <ItemsPresenter x:Name="ItemsPresenter"/>
+          </Expander>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="App.GroupItem.UniDataGrid.RowGroup.Headerless" TargetType="{x:Type GroupItem}">
+    <Setter Property="FrameworkElement.MinHeight" Value="25"/>
+    <Setter Property="Control.BorderThickness" Value="0,0,0,1"/>
+    <Setter Property="Control.BorderBrush" Value="{DynamicResource App.Brush.Accent}"/>
+    <Setter Property="Control.Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type GroupItem}">
+          <Grid Margin="{TemplateBinding FrameworkElement.Margin}">
+            <StackPanel Orientation="Vertical">
+              <Border Padding="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="Transparent"
+                      Opacity="1.0">
+                <FrameworkElement.Resources>
+                  <Style x:Key="_text" BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="{x:Type TextBlock}">
+                    <Setter Property="TextBlock.FontSize" Value="12"/>
+                    <Setter Property="TextBlock.Foreground"
+                            Value="{Binding RelativeSource={RelativeSource AncestorType=GroupItem}, Path=BorderBrush}"/>
+                    <Setter Property="FrameworkElement.Margin" Value="1"/>
+                  </Style>
+                </FrameworkElement.Resources>
+                <StackPanel Orientation="Horizontal">
+                  <ItemsControl ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=GroupItem}, Converter={x:Static wpf:ElementToFindParenCollectionViewGroupsConverter.Instance}}">
+                    <ItemsControl.ItemsPanel>
+                      <ItemsPanelTemplate>
+                        <StackPanel FlowDirection="RightToLeft" IsItemsHost="False" Orientation="Horizontal"/>
+                      </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                      <DataTemplate>
+                        <StackPanel FlowDirection="LeftToRight" Orientation="Horizontal">
+                          <TextBlock FontWeight="Bold" Style="{StaticResource _text}" Text="{Binding Name}"/>
+                          <TextBlock Style="{StaticResource _text}" Text="{Binding ItemCount, StringFormat=({0:0})}"/>
+                          <TextBlock Style="{StaticResource _text}" Text="→"/>
+                        </StackPanel>
+                      </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                  </ItemsControl>
+                  <TextBlock FontWeight="Bold" Style="{StaticResource _text}" Text="{Binding Name}"/>
+                  <TextBlock Style="{StaticResource _text}" Text="{Binding ItemCount, StringFormat=({0:0})}"/>
+                </StackPanel>
+              </Border>
+              <ItemsPresenter x:Name="ItemsPresenter"/>
+              <Grid mah:VisibilityHelper.IsVisible="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=DataView.IsUseGroupingFooter}">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto"/>
+                  <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border x:Name="FooterSite" Grid.Column="1">
+                  <wpf:UniDataGridGroupingFooterItemsControl x:Name="PART_FooterItemsControl"
+                                                             Style="{DynamicResource App.ItemsControl.UniDataGrid.GroupingFooter}"/>
+                </Border>
+              </Grid>
+            </StackPanel>
+            <Border BorderBrush="{TemplateBinding Control.BorderBrush}"
+                    BorderThickness="{TemplateBinding Control.BorderThickness}" IsHitTestVisible="False">
+              <Grid/>
+            </Border>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="App.Separator.UniDataGrid" TargetType="{x:Type Separator}">
+    <Setter Property="Control.Background" Value="{DynamicResource MahApps.Brushes.Gray7}"/>
+    <Setter Property="Control.Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Separator}">
+          <Rectangle Width="{TemplateBinding FrameworkElement.Width}" Height="{TemplateBinding FrameworkElement.Height}"
+                     Fill="{TemplateBinding Control.Background}"/>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="FrameworkElement.Width" Value="2"/>
+  </Style>
+  <Style x:Key="App.UniDataGrid.Default" BasedOn="{StaticResource UniDataGrid}"
+         TargetType="{x:Type wpf:UniDataGrid}">
+    <Setter Property="wpf:UniDataGrid.ControlPanelDock" Value="Bottom"/>
+    <Setter Property="VirtualizingPanel.VirtualizationMode" Value="Recycling"/>
+    <Setter Property="UIElement.SnapsToDevicePixels" Value="True"/>
+    <Setter Property="FrameworkElement.UseLayoutRounding" Value="True"/>
+    <Setter Property="FrameworkElement.MaxHeight" Value="4096"/>
+    <Setter Property="FrameworkElement.MaxWidth" Value="4096"/>
+    <Setter Property="DataGrid.CellStyle" Value="{DynamicResource App.DataGridCell.UniDataGrid}"/>
+    <Setter Property="DataGrid.ColumnHeaderStyle" Value="{DynamicResource App.DataGridColumnHeader}"/>
+    <Setter Property="wpf:UniDataGrid.CategoryContentTemplate"
+            Value="{DynamicResource App.DataTemplate.UniDataGrid.CategoryContent}"/>
+    <Setter Property="mah:DataGridHelper.CellPadding" Value="0"/>
+    <Setter Property="DataGrid.DropLocationIndicatorStyle" Value="{StaticResource App.Separator.UniDataGrid}"/>
+    <Setter Property="DataGrid.HeadersVisibility" Value="Column"/>
+    <Setter Property="DataGrid.MinRowHeight" Value="28"/>
+    <Setter Property="DataGrid.RowHeaderStyle" Value="{DynamicResource App.DataGridRowHeader.UniDataGrid}"/>
+    <Setter Property="DataGrid.RowStyle" Value="{DynamicResource App.DataGridRow.UniDataGrid}"/>
+    <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+    <Setter Property="wpf:UniDataGrid.CategorySource"
+            Value="{x:Static bocommon:ColumnCategoryDictionary.Default}"/>
+    <Setter Property="FrameworkElement.Margin" Value="0,0,0,0"/>
+    <Setter Property="DataGrid.GridLinesVisibility" Value="Vertical"/>
+    <Setter Property="DataGrid.AutoGenerateColumns" Value="False"/>
+    <Setter Property="DataGrid.VerticalGridLinesBrush"
+            Value="{DynamicResource App.Brush.DataGrid.VerticalGridLinesBrush}"/>
+    <Setter Property="DataGrid.HorizontalGridLinesBrush"
+            Value="{DynamicResource App.Brush.DataGrid.HorizontalGridLinesBrush}"/>
+    <Setter Property="Control.Background" Value="{DynamicResource App.Brush.DataGrid.Background}"/>
+    <Setter Property="DataGrid.RowBackground"
+            Value="{DynamicResource App.Brush.DataGrid.DataGridRow.Background}"/>
+    <Setter Property="wpf:UniDataGrid.GroupHeaderBackground"
+            Value="{DynamicResource App.Brush.DataGrid.GroupHeader.Background}"/>
+    <Setter Property="wpf:UniDataGrid.GroupHeaderForeground"
+            Value="{DynamicResource App.Brush.DataGrid.GroupHeader.Foreground}"/>
+    <Setter Property="wpf:UniDataGrid.GroupHeaderBorderBrush"
+            Value="{DynamicResource App.Brush.DataGrid.GroupHeader.BorderBrush}"/>
+    <Setter Property="wpf:UniDataGrid.GroupHeaderBorderThickness" Value="0,0,1,1"/>
+    <Setter Property="wpf:UniDataGrid.FooterBackground"
+            Value="{DynamicResource App.Brush.DataGrid.ColumnFooter.Background}"/>
+    <Setter Property="wpf:UniDataGrid.FooterForeground"
+            Value="{DynamicResource App.Brush.DataGrid.ColumnFooter.Foreground}"/>
+    <Setter Property="wpf:UniDataGrid.FooterBorderBrush"
+            Value="{DynamicResource App.Brush.DataGrid.ColumnFooter.BorderBrush}"/>
+    <Setter Property="wpf:UniDataGrid.FooterBorderThickness" Value="0,0,1,0"/>
+    <Setter Property="Control.BorderBrush" Value="{DynamicResource App.Brush.DataGrid.BorderBrush}"/>
+    <Setter Property="Control.BorderThickness" Value="1,1,0,1"/>
+    <Setter Property="DataGrid.CanUserResizeRows" Value="False"/>
+    <Setter Property="Control.FontSize" Value="12"/>
+    <Setter Property="wpf:UniDataGrid.ColumnGroupTemplate">
+      <Setter.Value>
+        <DataTemplate>
+          <Border Padding="3">
+            <TextBlock VerticalAlignment="Center" FontWeight="Bold" TextAlignment="Center" Text="{Binding}"/>
+          </Border>
+        </DataTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="mah:DataGridHelper.AutoGeneratedCheckBoxColumnEditingStyle"
+            Value="{StaticResource MahApps.Styles.CheckBox.DataGrid}"/>
+    <Setter Property="mah:DataGridHelper.AutoGeneratedCheckBoxColumnStyle"
+            Value="{StaticResource MahApps.Styles.CheckBox.DataGrid}"/>
+    <Setter Property="mah:DataGridHelper.AutoGeneratedComboBoxColumnEditingStyle"
+            Value="{StaticResource App.ComboBox.UniDataGridComboBoxColumn.Editing}"/>
+    <Setter Property="mah:DataGridHelper.AutoGeneratedComboBoxColumnStyle"
+            Value="{StaticResource App.ComboBox.UniDataGridComboBoxColumn}"/>
+    <Setter Property="mah:DataGridHelper.AutoGeneratedHyperlinkColumnEditingStyle"
+            Value="{StaticResource MahApps.Styles.TextBox.DataGrid.Editing}"/>
+    <Setter Property="mah:DataGridHelper.AutoGeneratedHyperlinkColumnStyle"
+            Value="{StaticResource MahApps.Styles.Hyperlink.DataGrid}"/>
+    <Setter Property="mah:DataGridHelper.AutoGeneratedNumericUpDownColumnEditingStyle"
+            Value="{StaticResource MahApps.Styles.NumericUpDown.DataGrid.Editing}"/>
+    <Setter Property="mah:DataGridHelper.AutoGeneratedNumericUpDownColumnStyle"
+            Value="{StaticResource MahApps.Styles.NumericUpDown.DataGrid}"/>
+    <Setter Property="mah:DataGridHelper.AutoGeneratedTextColumnEditingStyle"
+            Value="{StaticResource MahApps.Styles.TextBox.DataGrid.Editing}"/>
+    <Setter Property="mah:DataGridHelper.AutoGeneratedTextColumnStyle"
+            Value="{StaticResource MahApps.Styles.TextBlock.DataGrid}"/>
+    <Setter Property="mah:DataGridHelper.ColumnStylesHelper" Value="{mah:DataGridColumnStylesHelper}"/>
+    <Style.Triggers>
+      <MultiTrigger>
+        <MultiTrigger.Conditions>
+          <Condition Property="ItemsControl.IsGrouping" Value="true"/>
+          <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false"/>
+        </MultiTrigger.Conditions>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+      </MultiTrigger>
+      <Trigger Property="ItemsControl.IsGrouping" Value="True">
+        <Setter Property="VirtualizingPanel.ScrollUnit" Value="Pixel"/>
+        <Setter Property="VirtualizingPanel.VirtualizationMode" Value="Standard"/>
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+  <Style BasedOn="{StaticResource App.UniDataGrid.Default}" TargetType="{x:Type wpf:UniDataGrid}">
+    <Setter Property="Control.Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type wpf:UniDataGrid}">
+          <Border SnapsToDevicePixels="True">
+            <Grid>
+              <DockPanel>
+                <Border x:Name="PART_Controller" Background="{DynamicResource App.Brush.DataGrid.Controller.Background}"
+                        BorderBrush="{DynamicResource App.Brush.DataGrid.Controller.BorderBrush}" BorderThickness="0,0,0,1"
+                        DockPanel.Dock="{TemplateBinding wpf:UniDataGrid.ControlPanelDock}"
+                        Visibility="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=DataView, Converter={x:Static wpf:NotNullToVisibilityConverter.Instance}}">
+                  <DockPanel Margin="8,0,13,0" DataContext="{x:Null}">
+                    <Border Margin="0,8" VerticalAlignment="Bottom" DockPanel.Dock="Left"
+                            wpf:VisibilityHelper.IsVisible="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=CanUserEditFrozenColumns}">
+                      <StackPanel Orientation="Horizontal">
+                        <ComboBox MinWidth="100" Margin="0" SelectedValuePath="DisplayIndex"
+                                  ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=Columns}"
+                                  SelectedValue="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=FrozenColumnCount, Mode=TwoWay, FallbackValue=0, TargetNullValue=0}">
+                          <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                              <StackPanel Orientation="Horizontal">
+                                <TextBlock VerticalAlignment="Center" Opacity="0.5"
+                                           Text="{Binding Path=(wpf:UniDataGrid.ColumnGroup), FallbackValue=}"/>
+                                <Rectangle Width="2"/>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding Header, StringFormat={0}}"/>
+                              </StackPanel>
+                            </DataTemplate>
+                          </ItemsControl.ItemTemplate>
+                        </ComboBox>
+                        <Border Padding="1"/>
+                        <ComboBox MinWidth="52" Margin="0" SelectedValuePath="DataContext"
+                                  SelectedValue="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=SelectionUnit, Mode=TwoWay}">
+                          <ComboBoxItem DataContext="CellOrRowHeader">칸</ComboBoxItem>
+                          <ComboBoxItem DataContext="FullRow">행</ComboBoxItem>
+                        </ComboBox>
+                      </StackPanel>
+                    </Border>
+                    <Border DockPanel.Dock="Right">
+                      <StackPanel Orientation="Horizontal">
+                        <ToggleButton x:Name="button_categoryView" Style="{DynamicResource GridBottomControllerBtnStyle}"
+                                      wpf:VisibilityHelper.IsVisible="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=CanUserEditCategoryView}">
+                          <TextBlock VerticalAlignment="Center" Text="카테고리"/>
+                        </ToggleButton>
+                        <Border Margin="1"/>
+                        <ToggleButton x:Name="button_groupingView" Style="{DynamicResource GridBottomControllerBtnStyle}"
+                                      wpf:VisibilityHelper.IsVisible="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=CanUserEditGroupingView}">
+                          <TextBlock VerticalAlignment="Center" Text="그룹"/>
+                        </ToggleButton>
+                        <Border Margin="1"/>
+                        <ToggleButton x:Name="button_columnView" Style="{DynamicResource GridBottomControllerBtnStyle}"
+                                      wpf:VisibilityHelper.IsVisible="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=CanUserEditColumnView}">
+                          <TextBlock VerticalAlignment="Center" Text="컬럼"/>
+                        </ToggleButton>
+                        <Popup Style="{StaticResource _popupStyle}"
+                               IsOpen="{Binding ElementName=button_categoryView, Path=IsChecked}"
+                               PlacementTarget="{Binding ElementName=button_categoryView}">
+                          <Grid Margin="8">
+                            <Border Background="{TemplateBinding Control.Background}"
+                                    BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1"
+                                    Effect="{StaticResource _popupShadow}"/>
+                            <Border>
+                              <DockPanel>
+                                <Border Padding="3" Background="{TemplateBinding wpf:UniDataGrid.GroupHeaderBackground}"
+                                        BorderBrush="{TemplateBinding wpf:UniDataGrid.GroupHeaderBorderBrush}" BorderThickness="0,0,0,1"
+                                        DockPanel.Dock="Top"
+                                        TextElement.Foreground="{TemplateBinding wpf:UniDataGrid.GroupHeaderForeground}">
+                                  <TextBlock HorizontalAlignment="Center" Text="카테고리 설정"/>
+                                </Border>
+                                <Border x:Name="_boarder_notExistCategory" Padding="3" DockPanel.Dock="Top">
+                                  <FrameworkElement.Style>
+                                    <Style TargetType="{x:Type Border}">
+                                      <Setter Property="UIElement.Visibility" Value="Collapsed"/>
+                                      <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=DataView.CategoryViews.Count}"
+                                                     Value="0">
+                                          <Setter Property="UIElement.Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                      </Style.Triggers>
+                                    </Style>
+                                  </FrameworkElement.Style>
+                                  <TextBlock Text="설정할 수 있는 카테고리가 없습니다."/>
+                                </Border>
+                                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                                              wpf:VisibilityHelper.IsCollapsed="{Binding ElementName=_boarder_notExistCategory, Path=IsVisible}">
+                                  <Border Padding="3" VerticalAlignment="Center">
+                                    <ContentControl Content="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=DataView.CategoryViews}"
+                                                    ContentTemplate="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=CategoryContentTemplate}"/>
+                                  </Border>
+                                </ScrollViewer>
+                              </DockPanel>
+                            </Border>
+                          </Grid>
+                        </Popup>
+                        <Popup Style="{StaticResource _popupStyle}"
+                               IsOpen="{Binding ElementName=button_groupingView, Path=IsChecked}"
+                               PlacementTarget="{Binding ElementName=button_groupingView}">
+                          <Grid Margin="8">
+                            <Border Background="{TemplateBinding Control.Background}"
+                                    BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1"
+                                    Effect="{StaticResource _popupShadow}"/>
+                            <Border>
+                              <DockPanel>
+                                <Border Background="{TemplateBinding wpf:UniDataGrid.GroupHeaderBackground}"
+                                        BorderBrush="{TemplateBinding wpf:UniDataGrid.GroupHeaderBorderBrush}" BorderThickness="0,0,0,1"
+                                        DockPanel.Dock="Top"
+                                        TextElement.Foreground="{TemplateBinding wpf:UniDataGrid.GroupHeaderForeground}">
+                                  <TextBlock Margin="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="그룹설정"/>
+                                </Border>
+                                <Border x:Name="_boarder_notExistGroup" Padding="3" DockPanel.Dock="Top">
+                                  <FrameworkElement.Style>
+                                    <Style TargetType="{x:Type Border}">
+                                      <Setter Property="UIElement.Visibility" Value="Collapsed"/>
+                                      <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=DataView.GroupingViews.Count}"
+                                                     Value="0">
+                                          <Setter Property="UIElement.Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                      </Style.Triggers>
+                                    </Style>
+                                  </FrameworkElement.Style>
+                                  <TextBlock Text="설정할 수 있는 그룹이 없습니다."/>
+                                </Border>
+                                <Border wpf:VisibilityHelper.IsCollapsed="{Binding ElementName=_boarder_notExistGroup, Path=IsVisible}">
+                                  <DockPanel>
+                                    <Border Padding="3" DockPanel.Dock="Top">
+                                      <CheckBox VerticalAlignment="Center" VerticalContentAlignment="Center" Content="그룹계 보기"
+                                                IsChecked="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=DataView.IsUseGroupingFooter}"/>
+                                    </Border>
+                                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                                      <ItemsControl Padding="3"
+                                                    ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=DataView.GroupingViews}">
+                                        <ItemsControl.ItemTemplate>
+                                          <DataTemplate>
+                                            <Border MinWidth="50" MaxWidth="150" Margin="4,0">
+                                              <CheckBox VerticalContentAlignment="Center"
+                                                        IsChecked="{Binding IsGrouping, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                                <TextBlock Text="{Binding Name}"/>
+                                              </CheckBox>
+                                            </Border>
+                                          </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                      </ItemsControl>
+                                    </ScrollViewer>
+                                  </DockPanel>
+                                </Border>
+                              </DockPanel>
+                            </Border>
+                          </Grid>
+                        </Popup>
+                        <Popup Style="{StaticResource _popupStyle}"
+                               IsOpen="{Binding ElementName=button_columnView, Path=IsChecked}"
+                               PlacementTarget="{Binding ElementName=button_groupingView}">
+                          <Grid Margin="8">
+                            <Border Background="{TemplateBinding Control.Background}"
+                                    BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1"
+                                    Effect="{StaticResource _popupShadow}"/>
+                            <Border>
+                              <DockPanel>
+                                <Border Padding="3" Background="{TemplateBinding wpf:UniDataGrid.GroupHeaderBackground}"
+                                        BorderBrush="{TemplateBinding wpf:UniDataGrid.GroupHeaderBorderBrush}" BorderThickness="0,0,0,1"
+                                        DockPanel.Dock="Top"
+                                        TextElement.Foreground="{TemplateBinding wpf:UniDataGrid.GroupHeaderForeground}">
+                                  <TextBlock HorizontalAlignment="Center" Text="컬럼설정"/>
+                                </Border>
+                                <Border x:Name="_boarder_notExistColumn" Padding="3" DockPanel.Dock="Top">
+                                  <FrameworkElement.Style>
+                                    <Style TargetType="{x:Type Border}">
+                                      <Setter Property="UIElement.Visibility" Value="Collapsed"/>
+                                      <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=DataView.ColumnViews.Count}"
+                                                     Value="0">
+                                          <Setter Property="UIElement.Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                      </Style.Triggers>
+                                    </Style>
+                                  </FrameworkElement.Style>
+                                  <TextBlock Text="설정할 수 있는 컬럼이 없습니다."/>
+                                </Border>
+                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+                                              wpf:VisibilityHelper.IsCollapsed="{Binding ElementName=_boarder_notExistColumn, Path=IsVisible}">
+                                  <ItemsControl Padding="3"
+                                                ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=DataView.ColumnViews}">
+                                    <ItemsControl.ItemContainerStyle>
+                                      <Style TargetType="{x:Type ContentPresenter}">
+                                        <Setter Property="wpf:VisibilityHelper.IsVisible" Value="{Binding IsExist}"/>
+                                      </Style>
+                                    </ItemsControl.ItemContainerStyle>
+                                    <ItemsControl.ItemTemplate>
+                                      <DataTemplate>
+                                        <Border MinWidth="50" MaxWidth="150" Margin="4,0">
+                                          <CheckBox VerticalContentAlignment="Center"
+                                                    IsChecked="{Binding IsDisplay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                            <StackPanel Orientation="Horizontal">
+                                              <TextBlock FontWeight="Bold" Text="{Binding Columns[0].GroupName}"/>
+                                              <Border Margin="1"
+                                                      Visibility="{Binding Columns[0].GroupName, Converter={x:Static wpf:NotNullToVisibilityConverter.Instance}}"/>
+                                              <TextBlock Text="{Binding Columns[0].Name}"/>
+                                            </StackPanel>
+                                          </CheckBox>
+                                        </Border>
+                                      </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                  </ItemsControl>
+                                </ScrollViewer>
+                              </DockPanel>
+                            </Border>
+                          </Grid>
+                        </Popup>
+                      </StackPanel>
+                    </Border>
+                    <Border/>
+                  </DockPanel>
+                </Border>
+                <Border x:Name="PART_Controller_Content_Spliter" Padding="1"
+                        Background="{DynamicResource App.Brush.DataGrid.Controller.Background}"
+                        DockPanel.Dock="{TemplateBinding wpf:UniDataGrid.ControlPanelDock}"
+                        Visibility="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=DataView, Converter={x:Static wpf:NotNullToVisibilityConverter.Instance}}"/>
+                <Border x:Name="PART_Content" Padding="{TemplateBinding Control.Padding}"
+                        Background="{TemplateBinding Control.Background}"
+                        BorderBrush="{TemplateBinding Control.BorderBrush}"
+                        BorderThickness="{TemplateBinding Control.BorderThickness}">
+                  <Grid>
+                    <ScrollViewer x:Name="DG_ScrollViewer" Focusable="False">
+                      <Control.Template>
+                        <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                          <Grid>
+                            <Grid.ColumnDefinitions>
+                              <ColumnDefinition Width="Auto"/>
+                              <ColumnDefinition Width="*"/>
+                              <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                              <RowDefinition Height="Auto"/>
+                              <RowDefinition Height="Auto"/>
+                              <RowDefinition Height="*"/>
+                              <RowDefinition Height="Auto"/>
+                              <RowDefinition Height="Auto"/>
+                              <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" Grid.Column="1" DockPanel.Dock="Top"
+                                    wpf:VisibilityHelper.IsVisible="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=IsValidGroupColumn}">
+                              <ItemsControl MinHeight="28"
+                                            ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=GroupColumns, Mode=OneWay}"
+                                            Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Column}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
+                                <ItemsControl.ItemsPanel>
+                                  <ItemsPanelTemplate>
+                                    <Grid IsItemsHost="False"
+                                          wpf:GridHelper.ColumnDefinitions="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=VisibleColumnWidths, Mode=OneWay}"/>
+                                  </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemContainerStyle>
+                                  <Style TargetType="{x:Type ContentPresenter}">
+                                    <Setter Property="Grid.Column" Value="{Binding ColumnIndex}"/>
+                                    <Setter Property="Grid.ColumnSpan" Value="{Binding ColumnSpan}"/>
+                                  </Style>
+                                </ItemsControl.ItemContainerStyle>
+                                <ItemsControl.ItemTemplate>
+                                  <DataTemplate>
+                                    <Border Margin="0,0,0,0"
+                                            Background="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=GroupHeaderBackground}"
+                                            BorderBrush="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=GroupHeaderBorderBrush}"
+                                            BorderThickness="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=GroupHeaderBorderThickness}"
+                                            TextElement.Foreground="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=GroupHeaderForeground}">
+                                      <ContentControl Content="{Binding}"
+                                                      ContentTemplate="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=ColumnGroupTemplate}"/>
+                                    </Border>
+                                  </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                              </ItemsControl>
+                            </Border>
+                            <Border Grid.Row="0" Grid.Column="1"/>
+                            <Border Grid.Row="1" Grid.Column="1"
+                                    Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Column}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
+                              <DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter" Margin="0" Padding="0"/>
+                            </Border>
+                            <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                                    CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}"/>
+                            <Grid Row="1" RowSpan="2" Column="1">
+                              <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="{Binding NonFrozenColumnsViewportHorizontalOffset, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                                <ColumnDefinition Width="*"/>
+                              </Grid.ColumnDefinitions>
+                              <Border Grid.Column="0" BorderThickness="0,0,1,0" IsHitTestVisible="False"
+                                      BorderBrush="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=FrozenColumnLineBrush}">
+                                <UIElement.OpacityMask>
+                                  <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Offset="0" Color="Transparent"/>
+                                    <GradientStop Offset="0.5" Color="Black"/>
+                                    <GradientStop Offset="1" Color="Transparent"/>
+                                  </LinearGradientBrush>
+                                </UIElement.OpacityMask>
+                              </Border>
+                            </Grid>
+                            <ScrollBar x:Name="PART_VerticalScrollBar" Grid.Row="2" Grid.Column="2"
+                                       Maximum="{TemplateBinding ScrollViewer.ScrollableHeight}" Orientation="Vertical"
+                                       Style="{DynamicResource App.UniDataGrid.ScrollBar}"
+                                       ViewportSize="{TemplateBinding ScrollViewer.ViewportHeight}"
+                                       Visibility="{TemplateBinding ScrollViewer.ComputedVerticalScrollBarVisibility}"
+                                       Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <ItemsControl x:Name="PART_ColumnFooterItemsControl" Grid.Row="3" Grid.Column="1" MinHeight="28"
+                                          BorderThickness="0,1,0,0" Focusable="False"
+                                          wpf:VisibilityHelper.IsVisible="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=IsVisibleColumnFooter}"
+                                          Background="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=FooterBackground, Mode=OneWay}"
+                                          BorderBrush="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=BorderBrush}"
+                                          Foreground="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=FooterForeground, Mode=OneWay}"
+                                          ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=Columns, Mode=OneWay}">
+                              <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                  <Grid Focusable="False" IsItemsHost="False"
+                                        wpf:GridHelper.ColumnDefinitions="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=VisibleColumnWidths, Mode=OneWay}"/>
+                                </ItemsPanelTemplate>
+                              </ItemsControl.ItemsPanel>
+                              <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="{x:Type ContentPresenter}">
+                                  <Setter Property="Grid.Column"
+                                          Value="{Binding DisplayIndex, Converter={x:Static wpf:MathMaxConverter.Instance}}"/>
+                                  <Setter Property="Grid.ColumnSpan" Value="{Binding Path=(wpf:UniDataGrid.ColumnFooterSpan)}"/>
+                                  <Setter Property="UIElement.Focusable" Value="False"/>
+                                </Style>
+                              </ItemsControl.ItemContainerStyle>
+                              <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                  <Border Background="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=FooterBackground}"
+                                          BorderBrush="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=FooterBorderBrush}"
+                                          BorderThickness="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=FooterBorderThickness}">
+                                    <Border Focusable="False">
+                                      <FrameworkElement.Style>
+                                        <Style TargetType="{x:Type Border}">
+                                          <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=(wpf:UniDataGrid.ColumnFooterTemplate)}" Value="{x:Null}">
+                                              <Setter Property="UIElement.Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                          </Style.Triggers>
+                                        </Style>
+                                      </FrameworkElement.Style>
+                                      <wpf:UniDataGridFooter Focusable="False" Content="{Binding}"
+                                                             ContentTemplate="{Binding Path=(wpf:UniDataGrid.ColumnFooterTemplate)}"
+                                                             Foreground="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=FooterForeground}"/>
+                                    </Border>
+                                  </Border>
+                                </DataTemplate>
+                              </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <ItemsControl Grid.Row="4" Grid.Column="1" BorderThickness="0" Focusable="False"
+                                          wpf:VisibilityHelper.IsVisible="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=IsVisibleFooter}"
+                                          Background="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=FooterBackground, Mode=OneWay}"
+                                          BorderBrush="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=BorderBrush}"
+                                          Foreground="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=FooterForeground, Mode=OneWay}"
+                                          ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=FootersSource, Mode=OneWay}">
+                              <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                  <Grid Focusable="False" IsItemsHost="False"
+                                        wpf:GridHelper.ColumnDefinitions="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=VisibleColumnWidths, Mode=OneWay}"/>
+                                </ItemsPanelTemplate>
+                              </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                            <ScrollBar x:Name="PART_HorizontalScrollBar" Grid.Row="5" Grid.Column="1"
+                                       Maximum="{TemplateBinding ScrollViewer.ScrollableWidth}" Orientation="Horizontal"
+                                       Style="{DynamicResource App.UniDataGrid.ScrollBar}"
+                                       ViewportSize="{TemplateBinding ScrollViewer.ViewportWidth}"
+                                       Visibility="{TemplateBinding ScrollViewer.ComputedHorizontalScrollBarVisibility}"
+                                       Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                          </Grid>
+                        </ControlTemplate>
+                      </Control.Template>
+                      <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"/>
+                    </ScrollViewer>
+                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Vertical"
+                                wpf:VisibilityHelper.IsVisible="{Binding HasJob}"
+                                DataContext="{Binding RelativeSource={RelativeSource AncestorType=wpf:UniDataGrid}, Path=Job}">
+                      <ProgressBar Height="2" MinHeight="2" MaxHeight="2" Background="Transparent" BorderThickness="0" Maximum="1.0"
+                                   wpf:ProgressBarHelper.SmoothValue="{Binding Value, TargetNullValue=0}"
+                                   DataContext="{Binding First}" IsIndeterminate="{Binding IsIndeterminate, TargetNullValue=true}"/>
+                      <Border Margin="8" HorizontalAlignment="Right" Background="{TemplateBinding Control.Background}"
+                              BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="1"
+                              DataContext="{Binding First}">
+                        <FrameworkElement.Resources>
+                          <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="FrameworkElement.Margin" Value="1"/>
+                            <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                          </Style>
+                        </FrameworkElement.Resources>
+                        <DockPanel>
+                          <Button VerticalAlignment="Stretch" Background="Transparent" BorderThickness="0" DockPanel.Dock="Right"
+                                  wpf:VisibilityHelper.IsVisible="{Binding CanCancel}" Command="{Binding CmdCancel}">
+                            <TextBlock Text="취소"/>
+                          </Button>
+                          <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding Title}"/>
+                            <TextBlock Text="{Binding Msg}"/>
+                          </StackPanel>
+                        </DockPanel>
+                      </Border>
+                    </StackPanel>
+                    <Grid HorizontalAlignment="Right" VerticalAlignment="Stretch">
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="8*"/>
+                        <RowDefinition Height="2*"/>
+                      </Grid.RowDefinitions>
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="5*"/>
+                      </Grid.ColumnDefinitions>
+                    </Grid>
+                  </Grid>
+                </Border>
+              </DockPanel>
+            </Grid>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="App.UniDataGrid.ScrollBarButton" TargetType="{x:Type RepeatButton}">
+    <Setter Property="Control.BorderThickness" Value="1"/>
+    <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}"/>
+    <Setter Property="Control.Padding" Value="3"/>
+    <Setter Property="Control.Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type RepeatButton}">
+          <Border Padding="{TemplateBinding Control.Padding}" Background="Transparent" BorderBrush="BlueViolet"
+                  BorderThickness="{TemplateBinding Control.BorderThickness}">
+            <Path x:Name="Arrow" Width="10" Height="10" HorizontalAlignment="Center" VerticalAlignment="Center"
+                  Fill="Red" Data="{Binding Path=Content, RelativeSource={RelativeSource TemplatedParent}}"/>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="ButtonBase.IsPressed" Value="true">
+              <Setter TargetName="Arrow" Value="{DynamicResource {x:Static JetSystemColors.ControlTextBrushKey}}"
+                      Property="Shape.Fill"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="App.UniDataGrid.Thumb" TargetType="{x:Type Thumb}">
+    <Setter Property="Control.Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Thumb}">
+          <Grid x:Name="grid">
+            <Rectangle Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                       Fill="Transparent"/>
+            <Border x:Name="rectangle" Height="Auto" Margin="3,0,3,0" HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch" Background="White" CornerRadius="6"/>
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger Property="FrameworkElement.Tag" Value="Horizontal">
+              <Setter TargetName="rectangle" Property="FrameworkElement.Width" Value="Auto"/>
+              <Setter TargetName="rectangle" Property="FrameworkElement.Height" Value="Auto"/>
+              <Setter TargetName="rectangle" Property="FrameworkElement.Margin" Value="0,3,0,3"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="App.UniDataGrid.ScrollBar" TargetType="{x:Type ScrollBar}">
+    <Setter Property="FrameworkElement.Margin" Value="0,0,0,0"/>
+    <Setter Property="Control.Background" Value="#ececec"/>
+    <Setter Property="Stylus.IsFlicksEnabled" Value="false"/>
+    <Setter Property="Control.Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ScrollBar}">
+          <Grid x:Name="rootGrid" Margin="0,0,0,0" Background="{TemplateBinding Control.Background}">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="141*"/>
+              <RowDefinition Height="176*"/>
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Stretch" Focusable="false">
+              <RepeatButton x:Name="lineUpButton" MinWidth="16" MinHeight="16" Padding="0" Background="#ececec"
+                            BorderThickness="0" Command="{x:Static ScrollBar.LineUpCommand}" DockPanel.Dock="Top"
+                            Focusable="false">
+                <Path VerticalAlignment="Center" Data="M 0,6 L 3,0 6,6 Z" Fill="#454545"/>
+              </RepeatButton>
+              <RepeatButton x:Name="lineDownButton" MinWidth="16" MinHeight="16" Padding="0" Background="#ececec"
+                            BorderThickness="0" Command="{x:Static ScrollBar.LineDownCommand}" DockPanel.Dock="Bottom"
+                            Focusable="false">
+                <Path VerticalAlignment="Center" Data="M 0,0 L 6,0 3,6 Z" Fill="#454545"/>
+              </RepeatButton>
+              <Track x:Name="PART_Track" IsDirectionReversed="true">
+                <Track.Thumb>
+                  <Thumb x:Name="thumb" Style="{DynamicResource App.UniDataGrid.Thumb}"/>
+                </Track.Thumb>
+                <Track.IncreaseRepeatButton>
+                  <RepeatButton x:Name="pageUpButton" Command="ScrollBar.PageDownCommand" Focusable="false" Opacity="0"/>
+                </Track.IncreaseRepeatButton>
+                <Track.DecreaseRepeatButton>
+                  <RepeatButton x:Name="pageDownButton" Command="ScrollBar.PageUpCommand" Focusable="false" Opacity="0"/>
+                </Track.DecreaseRepeatButton>
+              </Track>
+            </DockPanel>
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger SourceName="thumb" Property="UIElement.IsMouseOver" Value="true">
+              <Setter TargetName="thumb" Property="Control.Background" Value="Red"/>
+            </Trigger>
+            <Trigger SourceName="thumb" Property="Thumb.IsDragging" Value="true">
+              <Setter TargetName="thumb" Value="{DynamicResource DarkBrush}" Property="Control.Background"/>
+            </Trigger>
+            <Trigger Property="UIElement.IsEnabled" Value="false">
+              <Setter TargetName="thumb" Property="UIElement.Visibility" Value="Collapsed"/>
+            </Trigger>
+            <Trigger Property="ScrollBar.Orientation" Value="Horizontal">
+              <Setter TargetName="rootGrid" Property="FrameworkElement.LayoutTransform">
+                <Setter.Value>
+                  <RotateTransform Angle="-90"/>
+                </Setter.Value>
+              </Setter>
+              <Setter TargetName="PART_Track" Property="FrameworkElement.LayoutTransform">
+                <Setter.Value>
+                  <RotateTransform Angle="-90"/>
+                </Setter.Value>
+              </Setter>
+              <Setter TargetName="thumb" Property="FrameworkElement.Tag" Value="Horizontal"/>
+              <Setter TargetName="pageDownButton" Property="ButtonBase.Command" Value="ScrollBar.PageLeftCommand"/>
+              <Setter TargetName="pageUpButton" Property="ButtonBase.Command" Value="ScrollBar.PageRightCommand"/>
+              <Setter TargetName="lineUpButton" Property="ButtonBase.Command" Value="ScrollBar.LineLeftCommand"/>
+              <Setter TargetName="lineDownButton" Property="ButtonBase.Command" Value="ScrollBar.LineRightCommand"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+</ResourceDictionary>

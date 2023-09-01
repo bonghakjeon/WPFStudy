@@ -1,0 +1,16 @@
+<UserControl x:Class="UniBizBO.Controls.ComboBox.UseYnComboControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:UniBizBO.Controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
+             x:Name="root">
+  <Grid>
+    <Border>
+      <ComboBox MinWidth="70" Margin="0" ui:ControlHelper.PlaceholderText="사용여부" DisplayMemberPath="Key"
+                Foreground="Black" SelectedValuePath="Value" ItemsSource="{Binding ElementName=root, Path=Items}"
+                SelectedValue="{Binding ElementName=root, Path=UseYn}"/>
+    </Border>
+  </Grid>
+</UserControl>

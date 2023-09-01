@@ -1,0 +1,126 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Color x:Key="App.Color.Navy.10">#E7E8ED</Color>
+  <Color x:Key="App.Color.Navy.30">#DEDFE5</Color>
+  <Color x:Key="App.Color.Navy.90">#27314A</Color>
+  <Color x:Key="App.Color.Navy.100">#1A2031</Color>
+  <Color x:Key="App.Color.White">#FFFFFF</Color>
+  <Color x:Key="App.Color.black">#000000</Color>
+  <Color x:Key="App.Color.Gray.10">#F4F4F4</Color>
+  <Color x:Key="App.Color.Gray.20">#EDEDED</Color>
+  <Color x:Key="App.Color.Gray.30">#DEDEDE</Color>
+  <Color x:Key="App.Color.Gray.40">#CECECE</Color>
+  <Color x:Key="App.Color.Gray.50">#BCBCBC</Color>
+  <Color x:Key="App.Color.Gray.60">#848484</Color>
+  <Color x:Key="App.Color.Gray.70">#656565</Color>
+  <Color x:Key="App.Color.Gray.80">#505050</Color>
+  <Color x:Key="App.Color.Gray.90">#333333</Color>
+  <Color x:Key="App.Color.Brown.30">#F3EDE7</Color>
+  <Color x:Key="App.Color.Brown.50">#CC9160</Color>
+  <Color x:Key="App.Color.Brown.70">#6E5845</Color>
+  <SolidColorBrush x:Key="App.Brush.WindowTitle.Background" Color="{DynamicResource App.Color.Navy.100}"/>
+  <SolidColorBrush x:Key="App.Brush.WindowTitle.NonActiveBackground" Color="{DynamicResource App.Color.Navy.100}"/>
+  <SolidColorBrush x:Key="App.Brush.WindowTitle.Foreground" Color="{DynamicResource App.Color.Navy.10}"/>
+  <SolidColorBrush x:Key="App.Brush.Border.StatusBar.Background" Color="{DynamicResource App.Color.Gray.10}"/>
+  <SolidColorBrush x:Key="App.Brush.Border.StatusBar.Foreground" Color="#666666"/>
+  <SolidColorBrush x:Key="App.Brush.Border.StartusSeparator.Background" Color="#D8D8D8"/>
+  <SolidColorBrush x:Key="App.Brush.SplitView.CompactPane.Background" Color="{DynamicResource App.Color.Navy.90}"/>
+  <SolidColorBrush x:Key="App.Brush.SplitView.CompactPane.Foreground" Color="{DynamicResource App.Color.Navy.10}"/>
+  <SolidColorBrush x:Key="App.Brush.SplitView.CompactPane.SelectedBackgroundBrush"
+                   Color="{DynamicResource App.Color.Background}"/>
+  <SolidColorBrush x:Key="App.Brush.SplitView.CompactPane.SelectedForegroundBrush" Color="#707070"/>
+  <SolidColorBrush x:Key="App.Brush.SplitView.CompactPane.ActiveSelectionBackgroundBrush"
+                   Color="{DynamicResource App.Color.Background}"/>
+  <SolidColorBrush x:Key="App.Brush.SplitView.CompactPane.ActiveSelectionForegroundBrush"
+                   Color="{DynamicResource App.Color.Accent}"/>
+  <SolidColorBrush x:Key="App.Brush.SplitView.CompactPane.HoverSelectedBackgroundBrush"
+                   Color="{DynamicResource App.Color.Background}"/>
+  <SolidColorBrush x:Key="App.Brush.SplitView.CompactPane.HoverBackgroundBrush" Color="Yellow"/>
+  <SolidColorBrush x:Key="App.Brush.SplitView.CompactPane.HoverSelectedForegroundBrush" Color="Red"/>
+  <SolidColorBrush x:Key="App.Brush.SplitView.PaneContent.Background" Color="{DynamicResource App.Color.White}"/>
+  <SolidColorBrush x:Key="App.Brush.SplitView.PaneContent.Foreground" Color="{DynamicResource App.Color.Gray.90}"/>
+  <SolidColorBrush x:Key="App.Brush.SplitView.PaneContent.Separator" Color="#E1E1E1"/>
+  <SolidColorBrush x:Key="App.Brush.SplitView.PaneContent.TextBlock.Lv2" Color="#666666"/>
+  <SolidColorBrush x:Key="App.Brush.NavigationViewItem.Foreground" Color="{DynamicResource App.Color.Navy.90}"/>
+  <SolidColorBrush x:Key="App.Brush.NavigationView.PaneFooter.TextBlock.Foreground"
+                   Color="{DynamicResource App.Color.Gray.70}"/>
+  <ImageSource x:Key="IconImageSource">
+    pack://application:,,,/UniBizBO;component/Resources/Icon/NavOpenBtn.png
+  </ImageSource>
+  <SolidColorBrush x:Key="FlyoutPresenterBackground" Color="Beige"/>
+  <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="{DynamicResource App.Color.Navy.10}"/>
+  <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{DynamicResource App.Color.Navy.10}"/>
+  <SolidColorBrush x:Key="NavigationViewButtonForegroundPointerOver" Color="{DynamicResource App.Color.Brown.50}"/>
+  <SolidColorBrush x:Key="NavigationViewItemBackgroundPointerOver" Color="{DynamicResource App.Color.Navy.30}"/>
+  <SolidColorBrush x:Key="NavigationViewItemForegroundPointerOver" Color="{DynamicResource App.Color.Brown.50}"/>
+  <SolidColorBrush x:Key="NavigationViewItemForegroundSelected" Color="{DynamicResource App.Color.Brown.50}"/>
+  <SolidColorBrush x:Key="NavigationViewItemForegroundSelectedPointerOver"
+                   Color="{DynamicResource App.Color.Brown.50}"/>
+  <SolidColorBrush x:Key="App.Brush.NavigationView.PaneFooter.Button.BackgroundPointerOver"
+                   Color="{DynamicResource App.Color.Navy.30}"/>
+  <SolidColorBrush x:Key="App.Brush.NavigationView.PaneFooter.Button.ForegroundPointerOver"
+                   Color="{DynamicResource App.Color.Brown.50}"/>
+  <SolidColorBrush x:Key="App.Brush.NavigationView.PaneFooter.Button.ForegroundPressed" Color="Black"/>
+  <SolidColorBrush x:Key="NavigationViewItemSeparatorForeground" Color="#D8D8D8"/>
+  <SolidColorBrush x:Key="App.Brush.NavigationView.ScrollBar.Thumb.Border.Background"
+                   Color="{DynamicResource App.Color.White}"/>
+  <SolidColorBrush x:Key="App.Brush.MenuBookMark.Background" Color="{DynamicResource App.Color.Gray.20}"/>
+  <SolidColorBrush x:Key="App.Brush.MenuBookMark.TextBlock.Title.Foreground"
+                   Color="{DynamicResource App.Color.Gray.90}"/>
+  <SolidColorBrush x:Key="App.Brush.MenuBookMark.RepeatButton.Background" Color="{DynamicResource App.Color.Gray.10}"/>
+  <SolidColorBrush x:Key="App.Brush.MenuBookMark.RepeatButton.Foreground" Color="{DynamicResource App.Color.Gray.80}"/>
+  <SolidColorBrush x:Key="App.Brush.MenuBookMark.Border.BottomSeparator.Background" Color="#D8D8D8"/>
+  <SolidColorBrush x:Key="App.Brush.MenuBookMark.Border.CenterSeparator.Background"
+                   Color="{DynamicResource App.Color.Gray.50}"/>
+  <SolidColorBrush x:Key="App.Brush.MenuBookMark.ItemsControl.Button.Background"
+                   Color="{DynamicResource App.Color.White}"/>
+  <SolidColorBrush x:Key="App.Brush.MenuBookMark.ItemsControl.Button.Foreground" Color="#666666"/>
+  <SolidColorBrush x:Key="App.Brush.TabPageContainer.Background" Color="{DynamicResource App.Color.Navy.10}"/>
+  <SolidColorBrush x:Key="App.Brush.TabablzControl.Background" Color="{DynamicResource App.Color.White}"/>
+  <SolidColorBrush x:Key="App.Brush.TabablzControl.ItemContainer.Foreground" Color="#606060"/>
+  <SolidColorBrush x:Key="App.Brush.TabablzControl.ItemContainer.Background"
+                   Color="{DynamicResource App.Color.Gray.10}"/>
+  <SolidColorBrush x:Key="App.Brush.TabablzControl.ItemContainer.BorderBrush.Selected"
+                   Color="{DynamicResource App.Color.Brown.50}"/>
+  <SolidColorBrush x:Key="App.Brush.TabablzControl.ItemContainer.Foreground.Selected" Color="#606060"/>
+  <SolidColorBrush x:Key="App.Brush.TabablzControl.ItemContainer.Background.Selected"
+                   Color="{DynamicResource App.Color.White}"/>
+  <SolidColorBrush x:Key="App.Brush.TabablzControl.ItemContainer.Background.PointerOver" Color="Red"/>
+  <SolidColorBrush x:Key="App.Brush.TabablzControl.ItemContainer.Background.SelectedPointerOver"
+                   Color="{DynamicResource App.Color.White}"/>
+  <SolidColorBrush x:Key="App.Brush.TabablzControl.HeaderSuffixContent.ClipBorder.CloseAllItem"
+                   Color="{DynamicResource App.Color.Gray.10}"/>
+  <SolidColorBrush x:Key="App.Brush.TabablzControl.HeaderSuffixContent.TextBlock.CloseAllItem"
+                   Color="{DynamicResource App.Color.Navy.90}"/>
+  <SolidColorBrush x:Key="App.Brush.TabControl.TabItem.BorderBrush" Color="#D8D8D8"/>
+  <SolidColorBrush x:Key="App.Brush.TabControl.TabItem.Foreground" Color="{DynamicResource App.Color.Gray.90}"/>
+  <SolidColorBrush x:Key="App.Brush.TabControl.TabItem.Background" Color="#ECECEC"/>
+  <SolidColorBrush x:Key="App.Brush.TabControl.TabItem.Background.Selected" Color="#F6F6F6"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.Background" Color="#ECECEC"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.BorderBrush" Color="#D8D8D8"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.VerticalGridLinesBrush" Color="#D8D8D8"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.HorizontalGridLinesBrush" Color="#D8D8D8"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.ColumnHeader.Background" Color="{DynamicResource App.Color.Brown.30}"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.ColumnHeader.Background.PointerOver" Color="Red"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.ColumnHeader.Foreground" Color="{DynamicResource App.Color.Brown.70}"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.ColumnHeader.BorderBrush" Color="#D8D8D8"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.ColumnHeader.Gripper.Background" Color="Red"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.RowHeader.Gripper.Background" Color="Red"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.ColumnFooter.Background" Color="{DynamicResource App.Color.Brown.30}"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.ColumnFooter.Foreground" Color="{DynamicResource App.Color.Brown.70}"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.ColumnFooter.BorderBrush" Color="#D8D8D8"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.Controller.BorderBrush" Color="#D8D8D8"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.Controller.Background" Color="#F6F6F6"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.DataGridRow.Foreground" Color="{DynamicResource App.Color.Gray.90}"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.DataGridRow.Background" Color="{DynamicResource App.Color.White}"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.DataGridRow.Background.Selected" Color="LightBlue"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.DataGridRow.Background.PointerOver" Color="Yellow"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.DataGridCell.Background.PointerOver" Color="SkyBlue"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.DataGridCell.Background.Selected" Color="Red"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.DataGridCell.BorderBrush.Selected" Color="Blue"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.GroupHeader.Background" Color="{DynamicResource App.Color.Brown.30}"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.GroupHeader.Foreground" Color="{DynamicResource App.Color.Brown.70}"/>
+  <SolidColorBrush x:Key="App.Brush.DataGrid.GroupHeader.BorderBrush" Color="#D8D8D8"/>
+  <SolidColorBrush x:Key="App.Brush.Border.PageTitle.Separator.Background" Color="#E9E5E2"/>
+  <SolidColorBrush x:Key="App.Brush.DockPanel.Search.Background" Color="#F6F6F6"/>
+</ResourceDictionary>

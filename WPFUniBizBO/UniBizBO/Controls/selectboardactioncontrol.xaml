@@ -1,0 +1,47 @@
+<UserControl x:Class="UniBizBO.Controls.SelectBoardActionControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:UniBizBO.Controls"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vmbase="clr-namespace:UniBizBO.Services.Board"
+             xmlns:wpf="clr-namespace:UniinfoNet.Windows.Wpf;assembly=UniinfoNet.Windows.Wpf">
+  <Grid>
+    <FrameworkElement.Resources>
+      <Style BasedOn="{StaticResource App.Button}" TargetType="{x:Type Button}">
+        <Setter Property="FrameworkElement.MinWidth" Value="100"/>
+        <Setter Property="FrameworkElement.MinHeight" Value="28"/>
+        <Setter Property="FrameworkElement.Margin" Value="0"/>
+      </Style>
+      <Style x:Key="_Button.Highlight" TargetType="{x:Type Button}">
+        <Setter Property="FrameworkElement.MinWidth" Value="100"/>
+        <Setter Property="FrameworkElement.MinHeight" Value="28"/>
+        <Setter Property="FrameworkElement.Margin" Value="0"/>
+      </Style>
+    </FrameworkElement.Resources>
+    <DockPanel>
+      <Border DockPanel.Dock="Right">
+        <StackPanel Orientation="Horizontal">
+          <Button CommandParameter="{x:Static vmbase:DefaultBoardFunc.Confirm}"
+                  Style="{StaticResource _Button.Highlight}"
+                  mah:VisibilityHelper.IsVisible="{Binding DefaultFuncs, Converter={x:Static wpf:ContainsConverter.Instance}, ConverterParameter={x:Static vmbase:DefaultBoardFunc.Confirm}}"
+                  Command="{Binding CmdDefaultFunc}">
+            <StackPanel Orientation="Horizontal">
+              <TextBlock>선택</TextBlock>
+            </StackPanel>
+          </Button>
+          <Border Padding="2"/>
+          <Button CommandParameter="{x:Static vmbase:DefaultBoardFunc.Close}" IsCancel="True"
+                  mah:VisibilityHelper.IsVisible="{Binding DefaultFuncs, Converter={x:Static wpf:ContainsConverter.Instance}, ConverterParameter={x:Static vmbase:DefaultBoardFunc.Close}}"
+                  Command="{Binding CmdDefaultFunc}">
+            <StackPanel Orientation="Horizontal">
+              <TextBlock>닫기</TextBlock>
+            </StackPanel>
+          </Button>
+        </StackPanel>
+      </Border>
+      <Border/>
+    </DockPanel>
+  </Grid>
+</UserControl>

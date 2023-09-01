@@ -1,0 +1,260 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:behavior="clr-namespace:UniBizBO.Behaviors"
+                    xmlns:compositions="clr-namespace:UniBizBO.Composition"
+                    xmlns:converters="clr-namespace:UniBizBO.Converters"
+                    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:ui="http://schemas.modernwpf.com/2019">
+  <Style x:Key="App.SplitView.CompactPane.Border.Background" BasedOn="{StaticResource App.Border}"
+         TargetType="{x:Type Border}">
+    <Setter Property="Border.Background" Value="{DynamicResource App.Brush.SplitView.CompactPane.Background}"/>
+  </Style>
+  <Style x:Key="App.SplitView.CompactPaneContent.ListBoxItem"
+         BasedOn="{StaticResource MahApps.Styles.ListBoxItem}" TargetType="{x:Type ListBoxItem}">
+    <Setter Property="mah:ItemHelper.SelectedBackgroundBrush"
+            Value="{DynamicResource App.Brush.SplitView.CompactPane.SelectedBackgroundBrush}"/>
+    <Setter Property="mah:ItemHelper.SelectedForegroundBrush"
+            Value="{DynamicResource App.Brush.SplitView.CompactPane.SelectedForegroundBrush}"/>
+    <Setter Property="mah:ItemHelper.ActiveSelectionBackgroundBrush"
+            Value="{DynamicResource App.Brush.SplitView.CompactPane.ActiveSelectionBackgroundBrush}"/>
+    <Setter Property="mah:ItemHelper.ActiveSelectionForegroundBrush"
+            Value="{DynamicResource App.Brush.SplitView.CompactPane.ActiveSelectionForegroundBrush}"/>
+    <Setter Property="mah:ItemHelper.HoverSelectedBackgroundBrush"
+            Value="{DynamicResource App.Brush.SplitView.CompactPane.HoverSelectedBackgroundBrush}"/>
+    <Setter Property="mah:ItemHelper.HoverBackgroundBrush"
+            Value="{DynamicResource App.Brush.SplitView.CompactPane.HoverBackgroundBrush}"/>
+    <Setter Property="mah:ItemHelper.HoverSelectedForegroundBrush"
+            Value="{DynamicResource App.Brush.SplitView.CompactPane.HoverSelectedForegroundBrush}"/>
+    <Setter Property="Control.Background" Value="Transparent"/>
+    <Setter Property="Control.Foreground" Value="{DynamicResource App.Brush.SplitView.CompactPane.Foreground}"/>
+    <Setter Property="Control.Padding" Value="16,5"/>
+    <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}"/>
+    <Style.Triggers>
+      <Trigger Property="ListBoxItem.IsSelected" Value="True">
+        <Setter Property="TextElement.FontWeight" Value="Bold"/>
+        <Setter Property="Panel.ZIndex" Value="100"/>
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+  <Style x:Key="App.SplitView.PaneContent.Button" BasedOn="{StaticResource App.Button}"
+         TargetType="{x:Type Button}">
+    <Setter Property="FrameworkElement.Width" Value="60"/>
+    <Setter Property="FrameworkElement.Height" Value="82"/>
+    <Setter Property="FrameworkElement.Margin" Value="0,0,10,0"/>
+    <Setter Property="Control.Padding" Value="0,0,0,0"/>
+    <Setter Property="FrameworkElement.VerticalAlignment" Value="Stretch"/>
+    <Setter Property="Control.VerticalContentAlignment" Value="Stretch"/>
+    <Setter Property="Control.Background" Value="Transparent"/>
+    <Setter Property="Control.BorderBrush" Value="Transparent"/>
+    <Setter Property="Control.BorderThickness" Value="0"/>
+    <Setter Property="ToolTipService.InitialShowDelay" Value="0"/>
+    <Setter Property="ToolTipService.Placement" Value="Right"/>
+  </Style>
+  <ImageSource x:Key="IconImageSource">
+    pack://application:,,,/UniBizBO;component/Resources/Icon/NavOpenBtn.png
+  </ImageSource>
+  <FontFamily x:Key="PaneTitleFontFamily">Malgun Gothic</FontFamily>
+  <Double x:Key="FlyoutThemeMinWidth">300</Double>
+  <Thickness x:Key="NavigationViewItemOnLeftIconBoxMargin">0,0,0,0</Thickness>
+  <HorizontalAlignment x:Key="NavigationViewItemExpandChevronHorizontalAlignment">Center</HorizontalAlignment>
+  <Double x:Key="NavigationViewItemOnLeftIconBoxHeight">30</Double>
+  <CornerRadius x:Key="ControlCornerRadius">4,4,4,4</CornerRadius>
+  <converters:MenuLevelConverter x:Key="MenuLevelConverter"/>
+  <String x:Key="Setting">Setting</String>
+  <String x:Key="Lock">Lock</String>
+  <String x:Key="Logout">Logout</String>
+  <Style x:Key="NavigationViewItemHeaderTextStyle" BasedOn="{StaticResource App.TextBlock.H1.Bold}"
+         TargetType="{x:Type TextBlock}">
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource App.Brush.NavigationViewItem.Foreground}"/>
+    <Setter Property="TextBlock.TextWrapping" Value="NoWrap"/>
+  </Style>
+  <DataTemplate x:Key="App.NavigationView.MenuItemTemplate" DataType="{x:Type compositions:PageMenuInfo}">
+    <ui:NavigationViewItem ui:ControlHelper.CornerRadius="20" FontSize="12" FontWeight="Bold"
+                           Foreground="{DynamicResource App.Brush.NavigationViewItem.Foreground}"
+                           IsNotShowFlyOutToolTip="True" Content="{Binding Name}"
+                           MenuItemsSource="{Binding Children, Converter={StaticResource MenuLevelConverter}}">
+      <i:Interaction.Behaviors>
+        <behavior:NavigationViewItemBehavior/>
+      </i:Interaction.Behaviors>
+      <FrameworkElement.Style>
+        <Style TargetType="{x:Type ui:NavigationViewItem}">
+          <Style.Triggers>
+            <Trigger Property="UIElement.IsMouseOver" Value="True">
+              <Setter Property="Control.FontWeight" Value="Bold"/>
+            </Trigger>
+          </Style.Triggers>
+        </Style>
+      </FrameworkElement.Style>
+      <ui:NavigationViewItem.Icon>
+        <ui:BitmapIcon ShowAsMonochrome="False"
+                       UriSource="{Binding Converter={x:Static converters:NavViewIconConverter.Instance}}"/>
+      </ui:NavigationViewItem.Icon>
+    </ui:NavigationViewItem>
+  </DataTemplate>
+  <Style x:Key="App.NavigationView.PaneFooter.Button" BasedOn="{StaticResource App.Button}"
+         TargetType="{x:Type Button}">
+    <Setter Property="FrameworkElement.Height" Value="30"/>
+    <Setter Property="Control.Padding" Value="0"/>
+    <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
+    <Setter Property="Control.BorderThickness" Value="0"/>
+    <Setter Property="Control.Background" Value="Transparent"/>
+    <Style.Resources>
+      <Style BasedOn="{StaticResource App.TextBlock.H1.Bold}" TargetType="{x:Type TextBlock}">
+        <Setter Property="FrameworkElement.VerticalAlignment" Value="Center"/>
+        <Setter Property="TextBlock.Foreground"
+                Value="{DynamicResource App.Brush.NavigationView.PaneFooter.TextBlock.Foreground}"/>
+        <Style.Triggers>
+          <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                       Value="True">
+            <Setter Property="TextBlock.Foreground"
+                    Value="{DynamicResource App.Brush.NavigationView.PaneFooter.Button.ForegroundPointerOver}"/>
+          </DataTrigger>
+          <DataTrigger Binding="{Binding IsPressed, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                       Value="True">
+            <Setter Property="TextBlock.Foreground"
+                    Value="{DynamicResource App.Brush.NavigationView.PaneFooter.Button.ForegroundPressed}"/>
+          </DataTrigger>
+        </Style.Triggers>
+      </Style>
+    </Style.Resources>
+    <Style.Triggers>
+      <Trigger Property="UIElement.IsMouseOver" Value="True">
+        <Setter Property="Control.Background"
+                Value="{DynamicResource App.Brush.NavigationView.PaneFooter.Button.BackgroundPointerOver}"/>
+      </Trigger>
+      <Trigger Property="ButtonBase.IsPressed" Value="True">
+        <Setter Property="Control.Background"
+                Value="{DynamicResource App.Brush.NavigationView.PaneFooter.Button.BackgroundPointerOver}"/>
+      </Trigger>
+      <Trigger Property="UIElement.IsEnabled" Value="False">
+        <Setter Property="UIElement.Opacity" Value="0.7"/>
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+  <Style x:Key="App.NavigationView.PaneFooter.StackPanel" TargetType="{x:Type ui:SimpleStackPanel}">
+    <Setter Property="FrameworkElement.Height" Value="30"/>
+    <Setter Property="FrameworkElement.Margin" Value="10,0,0,0"/>
+    <Setter Property="ui:SimpleStackPanel.Orientation" Value="Horizontal"/>
+    <Setter Property="ui:SimpleStackPanel.Spacing" Value="10"/>
+  </Style>
+  <ControlTemplate x:Key="NavViewScrollViewerScrollBarlessTemplate" TargetType="{x:Type ScrollViewer}">
+    <Grid Background="{TemplateBinding Control.Background}">
+      <ScrollContentPresenter x:Name="ScrollContentPresenter" Margin="{TemplateBinding Control.Padding}"
+                              ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"/>
+    </Grid>
+  </ControlTemplate>
+  <ControlTemplate x:Key="NavigationViewScrollViewerScrollBarTemplate" TargetType="{x:Type ScrollViewer}">
+    <Grid Background="{TemplateBinding Control.Background}">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="auto"/>
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+      <ScrollBar x:Name="PART_HorizontalScrollBar" Margin="1,0,0,0"
+                 AutomationProperties.AutomationId="HorizontalScrollBar" Cursor="Arrow" DockPanel.Dock="Left"
+                 Maximum="{TemplateBinding ScrollViewer.ScrollableWidth}" Minimum="0" Orientation="Horizontal"
+                 Style="{DynamicResource NavigationViewScrollBarTemplate}"
+                 ViewportSize="{TemplateBinding ScrollViewer.ViewportWidth}"
+                 Visibility="{TemplateBinding ScrollViewer.ComputedHorizontalScrollBarVisibility}"
+                 Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+      <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" Grid.Column="0" Margin="0,0,0,0" HorizontalAlignment="Center"
+                              CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}" CanHorizontallyScroll="False"
+                              CanVerticallyScroll="False" Content="{TemplateBinding ContentControl.Content}"
+                              ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" DockPanel.Dock="Left"/>
+      <ScrollBar x:Name="PART_VerticalScrollBar" Grid.Column="1" Margin="-8,1,0,0"
+                 AutomationProperties.AutomationId="VerticalScrollBar" Cursor="Arrow" DockPanel.Dock="Left"
+                 Maximum="{TemplateBinding ScrollViewer.ScrollableHeight}" Minimum="0"
+                 Style="{DynamicResource NavigationViewScrollBarTemplate}"
+                 ViewportSize="{TemplateBinding ScrollViewer.ViewportHeight}"
+                 Visibility="{TemplateBinding ScrollViewer.ComputedVerticalScrollBarVisibility}"
+                 Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+    </Grid>
+  </ControlTemplate>
+  <Style x:Key="App.NavigatonView.ScrollBar.Thumb" TargetType="{x:Type Thumb}">
+    <Setter Property="Control.Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Thumb}">
+          <Grid x:Name="grid">
+            <Rectangle Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                       Fill="Transparent"/>
+            <Border x:Name="rectangle" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                    Background="{DynamicResource App.Brush.NavigationView.ScrollBar.Thumb.Border.Background}"
+                    CornerRadius="2"/>
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger Property="FrameworkElement.Tag" Value="Horizontal">
+              <Setter TargetName="rectangle" Property="FrameworkElement.Width" Value="Auto"/>
+              <Setter TargetName="rectangle" Property="FrameworkElement.Height" Value="7"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="NavigationViewScrollBarTemplate" TargetType="{x:Type ScrollBar}">
+    <Setter Property="FrameworkElement.Margin" Value="1,0,-1,0"/>
+    <Setter Property="FrameworkElement.Width" Value="8"/>
+    <Setter Property="Control.Background" Value="Transparent"/>
+    <Setter Property="Stylus.IsFlicksEnabled" Value="false"/>
+    <Setter Property="Control.Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ScrollBar}">
+          <Grid x:Name="rootGrid" Width="4" Margin="6,0,0,0" Background="{TemplateBinding Control.Background}">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="141*"/>
+              <RowDefinition Height="176*"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Stretch"
+                    BorderBrush="{DynamicResource App.Brush.NavigationView.ScrollBar.Thumb.Border.Background}"
+                    BorderThickness="0,0" Focusable="false">
+              <Track x:Name="PART_Track" IsDirectionReversed="true">
+                <Track.Thumb>
+                  <Thumb x:Name="thumb" Style="{DynamicResource App.NavigatonView.ScrollBar.Thumb}"/>
+                </Track.Thumb>
+                <Track.IncreaseRepeatButton>
+                  <RepeatButton x:Name="pageUpButton" Command="ScrollBar.PageDownCommand" Focusable="false" Opacity="0"/>
+                </Track.IncreaseRepeatButton>
+                <Track.DecreaseRepeatButton>
+                  <RepeatButton x:Name="pageDownButton" Command="ScrollBar.PageUpCommand" Focusable="false" Opacity="0"/>
+                </Track.DecreaseRepeatButton>
+              </Track>
+            </Border>
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger SourceName="thumb" Property="UIElement.IsMouseOver" Value="true">
+              <Setter TargetName="thumb" Value="{DynamicResource ButtonSelectBrush}" Property="Control.Background"/>
+            </Trigger>
+            <Trigger SourceName="thumb" Property="Thumb.IsDragging" Value="true">
+              <Setter TargetName="thumb" Value="{DynamicResource DarkBrush}" Property="Control.Background"/>
+            </Trigger>
+            <Trigger Property="UIElement.IsEnabled" Value="false">
+              <Setter TargetName="thumb" Property="UIElement.Visibility" Value="Collapsed"/>
+            </Trigger>
+            <Trigger Property="ScrollBar.Orientation" Value="Horizontal">
+              <Setter TargetName="rootGrid" Property="FrameworkElement.LayoutTransform">
+                <Setter.Value>
+                  <RotateTransform Angle="-90"/>
+                </Setter.Value>
+              </Setter>
+              <Setter TargetName="PART_Track" Property="FrameworkElement.LayoutTransform">
+                <Setter.Value>
+                  <RotateTransform Angle="-90"/>
+                </Setter.Value>
+              </Setter>
+              <Setter Property="FrameworkElement.Width" Value="Auto"/>
+              <Setter Property="FrameworkElement.Height" Value="8"/>
+              <Setter TargetName="thumb" Property="FrameworkElement.Tag" Value="Horizontal"/>
+              <Setter TargetName="pageDownButton" Property="ButtonBase.Command" Value="ScrollBar.PageLeftCommand"/>
+              <Setter TargetName="pageUpButton" Property="ButtonBase.Command" Value="ScrollBar.PageRightCommand"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+</ResourceDictionary>

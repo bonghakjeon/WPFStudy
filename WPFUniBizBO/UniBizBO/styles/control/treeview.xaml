@@ -1,0 +1,17 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Style x:Key="App.TreeView" BasedOn="{StaticResource {x:Type TreeView}}" TargetType="{x:Type TreeView}">
+    <Setter Property="Control.Padding" Value="4,10"/>
+  </Style>
+  <Style x:Key="App.TreeView.TreeViewItem.Expanded.True" TargetType="{x:Type TreeViewItem}">
+    <Setter Property="TreeViewItem.IsExpanded" Value="True"/>
+  </Style>
+  <Style x:Key="App.TreeView.TreeViewItem.Expanded.False" TargetType="{x:Type TreeViewItem}">
+    <Setter Property="TreeViewItem.IsExpanded" Value="False"/>
+  </Style>
+  <Style x:Key="App.TreeView.Border" TargetType="{x:Type Border}">
+    <Setter Property="Border.Background" Value="Gray"/>
+    <Setter Property="Border.BorderBrush" Value="{DynamicResource App.Brush.Background.D5}"/>
+    <Setter Property="Border.BorderThickness" Value="1"/>
+  </Style>
+</ResourceDictionary>

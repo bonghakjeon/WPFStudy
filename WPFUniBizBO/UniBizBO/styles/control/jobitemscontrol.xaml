@@ -1,0 +1,137 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:job="clr-namespace:UniinfoNet.Windows.Wpf.Job;assembly=UniinfoNet.Windows.Wpf"
+                    xmlns:ui="http://schemas.modernwpf.com/2019"
+                    xmlns:wpf="clr-namespace:UniinfoNet.Windows.Wpf;assembly=UniinfoNet.Windows.Wpf">
+  <DataTemplate x:Key="App.DataTemplate.JobItem.Default" DataType="{x:Type job:JobProgressState}">
+    <StackPanel Orientation="Vertical">
+      <DockPanel>
+        <Button Padding="3" VerticalAlignment="Stretch" BorderThickness="0" Content="취소" DockPanel.Dock="Right"
+                Style="{DynamicResource App.Button.Transparent}"
+                wpf:VisibilityHelper.IsVisible="{Binding CanCancel}" Command="{Binding CmdCancel}"
+                IsEnabled="{Binding IsNotCanceled}"/>
+        <TextBlock VerticalAlignment="Bottom" FontSize="14" Text="{Binding Title}"/>
+      </DockPanel>
+      <ProgressBar Height="5" MinHeight="5" Margin="0,1" VerticalAlignment="Center"
+                   Background="{DynamicResource App.Brush.Accent.A25}" BorderThickness="1"
+                   Foreground="{DynamicResource App.Brush.Accent}" Maximum="1" Minimum="0"
+                   wpf:ProgressBarHelper.SmoothValue="{Binding Value, TargetNullValue=0}"
+                   IsIndeterminate="{Binding IsIndeterminate}"/>
+      <DockPanel>
+        <TextBlock Margin="1" VerticalAlignment="Top" DockPanel.Dock="Left" FontSize="11"
+                   Text="{Binding Value, TargetNullValue=0, StringFormat={0:##0%}}">
+          <FrameworkElement.Style>
+            <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="{x:Type TextBlock}">
+              <Style.Triggers>
+                <DataTrigger Binding="{Binding Value}" Value="{x:Null}">
+                  <Setter Property="UIElement.Visibility" Value="Collapsed"/>
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </FrameworkElement.Style>
+        </TextBlock>
+        <TextBlock Margin="1" VerticalAlignment="Top" FontSize="11" TextWrapping="Wrap" Text="{Binding Msg}"/>
+      </DockPanel>
+      <wpf:JobItemsControl Margin="10,0" wpf:VisibilityHelper.IsVisible="{Binding HasJob}" ItemsSource="{Binding Items}"/>
+    </StackPanel>
+  </DataTemplate>
+  <Style x:Key="App.JobItemsControl" BasedOn="{StaticResource {x:Type wpf:JobItemsControl}}"
+         TargetType="{x:Type wpf:JobItemsControl}">
+    <Setter Property="Control.Padding" Value="0"/>
+    <Setter Property="ItemsControl.ItemTemplate" Value="{DynamicResource App.DataTemplate.JobItem.Default}"/>
+    <Setter Property="ItemsControl.ItemContainerStyle">
+      <Setter.Value>
+        <Style BasedOn="{StaticResource {x:Type wpf:JobItem}}" TargetType="{x:Type wpf:JobItem}">
+          <Setter Property="FrameworkElement.Margin" Value="0,1"/>
+          <Setter Property="FrameworkElement.MinWidth" Value="200"/>
+          <Setter Property="Control.BorderThickness" Value="0"/>
+          <Setter Property="Control.Padding" Value="8,3"/>
+        </Style>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="ItemsControl.ItemsPanel">
+      <Setter.Value>
+        <ItemsPanelTemplate>
+          <StackPanel IsItemsHost="True"/>
+        </ItemsPanelTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style BasedOn="{StaticResource App.JobItemsControl}" TargetType="{x:Type wpf:JobItemsControl}"/>
+  <Style x:Key="App.OverlayLayout.Job" BasedOn="{StaticResource {x:Type wpf:OverlayLayout}}"
+         TargetType="{x:Type wpf:OverlayLayout}">
+    <Setter Property="wpf:OverlayLayout.IsOverlayVisible" Value="True"/>
+    <Setter Property="wpf:OverlayLayout.OverlayBrush" Value="{DynamicResource App.Brush.Foreground.A10}"/>
+    <Setter Property="wpf:OverlayLayout.OverlayContent" Value="{Binding Job}"/>
+    <Setter Property="wpf:OverlayLayout.OverlayContentTemplate">
+      <Setter.Value>
+        <DataTemplate>
+          <Grid MinWidth="200">
+            <Border Margin="0.5" Background="{DynamicResource App.Brush.Background}" IsHitTestVisible="False">
+              <UIElement.Effect>
+                <DropShadowEffect BlurRadius="10" Opacity="0.3" ShadowDepth="0" Color="{DynamicResource App.Color.Accent}"/>
+              </UIElement.Effect>
+            </Border>
+            <Border BorderBrush="{DynamicResource App.Brush.Accent}" BorderThickness="1">
+              <wpf:JobItemsControl ItemTemplate="{DynamicResource App.DataTemplate.JobItem.Default}" DataContext="{Binding}"
+                                   ItemsSource="{Binding Items}">
+                <ItemsControl.ItemContainerStyle>
+                  <Style BasedOn="{StaticResource {x:Type wpf:JobItem}}" TargetType="{x:Type wpf:JobItem}">
+                    <Setter Property="FrameworkElement.Margin" Value="1"/>
+                    <Setter Property="Control.BorderThickness" Value="0"/>
+                    <Setter Property="Control.Padding" Value="0"/>
+                    <Setter Property="Control.Background" Value="Transparent"/>
+                  </Style>
+                </ItemsControl.ItemContainerStyle>
+              </wpf:JobItemsControl>
+            </Border>
+          </Grid>
+        </DataTemplate>
+      </Setter.Value>
+    </Setter>
+    <Style.Triggers>
+      <Trigger Property="wpf:OverlayLayout.OverlayContent" Value="{x:Null}">
+        <Setter Property="wpf:OverlayLayout.IsOverlayVisible" Value="False"/>
+      </Trigger>
+      <DataTrigger Binding="{Binding RelativeSource={RelativeSource self}, Path=OverlayContent.HasJob}" Value="false">
+        <Setter Property="wpf:OverlayLayout.IsOverlayVisible" Value="False"/>
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
+  <Style x:Key="App.OverlayLayout.Job.Board" BasedOn="{StaticResource App.OverlayLayout.Job}"
+         TargetType="{x:Type wpf:OverlayLayout}">
+    <Setter Property="Control.Padding" Value="4"/>
+  </Style>
+  <Style x:Key="App.OverlayLayout.Job.Page" BasedOn="{StaticResource App.OverlayLayout.Job}"
+         TargetType="{x:Type wpf:OverlayLayout}">
+    <Setter Property="Control.Padding" Value="4"/>
+  </Style>
+  <Style x:Key="App.OverlayLayout.Job.Control.Clickable" BasedOn="{StaticResource App.OverlayLayout.Job}"
+         TargetType="{x:Type wpf:OverlayLayout}">
+    <Setter Property="wpf:OverlayLayout.IsEnableContentWhenOverlayDisplay" Value="True"/>
+    <Setter Property="wpf:OverlayLayout.OverlayBrush" Value="{x:Null}"/>
+    <Setter Property="wpf:OverlayLayout.OverlayContentTemplate">
+      <Setter.Value>
+        <DataTemplate>
+          <Grid MinWidth="200">
+            <Border Background="{DynamicResource App.Brush.Accent.A25}"
+                    BorderBrush="{DynamicResource App.Brush.Accent}" BorderThickness="1">
+              <wpf:JobItemsControl ItemTemplate="{DynamicResource App.DataTemplate.JobItem.Default}" DataContext="{Binding}"
+                                   ItemsSource="{Binding Items}">
+                <ItemsControl.ItemContainerStyle>
+                  <Style BasedOn="{StaticResource {x:Type wpf:JobItem}}" TargetType="{x:Type wpf:JobItem}">
+                    <Setter Property="FrameworkElement.Margin" Value="0,1"/>
+                    <Setter Property="Control.BorderThickness" Value="0"/>
+                    <Setter Property="Control.Padding" Value="8"/>
+                    <Setter Property="Control.Background" Value="Transparent"/>
+                    <Setter Property="Control.FontSize" Value="11"/>
+                  </Style>
+                </ItemsControl.ItemContainerStyle>
+              </wpf:JobItemsControl>
+            </Border>
+          </Grid>
+        </DataTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+</ResourceDictionary>

@@ -1,0 +1,33 @@
+<local:CommonControlBase x:Class="UniBizBO.Controls.Common.StoreStdCommonControl"
+                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                         xmlns:iconpack="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                         xmlns:local="clr-namespace:UniBizBO.Controls.Common"
+                         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                         xmlns:wpf="clr-namespace:UniinfoNet.Windows.Wpf;assembly=UniinfoNet.Windows.Wpf"
+                         x:Name="root" Style="{DynamicResource App.UserControl.SearchControl}">
+  <Grid>
+    <FrameworkElement.Resources>
+      <ResourceDictionary Source="Base.xaml"/>
+    </FrameworkElement.Resources>
+    <DockPanel>
+      <TextBox MinHeight="0" Margin="0" Padding="0" mah:TextBoxHelper.SelectAllOnFocus="True"
+               Background="Transparent" BorderThickness="0" DockPanel.Dock="Bottom" IsReadOnly="True"
+               Opacity="0.7" TextAlignment="Right" Text="{Binding ElementName=root, Path=DisplayText}"/>
+      <Rectangle Height="2" DockPanel.Dock="Bottom"/>
+      <wpf:AutoGrid AutoColumnsString=",*,">
+        <TextBlock Margin="0,1,3,0" Text="지점"/>
+        <TextBox mah:TextBoxHelper.Watermark="지점검색"
+                 Text="{Binding ElementName=root, Path=Keyword, UpdateSourceTrigger=PropertyChanged}">
+          <UIElement.InputBindings>
+            <KeyBinding Key="Return" Command="{Binding ElementName=root, Path=CmdQuickSearch}"/>
+          </UIElement.InputBindings>
+        </TextBox>
+        <Button DockPanel.Dock="Right" Focusable="False" KeyboardNavigation.IsTabStop="False"
+                Command="{Binding ElementName=root, Path=CmdOpenSelectBoard}"/>
+      </wpf:AutoGrid>
+    </DockPanel>
+  </Grid>
+</local:CommonControlBase>

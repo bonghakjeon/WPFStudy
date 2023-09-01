@@ -1,0 +1,9 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Style x:Key="App.Border" TargetType="{x:Type Border}"/>
+  <Style x:Key="App.Border.Page.SearchBox" BasedOn="{StaticResource App.Border}"
+         TargetType="{x:Type Border}">
+    <Setter Property="Border.Background" Value="#F6F6F6"/>
+    <Setter Property="DockPanel.Dock" Value="Top"/>
+  </Style>
+</ResourceDictionary>

@@ -1,0 +1,341 @@
+<UserControl x:Class="UniBizBO.Views.V0.Part.Main.Code.Store.PageStoreMPartV"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:con="clr-namespace:UniBizBO.Controls"
+             xmlns:control_check="clr-namespace:UniBizBO.Controls.CheckBox"
+             xmlns:converter="clr-namespace:UniBizBO.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:UniBizBO.Views.V0.Part.Main.Code.Store"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:res="clr-namespace:UniBizBO.Composition.Resource"
+             xmlns:s="https://github.com/canton7/Stylet"
+             xmlns:wpf="clr-namespace:UniinfoNet.Windows.Wpf;assembly=UniinfoNet.Windows.Wpf">
+  <behavior:Interaction.Behaviors>
+    <wpf:KeyCaptureBehavior Receiver="{Binding}"/>
+  </behavior:Interaction.Behaviors>
+  <Grid>
+    <wpf:OverlayLayout Style="{DynamicResource App.OverlayLayout.Job}" OverlayContent="{Binding Job}">
+      <DockPanel>
+        <Border DockPanel.Dock="Top" Style="{StaticResource App.Border.Part.Space}">
+          <con:PartTitleControl Title="{Binding MenuInfo.Title}" ExplainContent="설명">
+            <con:PartTitleControl.CommandContent>
+              <StackPanel Orientation="Horizontal">
+                <Button Style="{DynamicResource App.Button.Highlight.PartTitle}" Command="{Binding CmdSaveData}"
+                        Visibility="{Binding IsStoreSave, Converter={x:Static wpf:BoolToVisibilityConverter.Instance}}">저장</Button>
+              </StackPanel>
+            </con:PartTitleControl.CommandContent>
+          </con:PartTitleControl>
+        </Border>
+        <Border Padding="1,0" BorderThickness="0" Style="{StaticResource App.Border.Part.Space}">
+          <ScrollViewer>
+            <StackPanel Orientation="Vertical">
+              <FrameworkElement.Resources>
+                <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="{x:Type TextBlock}">
+                  <Setter Property="FrameworkElement.VerticalAlignment" Value="Center"/>
+                  <Setter Property="FrameworkElement.Margin" Value="0,0,10,0"/>
+                  <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
+                </Style>
+              </FrameworkElement.Resources>
+              <GroupBox Header="지점 정보" Style="{DynamicResource App.GroupBox.Part}">
+                <StackPanel Orientation="Vertical">
+                  <wpf:AutoGrid AutoColumnsString=",*,,,*" AutoRowsString=",," IsAutoChildPosition="False">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Width="60" Margin="4,0" VerticalAlignment="Center"
+                               TextAlignment="Right"
+                               Text="{Binding DataHeaders[si_StoreCode], FallbackValue=si_StoreCode, StringFormat={0}}"/>
+                    <wpf:AutoGrid Row="0" Column="1" AutoColumnsString=",,*" IsAutoChildPosition="False">
+                      <TextBox Grid.Column="0" Width="60" Height="24" IsReadOnly="True"
+                               Style="{StaticResource App.TextBox.Center}"
+                               Text="{Binding WorkDataT.CurrentT.si_StoreCode, UpdateSourceTrigger=PropertyChanged}"/>
+                      <TextBox Grid.Column="1" Width="100" Height="24" Style="{StaticResource App.TextBox.Center}"
+                               Text="{Binding WorkDataT.CurrentT.si_StoreViewCode, UpdateSourceTrigger=PropertyChanged}"/>
+                    </wpf:AutoGrid>
+                    <TextBlock Grid.Row="0" Grid.Column="3" Width="60" Margin="4,0" VerticalAlignment="Center"
+                               TextAlignment="Right"
+                               Text="{Binding DataHeaders[si_StoreType], FallbackValue=si_StoreType, StringFormat={0}}"/>
+                    <wpf:AutoGrid Row="0" Column="4" AutoColumnsString=",*" IsAutoChildPosition="False">
+                      <ComboBox Grid.Column="0" Width="80" Height="24" wpf:FocusMoveHelper.Down="" wpf:FocusMoveHelper.Left=""
+                                wpf:FocusMoveHelper.Right="" wpf:FocusMoveHelper.Up="" DisplayMemberPath="comm_TypeNoMemo"
+                                SelectedValuePath="comm_TypeNo" ItemsSource="{Binding DataHeaders[si_StoreType].CTypeGroup}"
+                                SelectedValue="{Binding WorkDataT.CurrentT.si_StoreType, Mode=TwoWay}"/>
+                      <control_check:UseYnCheckControl Grid.Column="1" IsThreeState="False"
+                                                       UseYn="{Binding WorkDataT.CurrentT.si_UseYn, Converter={x:Static converter:UseYnToNullBoolConverter.Instance}}"/>
+                    </wpf:AutoGrid>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Width="60" Margin="4,0" VerticalAlignment="Center"
+                               TextAlignment="Right"
+                               Text="{Binding DataHeaders[si_StoreName], FallbackValue=si_StoreName, StringFormat={0}}"/>
+                    <TextBox x:Name="si_StoreName" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="24"
+                             mah:TextBoxHelper.SelectAllOnFocus="True" wpf:FocusHelper.IsSetFocusWhenIsVisible="True"
+                             wpf:FocusHelper.IsSetFocusWhenLoad="True" TabIndex="1"
+                             wpf:FocusMoveHelper.Down="{Binding RelativeSource={RelativeSource self}}"
+                             wpf:FocusMoveHelper.Left="{Binding RelativeSource={RelativeSource self}}"
+                             wpf:FocusMoveHelper.Right="{Binding ElementName=si_Tel1}"
+                             wpf:FocusMoveHelper.Up="{Binding RelativeSource={RelativeSource self}}"
+                             Text="{Binding WorkDataT.CurrentT.si_StoreName, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="3" Margin="4,0" VerticalAlignment="Center" TextAlignment="Right"
+                               Text="{Binding DataHeaders[si_StoreNameMember], FallbackValue=si_StoreNameMember, StringFormat={0}}"/>
+                    <wpf:AutoGrid Row="1" Column="4" ColumnSpan="2" AutoColumnsString=",,*" IsAutoChildPosition="False">
+                      <TextBox Grid.Column="0" Width="150" Height="24" Focusable="False" IsReadOnly="True"
+                               Style="{StaticResource App.TextBox}"
+                               Text="{Binding WorkDataT.CurrentT.si_StoreNameMember, Mode=TwoWay}"/>
+                      <Button Grid.Column="1" Margin="0,0" Focusable="true" Command="{Binding CmdSearchStore}">
+                        <Image Width="18" Height="18"
+                               Source="{Binding Source={x:Static res:Icons.Default}, Path=Common_Store.FullPath}"/>
+                      </Button>
+                    </wpf:AutoGrid>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Width="60" Margin="4,0" VerticalAlignment="Center"
+                               TextAlignment="Right"
+                               Text="{Binding DataHeaders[si_Tel1], FallbackValue=si_Tel1, StringFormat={0}}"/>
+                    <wpf:AutoGrid Row="2" Column="1" ColumnSpan="2" AutoColumnsString="*,*" IsAutoChildPosition="False">
+                      <TextBox x:Name="si_Tel1" Grid.Column="0" Height="24" mah:TextBoxHelper.SelectAllOnFocus="True"
+                               mah:TextBoxHelper.Watermark="대표전화" TabIndex="2"
+                               wpf:FocusMoveHelper.Down="{Binding RelativeSource={RelativeSource self}}"
+                               wpf:FocusMoveHelper.Left="{Binding ElementName=si_StoreName}"
+                               wpf:FocusMoveHelper.Right="{Binding ElementName=si_Tel2}"
+                               wpf:FocusMoveHelper.Up="{Binding RelativeSource={RelativeSource self}}"
+                               Text="{Binding WorkDataT.CurrentT.si_Tel1, UpdateSourceTrigger=PropertyChanged}"/>
+                      <TextBox x:Name="si_Tel2" Grid.Column="1" Height="24" mah:TextBoxHelper.SelectAllOnFocus="True"
+                               mah:TextBoxHelper.Watermark="FAX" TabIndex="3"
+                               wpf:FocusMoveHelper.Down="{Binding RelativeSource={RelativeSource self}}"
+                               wpf:FocusMoveHelper.Left="{Binding ElementName=si_Tel1}"
+                               wpf:FocusMoveHelper.Right="{Binding ElementName=si_ErpCode}"
+                               wpf:FocusMoveHelper.Up="{Binding RelativeSource={RelativeSource self}}"
+                               Text="{Binding WorkDataT.CurrentT.si_Tel2, UpdateSourceTrigger=PropertyChanged}"/>
+                    </wpf:AutoGrid>
+                    <TextBlock Grid.Row="2" Grid.Column="3" Width="60" Margin="4,0" VerticalAlignment="Center"
+                               TextAlignment="Right"
+                               Text="{Binding DataHeaders[si_ErpCode], FallbackValue=si_ErpCode, StringFormat={0}}"/>
+                    <wpf:AutoGrid Row="2" Column="5" AutoColumnsString=",*" IsAutoChildPosition="False">
+                      <TextBox x:Name="si_ErpCode" Grid.Column="0" Width="100" Height="24"
+                               mah:TextBoxHelper.SelectAllOnFocus="True" Style="{StaticResource App.TextBox.Center}" TabIndex="4"
+                               wpf:FocusMoveHelper.Down="{Binding RelativeSource={RelativeSource self}}"
+                               wpf:FocusMoveHelper.Left="{Binding ElementName=si_Tel2}"
+                               wpf:FocusMoveHelper.Right="{Binding ElementName=si_DisplayBizNo}"
+                               wpf:FocusMoveHelper.Up="{Binding RelativeSource={RelativeSource self}}"
+                               Text="{Binding WorkDataT.CurrentT.si_ErpCode, UpdateSourceTrigger=PropertyChanged}"/>
+                    </wpf:AutoGrid>
+                  </wpf:AutoGrid>
+                </StackPanel>
+              </GroupBox>
+              <Border Style="{DynamicResource App.Border.Part.Space.GroupToGroupSplit}"/>
+              <GroupBox Header="사업자 정보" Style="{DynamicResource App.GroupBox.Part}">
+                <StackPanel Orientation="Vertical">
+                  <wpf:AutoGrid AutoColumnsString=",*,,*" AutoRowsString=",,,," IsAutoChildPosition="False">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Width="60" Margin="4,0" VerticalAlignment="Center"
+                               TextAlignment="Right"
+                               Text="{Binding DataHeaders[si_BizNo], FallbackValue=si_BizNo, StringFormat={0}}"/>
+                    <wpf:AutoGrid Row="0" Column="1" AutoColumnsString=",*" IsAutoChildPosition="False">
+                      <TextBox x:Name="si_DisplayBizNo" Grid.Column="0" Width="120" Height="24"
+                               mah:TextBoxHelper.SelectAllOnFocus="True" Style="{StaticResource App.TextBox.Center}" TabIndex="5"
+                               wpf:FocusMoveHelper.Down="{Binding RelativeSource={RelativeSource self}}"
+                               wpf:FocusMoveHelper.Left="{Binding ElementName=si_ErpCode}"
+                               wpf:FocusMoveHelper.Right="{Binding ElementName=si_BizName}"
+                               wpf:FocusMoveHelper.Up="{Binding RelativeSource={RelativeSource self}}"
+                               Text="{Binding WorkDataT.CurrentT.si_DisplayBizNo, UpdateSourceTrigger=PropertyChanged}"/>
+                    </wpf:AutoGrid>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Width="60" Margin="4,0" VerticalAlignment="Center"
+                               TextAlignment="Right"
+                               Text="{Binding DataHeaders[si_BizName], FallbackValue=si_BizName, StringFormat={0}}"/>
+                    <wpf:AutoGrid Row="0" Column="3" AutoColumnsString="*," IsAutoChildPosition="False">
+                      <TextBox x:Name="si_BizName" Grid.Column="0" Height="24" mah:TextBoxHelper.SelectAllOnFocus="True"
+                               mah:TextBoxHelper.Watermark="사업자번호" TabIndex="6"
+                               wpf:FocusMoveHelper.Down="{Binding RelativeSource={RelativeSource self}}"
+                               wpf:FocusMoveHelper.Left="{Binding ElementName=si_DisplayBizNo}"
+                               wpf:FocusMoveHelper.Right="{Binding ElementName=si_BizCeo}"
+                               wpf:FocusMoveHelper.Up="{Binding RelativeSource={RelativeSource self}}"
+                               Text="{Binding WorkDataT.CurrentT.si_BizName, UpdateSourceTrigger=PropertyChanged}"/>
+                      <TextBox x:Name="si_BizCeo" Grid.Column="1" Width="80" Height="24" mah:TextBoxHelper.SelectAllOnFocus="True"
+                               mah:TextBoxHelper.Watermark="대표자" Style="{StaticResource App.TextBox.Center}" TabIndex="7"
+                               wpf:FocusMoveHelper.Down="{Binding RelativeSource={RelativeSource self}}"
+                               wpf:FocusMoveHelper.Left="{Binding ElementName=si_BizName}"
+                               wpf:FocusMoveHelper.Right="{Binding ElementName=si_BizType}"
+                               wpf:FocusMoveHelper.Up="{Binding RelativeSource={RelativeSource self}}"
+                               Text="{Binding WorkDataT.CurrentT.si_BizCeo, UpdateSourceTrigger=PropertyChanged}"/>
+                    </wpf:AutoGrid>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Width="60" Margin="4,0" VerticalAlignment="Center"
+                               TextAlignment="Right"
+                               Text="{Binding DataHeaders[si_BizType], FallbackValue=si_BizType, StringFormat={0}}"/>
+                    <TextBox x:Name="si_BizType" Grid.Row="1" Grid.Column="1" Height="24"
+                             mah:TextBoxHelper.SelectAllOnFocus="True" TabIndex="8"
+                             wpf:FocusMoveHelper.Down="{Binding RelativeSource={RelativeSource self}}"
+                             wpf:FocusMoveHelper.Left="{Binding ElementName=si_BizCeo}"
+                             wpf:FocusMoveHelper.Right="{Binding ElementName=si_BizCategory}"
+                             wpf:FocusMoveHelper.Up="{Binding RelativeSource={RelativeSource self}}"
+                             Text="{Binding WorkDataT.CurrentT.si_BizType, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Width="60" Margin="4,0" VerticalAlignment="Center"
+                               TextAlignment="Right"
+                               Text="{Binding DataHeaders[si_BizCategory], FallbackValue=si_BizCategory, StringFormat={0}}"/>
+                    <TextBox x:Name="si_BizCategory" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" Height="24"
+                             mah:TextBoxHelper.SelectAllOnFocus="True" TabIndex="9"
+                             wpf:FocusMoveHelper.Down="{Binding RelativeSource={RelativeSource self}}"
+                             wpf:FocusMoveHelper.Left="{Binding ElementName=si_BizType}"
+                             wpf:FocusMoveHelper.Right="{Binding ElementName=si_ZipCode}"
+                             wpf:FocusMoveHelper.Up="{Binding RelativeSource={RelativeSource self}}"
+                             Text="{Binding WorkDataT.CurrentT.si_BizCategory, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Width="60" Margin="4,0" VerticalAlignment="Center"
+                               TextAlignment="Right"
+                               Text="{Binding DataHeaders[si_ZipCode], FallbackValue=si_ZipCode, StringFormat={0}}"/>
+                    <wpf:AutoGrid Row="2" Column="1" AutoColumnsString=",,*">
+                      <TextBox x:Name="si_ZipCode" Width="80" Height="24" mah:TextBoxHelper.SelectAllOnFocus="True" TabIndex="10"
+                               wpf:FocusMoveHelper.Down="{Binding RelativeSource={RelativeSource self}}"
+                               wpf:FocusMoveHelper.Left="{Binding ElementName=si_BizCategory}"
+                               wpf:FocusMoveHelper.Right="{Binding ElementName=si_BizAddr1}"
+                               wpf:FocusMoveHelper.Up="{Binding RelativeSource={RelativeSource self}}"
+                               Text="{Binding WorkDataT.CurrentT.si_ZipCode, UpdateSourceTrigger=PropertyChanged}"/>
+                      <Button Focusable="False" Command="{Binding CmdSearchZip}">
+                        <StackPanel Orientation="Horizontal">
+                          <Image Width="20" Height="20"
+                                 Source="{Binding Source={x:Static res:Icons.Default}, Path=Common_Button_Zip.FullPath}"/>
+                        </StackPanel>
+                      </Button>
+                    </wpf:AutoGrid>
+                    <TextBlock Grid.Row="2" Grid.Column="2" Width="60" Margin="4,0" VerticalAlignment="Center"
+                               TextAlignment="Right"
+                               Text="{Binding DataHeaders[si_WeatherCode], FallbackValue=si_WeatherCode, StringFormat={0}}"/>
+                    <TextBox x:Name="si_WeatherCode" Grid.Row="2" Grid.Column="3" Height="24"
+                             mah:TextBoxHelper.SelectAllOnFocus="True" Focusable="False"
+                             wpf:FocusMoveHelper.Down="{Binding RelativeSource={RelativeSource self}}"
+                             wpf:FocusMoveHelper.Left="{Binding ElementName=si_ZipCode}"
+                             wpf:FocusMoveHelper.Right="{Binding ElementName=si_BizAddr1}"
+                             wpf:FocusMoveHelper.Up="{Binding RelativeSource={RelativeSource self}}"
+                             Text="{Binding WorkDataT.CurrentT.si_WeatherCode, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Width="60" Margin="4,0" VerticalAlignment="Center"
+                               TextAlignment="Right"
+                               Text="{Binding DataHeaders[si_BizAddr1], FallbackValue=si_BizAddr1, StringFormat={0}}"/>
+                    <TextBox x:Name="si_BizAddr1" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Height="24"
+                             mah:TextBoxHelper.SelectAllOnFocus="True" TabIndex="11"
+                             wpf:FocusMoveHelper.Down="{Binding RelativeSource={RelativeSource self}}"
+                             wpf:FocusMoveHelper.Left="{Binding ElementName=si_ZipCode}"
+                             wpf:FocusMoveHelper.Right="{Binding ElementName=si_BizAddr2}"
+                             wpf:FocusMoveHelper.Up="{Binding RelativeSource={RelativeSource self}}"
+                             Text="{Binding WorkDataT.CurrentT.si_BizAddr1, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Grid.Row="4" Grid.Column="0" Width="60" Margin="4,0" VerticalAlignment="Center"
+                               TextAlignment="Right"
+                               Text="{Binding DataHeaders[si_BizAddr2], FallbackValue=si_BizAddr2, StringFormat={0}}"/>
+                    <TextBox x:Name="si_BizAddr2" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Height="24"
+                             mah:TextBoxHelper.SelectAllOnFocus="True" TabIndex="12"
+                             wpf:FocusMoveHelper.Down="{Binding RelativeSource={RelativeSource self}}"
+                             wpf:FocusMoveHelper.Left="{Binding ElementName=si_BizAddr1}"
+                             wpf:FocusMoveHelper.Right="{Binding ElementName=si_Email}"
+                             wpf:FocusMoveHelper.Up="{Binding RelativeSource={RelativeSource self}}"
+                             Text="{Binding WorkDataT.CurrentT.si_BizAddr2, UpdateSourceTrigger=PropertyChanged}"/>
+                  </wpf:AutoGrid>
+                </StackPanel>
+              </GroupBox>
+              <Border Style="{DynamicResource App.Border.Part.Space.GroupToGroupSplit}"/>
+              <GroupBox Header="기타 정보" Style="{DynamicResource App.GroupBox.Part}">
+                <StackPanel Orientation="Vertical">
+                  <wpf:AutoGrid AutoColumnsString=",*,*,*,*,*" AutoRowsString=",,," IsAutoChildPosition="False">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Width="60" Margin="4,0" VerticalAlignment="Center"
+                               TextAlignment="Right"
+                               Text="{Binding DataHeaders[si_Email], FallbackValue=si_Email, StringFormat={0}}"/>
+                    <TextBox x:Name="si_Email" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Height="24"
+                             mah:TextBoxHelper.SelectAllOnFocus="True" mah:TextBoxHelper.Watermark="네이버, 다음, 지메일 SMTP 설정후 사용가능"
+                             TabIndex="13" wpf:FocusMoveHelper.Down="{Binding RelativeSource={RelativeSource self}}"
+                             wpf:FocusMoveHelper.Left="{Binding ElementName=si_BizAddr2}"
+                             wpf:FocusMoveHelper.Right="{Binding ElementName=IsPwdChanged}"
+                             wpf:FocusMoveHelper.Up="{Binding RelativeSource={RelativeSource self}}"
+                             Text="{Binding WorkDataT.CurrentT.si_Email, UpdateSourceTrigger=PropertyChanged}"/>
+                    <wpf:AutoGrid Row="0" Column="3" ColumnSpan="3" AutoColumnsString=",*">
+                      <CheckBox x:Name="IsPwdChanged" Grid.Column="0" Width="80" wpf:FocusMoveHelper.Down=""
+                                wpf:FocusMoveHelper.Up="" Content="비번 변경" Style="{DynamicResource App.CheckBox.Search}"
+                                TabIndex="14" wpf:FocusMoveHelper.Left="{Binding ElementName=si_Email}"
+                                wpf:FocusMoveHelper.Right="{Binding ElementName=si_EmailPwd}"
+                                IsChecked="{Binding WorkDataT.CurrentT.IsPwdChanged}"/>
+                      <TextBox x:Name="si_EmailPwd" Grid.Column="1" Height="24" mah:TextBoxHelper.SelectAllOnFocus="True"
+                               Style="{StaticResource App.TextBox.Center}" TabIndex="15"
+                               wpf:FocusMoveHelper.Down="{Binding RelativeSource={RelativeSource self}}"
+                               wpf:FocusMoveHelper.Left="{Binding ElementName=IsPwdChanged}"
+                               wpf:FocusMoveHelper.Right="{Binding RelativeSource={RelativeSource self}}"
+                               wpf:FocusMoveHelper.Up="{Binding RelativeSource={RelativeSource self}}"
+                               Text="{Binding WorkDataT.CurrentT.si_EmailPwd, UpdateSourceTrigger=PropertyChanged}"/>
+                    </wpf:AutoGrid>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Width="60" Margin="4,0" VerticalAlignment="Center" Text="자동발주"
+                               TextAlignment="Right"/>
+                    <Grid Row="1" Column="1" ColumnSpan="5">
+                      <wpf:AutoGrid AutoColumnsString="*,*,*,*" IsAutoChildPosition="False">
+                        <FrameworkElement.Resources>
+                          <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="{x:Type TextBlock}">
+                            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
+                            <Setter Property="TextBlock.FontSize" Value="11"/>
+                          </Style>
+                        </FrameworkElement.Resources>
+                        <StackPanel Grid.Column="0" Orientation="Vertical">
+                          <TextBlock Grid.Column="0"
+                                     Text="{Binding DataHeaders[si_AutoOrderSafetyFactor], FallbackValue=si_AutoOrderSafetyFactor, StringFormat={0}}"/>
+                          <TextBox Grid.Column="1" Height="24" mah:TextBoxHelper.SelectAllOnFocus="True" Focusable="False"
+                                   Style="{StaticResource App.TextBox.Center}"
+                                   Text="{Binding WorkDataT.CurrentT.si_AutoOrderSafetyFactor, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Vertical">
+                          <TextBlock Grid.Column="2"
+                                     Text="{Binding DataHeaders[si_AutoOrderRef], FallbackValue=si_AutoOrderRef, StringFormat={0}}"/>
+                          <TextBox Grid.Column="3" Height="24" mah:TextBoxHelper.SelectAllOnFocus="True" Focusable="False"
+                                   Style="{StaticResource App.TextBox.Center}"
+                                   Text="{Binding WorkDataT.CurrentT.si_AutoOrderRef, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Orientation="Vertical">
+                          <TextBlock Grid.Column="4" Text="발주주기"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="3" Orientation="Vertical">
+                          <TextBlock Grid.Row="1" Grid.Column="4"
+                                     Text="{Binding DataHeaders[si_AutoOrderOpt], FallbackValue=si_AutoOrderOpt, StringFormat={0}}"/>
+                          <TextBox Grid.Row="1" Grid.Column="5" Height="24" mah:TextBoxHelper.SelectAllOnFocus="True"
+                                   Focusable="False"
+                                   Text="{Binding WorkDataT.CurrentT.si_AutoOrderOpt, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                      </wpf:AutoGrid>
+                    </Grid>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Width="60" Margin="4,0" VerticalAlignment="Center" Text="로케이션"
+                               TextAlignment="Right"/>
+                    <control_check:UseYnCheckControl Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="24" Focusable="False" IsThreeState="False"
+                                                     UseYn="{Binding WorkDataT.CurrentT.si_LocationUseYn, Converter={x:Static converter:UseYnToNullBoolConverter.Instance}}"/>
+                  </wpf:AutoGrid>
+                </StackPanel>
+              </GroupBox>
+              <Border Style="{DynamicResource App.Border.Part.Space.GroupToGroupSplit}"/>
+              <GroupBox Header="등록 변경 시간" Style="{DynamicResource App.GroupBox.Part}">
+                <StackPanel Orientation="Vertical">
+                  <wpf:AutoGrid AutoColumnsString=",*,,*,,*" IsAutoChildPosition="False">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Width="60" Margin="4,0" VerticalAlignment="Center"
+                               TextAlignment="Right"
+                               Text="{Binding DataHeaders[si_StockStartDate], FallbackValue=si_StockStartDate, StringFormat={0}}"/>
+                    <wpf:AutoGrid Row="0" Column="1" AutoColumnsString=",*" IsAutoChildPosition="False">
+                      <DatePicker Grid.Column="0" Width="100" Height="24" Margin="4,0" Focusable="False"
+                                  Style="{DynamicResource App.DatePicker.Search}" IsEnabled="{Binding IsAdmin}"
+                                  SelectedDate="{Binding WorkDataT.CurrentT.si_StockStartDate}"/>
+                    </wpf:AutoGrid>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Width="60" Margin="4,0" VerticalAlignment="Center"
+                               TextAlignment="Right"
+                               Text="{Binding DataHeaders[si_BuyConfirmDate], FallbackValue=si_BuyConfirmDate, StringFormat={0}}"/>
+                    <wpf:AutoGrid Row="0" Column="3" AutoColumnsString=",*" IsAutoChildPosition="False">
+                      <DatePicker Grid.Column="0" Width="100" Height="24" Margin="4,0" Focusable="False"
+                                  Style="{DynamicResource App.DatePicker.Search}" IsEnabled="{Binding IsAdmin}"
+                                  SelectedDate="{Binding WorkDataT.CurrentT.si_BuyConfirmDate}"/>
+                    </wpf:AutoGrid>
+                    <TextBlock Grid.Row="0" Grid.Column="4" Width="60" Margin="4,0" VerticalAlignment="Center"
+                               TextAlignment="Right"
+                               Text="{Binding DataHeaders[si_StockConfirmDate], FallbackValue=si_StockConfirmDate, StringFormat={0}}"/>
+                    <wpf:AutoGrid Row="0" Column="5" AutoColumnsString=",*" IsAutoChildPosition="False">
+                      <DatePicker x:Name="LastUI" Grid.Column="0" Width="100" Height="24" Margin="4,0" Focusable="False"
+                                  Style="{DynamicResource App.DatePicker.Search}" IsEnabled="{Binding IsAdmin}"
+                                  SelectedDate="{Binding WorkDataT.CurrentT.si_StockConfirmDate}"/>
+                    </wpf:AutoGrid>
+                  </wpf:AutoGrid>
+                </StackPanel>
+              </GroupBox>
+              <Border Style="{DynamicResource App.Border.Part.Space.GroupToGroupSplit}"/>
+              <GroupBox Header="기타정보" Style="{DynamicResource App.GroupBox.Part}">
+                <con:PartModifyInfoControl CreateName="{Binding WorkDataT.CurrentT.inEmpName}"
+                                           CreateTime="{Binding WorkDataT.CurrentT.si_InDate}"
+                                           ModifyName="{Binding WorkDataT.CurrentT.modEmpName}"
+                                           ModifyTime="{Binding WorkDataT.CurrentT.si_ModDate}"/>
+              </GroupBox>
+            </StackPanel>
+          </ScrollViewer>
+        </Border>
+      </DockPanel>
+    </wpf:OverlayLayout>
+  </Grid>
+</UserControl>

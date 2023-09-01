@@ -1,0 +1,17 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+  <sys:String x:Key="NumberFormat.Number">#,### .</sys:String>
+  <sys:String x:Key="NumberFormat.Number.0">#,##0 .</sys:String>
+  <sys:String x:Key="NumberFormat.Number.Count">#,###건</sys:String>
+  <sys:String x:Key="NumberFormat.Edit.Number.0">#,##0</sys:String>
+  <sys:String x:Key="NumberFormat.Edit.Double">#,##0.####</sys:String>
+  <sys:String x:Key="NumberFormat.Edit.Double0.2">#,##0.##</sys:String>
+  <sys:String x:Key="NumberFormat.Edit.Double0.02">#,##0.00</sys:String>
+  <sys:String x:Key="NumberFormat.Double0.2">#,##0.## .</sys:String>
+  <sys:String x:Key="NumberFormat.Double.2">#,##0.00 .</sys:String>
+  <sys:String x:Key="NumberFormat.Double.4">#,##0.0000 .</sys:String>
+  <sys:String x:Key="DateTimeFormat.Default">yyyy-MM-dd HH:mm:ss</sys:String>
+  <sys:String x:Key="DateTimeFormat.Middle">yyyy-MM-dd HH:mm</sys:String>
+  <sys:String x:Key="DateTimeFormat.Date">yyyy-MM-dd</sys:String>
+</ResourceDictionary>
