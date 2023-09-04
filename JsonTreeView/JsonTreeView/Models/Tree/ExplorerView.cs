@@ -21,12 +21,19 @@ namespace JsonTreeView.Models.Tree
         //public string exp_TreeName { get => _exp_TreeName; set { _exp_TreeName = value; NotifyOfPropertyChange(); } }
         //private string _exp_TreeName;
 
+        /// <summary>
+        /// 하위 디렉토리 (폴더, 파일) 리스트 
+        /// </summary>
+        public List<Dictionary<string, object>> SubItems { get => _SubItems; set { _SubItems = value; NotifyOfPropertyChange(); } }
+        private List<Dictionary<string, object>> _SubItems = new List<Dictionary<string, object>>();
+
+
         // TODO : 하위 디렉토리 (폴더 - 파일) 이름을 따로 나눠야 할 경우 프로퍼티 "exp_TreeFolderNameDesc", "exp_TreeFileNameDesc" 구현 하기 (2023.09.01 jbh)
         /// <sumary>
         /// 하위 디렉토리 (폴더 - 파일) 이름
         /// </sumary>
-        public string exp_TreeNameDesc { get => _exp_TreeNameDesc; set { _exp_TreeNameDesc = value; NotifyOfPropertyChange(); } }
-        private string _exp_TreeNameDesc;
+        public string exp_SubTreeNameDesc { get => _exp_SubTreeNameDesc; set { _exp_SubTreeNameDesc = value; NotifyOfPropertyChange(); } }
+        private string _exp_SubTreeNameDesc;
 
 
         /// <summary>

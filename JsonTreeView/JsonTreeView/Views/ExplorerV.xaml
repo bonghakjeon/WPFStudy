@@ -46,14 +46,16 @@
                     </StackPanel>
                 </HierarchicalDataTemplate>
 
-                <!--  하위 디렉토리 영역 : exp_TreeNameDesc  -->
-                <HierarchicalDataTemplate DataType="{x:Type model:ExplorerView}">
+                <!--  하위 디렉토리 영역 : exp_SubTreeNameDesc  -->
+                <!--  <TextBlock> 영역 Text 프로퍼티 Binding Path에 프로퍼티 "exp_SubTreeNameDesc" 설정 (2023.09.04 jbh) -->
+                <!--  참고 URL - https://stackoverflow.com/questions/20568767/binding-dictionarystring-listclass-to-treeview -->
+                <HierarchicalDataTemplate DataType="{x:Type model:ExplorerView}" ItemsSource="{Binding SubItems}">
                     <StackPanel Orientation="Horizontal">
                         <!--  하위 디렉토리 이미지 파일  -->
                         <Image/>
                         
                         <!--  하위 디렉토리 폴더(또는 파일 이름)  -->
-                        <TextBlock Text="{Binding exp_TreeNameDesc}"/>
+                        <TextBlock Text="{Binding Key}"/>
                     </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.Resources>

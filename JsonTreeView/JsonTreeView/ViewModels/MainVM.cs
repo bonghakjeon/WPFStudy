@@ -177,7 +177,7 @@ namespace JsonTreeView.ViewModels
                         lv.Items.Add(jDic);
 
                         // 서버로 부터 리턴받은 메타데이터(jMetaDic)를 추가(Add)한다.
-                        lv.metaItems.Add(jMetaDic);
+                        lv.MetaItems.Add(jMetaDic);
 
                         // 새로 생성한 루트 디렉토리 데이터(ExplorerLevel 클래스 객체 lv)
                         // 트리뷰 영역(LevelDatas)에 추가될 데이터(List 객체 levelDatas)에 추가해준다. (levelDatas.Add)

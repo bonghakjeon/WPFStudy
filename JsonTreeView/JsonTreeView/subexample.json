@@ -1,0 +1,26 @@
+{
+    "resultData": [{
+            "useYn": "Y",
+            "createIp": "127.0.0.1",
+            "updateIp": null,
+            "createDateTime": "2023-07-25T10:44:45.988+00:00",
+            "updateDateTime": null,
+            "createUserId": "horimu",
+            "updateUserId": null,
+            "folderId": "f539cd1d33dc4ccca5442e33c5e1f6aa",
+            "folderName": "현장건설팀",
+            "parentFolderId": null,
+            "folderGroupId": "f539cd1d33dc4ccca5442e33c5e1f6aa",
+            "levelNo": 0,
+            "fileList": []
+        }
+    ],
+    "resultCount": 0,
+    "resultMessage": null,
+    "tenantId": "inc-001",
+    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJvcmdhbml6YXRpb25JZCI6ImlqaW5jIiwic3ViIjoic2lnbiIsInRlYW1zIjoiaW5jLTAwMS1qYy1jb25zdHJjdC10MDAxLGluYy0wMDEtcHJvamVjdC0wOS0wMS1hYS10MDAyIiwicm9sZXMiOiJyb2xlXzAwMSxyb2xlXzAwMCIsInRlbmFudElkIjoiaW5jLTAwMSIsInByb2plY3QiOiJqYy1jb25zdHJjdCxrYWZhayxwcm9qZWN0LTA5LTAxLWFhLHBzeSIsInVzZXJOYW1lIjoi6rCc67Cc7J6QLTAwMSIsImV4cCI6MTY5Mzc5Njk3NiwidXNlcklkIjoiZHZsMDAxIn0.CTOnile92bjzFp1Zo9YA6fRL_L2pUScLj_ucdXmCtJM, eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJvcmdhbml6YXRpb25JZCI6ImlqaW5jIiwic3ViIjoic2lnbiIsInRlYW1zIjoiaW5jLTAwMS1qYy1jb25zdHJjdC10MDAxLGluYy0wMDEtcHJvamVjdC0wOS0wMS1hYS10MDAyIiwicm9sZXMiOiJyb2xlXzAwMSxyb2xlXzAwMCIsInRlbmFudElkIjoiaW5jLTAwMSIsInByb2plY3QiOiJqYy1jb25zdHJjdCxrYWZhayxwcm9qZWN0LTA5LTAxLWFhLHBzeSIsInVzZXJOYW1lIjoi6rCc67Cc7J6QLTAwMSIsImV4cCI6MTY5Mzc5Njk3NiwidXNlcklkIjoiZHZsMDAxIn0.CTOnile92bjzFp1Zo9YA6fRL_L2pUScLj_ucdXmCtJM, eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJvcmdhbml6YXRpb25JZCI6ImlqaW5jIiwic3ViIjoic2lnbiIsInRlYW1zIjoiaW5jLTAwMS1qYy1jb25zdHJjdC10MDAxLGluYy0wMDEtcHJvamVjdC0wOS0wMS1hYS10MDAyIiwicm9sZXMiOiJyb2xlXzAwMSxyb2xlXzAwMCIsInRlbmFudElkIjoiaW5jLTAwMSIsInByb2plY3QiOiJqYy1jb25zdHJjdCxrYWZhayxwcm9qZWN0LTA5LTAxLWFhLHBzeSIsInVzZXJOYW1lIjoi6rCc67Cc7J6QLTAwMSIsImV4cCI6MTY5Mzc5Njk3NiwidXNlcklkIjoiZHZsMDAxIn0.CTOnile92bjzFp1Zo9YA6fRL_L2pUScLj_ucdXmCtJM, eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJvcmdhbml6YXRpb25JZCI6ImlqaW5jIiwic3ViIjoic2lnbiIsInRlYW1zIjoiaW5jLTAwMS1qYy1jb25zdHJjdC10MDAxLGluYy0wMDEtcHJvamVjdC0wOS0wMS1hYS10MDAyIiwicm9sZXMiOiJyb2xlXzAwMSxyb2xlXzAwMCIsInRlbmFudElkIjoiaW5jLTAwMSIsInByb2plY3QiOiJqYy1jb25zdHJjdCxrYWZhayxwcm9qZWN0LTA5LTAxLWFhLHBzeSIsInVzZXJOYW1lIjoi6rCc67Cc7J6QLTAwMSIsImV4cCI6MTY5Mzc5Njk3NiwidXNlcklkIjoiZHZsMDAxIn0.CTOnile92bjzFp1Zo9YA6fRL_L2pUScLj_ucdXmCtJM",
+    "refreshToken": null,
+    "param": null,
+    "payload": null,
+    "actionUserInfo": null
+}
