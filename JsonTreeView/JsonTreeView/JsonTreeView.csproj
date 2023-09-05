@@ -120,10 +120,13 @@
     <Compile Include="Commands\ButtonCommand.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Models\Explorer\ExplorerView.cs" />
+    <Compile Include="Models\Explorer\ExplorerLevelView`1.cs" />
     <Compile Include="Models\Tree\ExplorerLevel.cs" />
     <Compile Include="Models\Tree\ExplorerView.cs" />
     <Compile Include="Models\Tree\TreeNode.cs" />
     <Compile Include="StyletBootstrapper.cs" />
+    <Compile Include="ViewModels\ExplorerLevel.cs" />
     <Compile Include="ViewModels\ExplorerVM.cs" />
     <Compile Include="ViewModels\MainVM.cs" />
     <Compile Include="Views\ExplorerV.xaml.cs">
@@ -180,6 +183,11 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\COBIM-Explorer\CobimExplorer\CobimExplorerNet\CobimExplorerNet.csproj">
+      <Project>{87771B1C-9FF9-4A47-AB3E-7C76FF5D8DB9}</Project>
+      <Name>CobimExplorerNet</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

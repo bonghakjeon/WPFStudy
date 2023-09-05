@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JsonTreeView.Views"
         xmlns:vm="clr-namespace:JsonTreeView.ViewModels"
-        xmlns:model="clr-namespace:JsonTreeView.Models.Tree"
+        xmlns:model="clr-namespace:JsonTreeView.Models.Explorer"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:ExplorerVM}"
         Title="ExplorerV" Height="450" Width="800">
@@ -49,13 +49,13 @@
                 <!--  하위 디렉토리 영역 : exp_SubTreeNameDesc  -->
                 <!--  <TextBlock> 영역 Text 프로퍼티 Binding Path에 프로퍼티 "exp_SubTreeNameDesc" 설정 (2023.09.04 jbh) -->
                 <!--  참고 URL - https://stackoverflow.com/questions/20568767/binding-dictionarystring-listclass-to-treeview -->
-                <HierarchicalDataTemplate DataType="{x:Type model:ExplorerView}" ItemsSource="{Binding SubItems}">
+                <HierarchicalDataTemplate DataType="{x:Type vm:ExplorerView}">
                     <StackPanel Orientation="Horizontal">
-                        <!--  하위 디렉토리 이미지 파일  -->
-                        <Image/>
+                        <!--하위 디렉토리 이미지 파일-->  
+                        <!--<Image/>-->
                         
-                        <!--  하위 디렉토리 폴더(또는 파일 이름)  -->
-                        <TextBlock Text="{Binding Key}"/>
+                        <!--하위 디렉토리 폴더(또는 파일 이름)-->  
+                        <TextBlock Text="{Binding exp_TreeFolderName}"/>
                     </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
@@ -82,6 +82,7 @@
             <StackPanel Orientation="Horizontal">
                 <Button Content="Load" Padding="5,0" Command="{Binding LoadCommand}"/>
                 <Button Content="Save" Padding="5,0" Margin="5,0,0,0" Command="{Binding SaveCommand}"/>
+                <Button Content="Test" Padding="5,0" Margin="5,0,0,0" Command="{Binding TestCommand}"/>
             </StackPanel>
             <!--<TextBlock Text="Name"/>
             <TextBox Text="{Binding SelectedItem.Name, UpdateSourceTrigger=PropertyChanged}"/>
