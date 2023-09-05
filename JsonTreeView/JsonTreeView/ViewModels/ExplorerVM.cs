@@ -25,10 +25,21 @@ namespace JsonTreeView.ViewModels
         File = 3
     }
 
-    public class ExplorerView : BindableBase // ExplorerLevelView<ExplorerLevelView>
+    public class ExplorerFolderView : BindableBase // ExplorerLevelView<ExplorerLevelView>
+    {
+
+    }
+
+    public class ExplorerView : ExplorerFolderView
     {
         public IDictionary<string, object> DataInfo { get => _DataInfo; set { _DataInfo = value; Changed(); } }
         private IDictionary<string, object> _DataInfo = new Dictionary<string, object>();
+
+        public IDictionary<string, object> ProjectDataInfo { get => _ProjectDataInfo; set { _ProjectDataInfo = value; Changed(); } }
+        private IDictionary<string, object> _ProjectDataInfo = new Dictionary<string, object>();
+
+        public IDictionary<string, object> TeamDataInfo { get => _TeamDataInfo; set { _TeamDataInfo = value; Changed(); } }
+        private IDictionary<string, object> _TeamDataInfo = new Dictionary<string, object>();
 
         public string exp_TreeFolderName { get => _exp_TreeFolderName; set { _exp_TreeFolderName = value; Changed(); } }
         private string _exp_TreeFolderName;
@@ -42,8 +53,11 @@ namespace JsonTreeView.ViewModels
         //public IList<Dictionary<string, object>> Items { get => _Items; set { _Items = value; Changed(); } }
         //private IList<Dictionary<string, object>> _Items = new List<Dictionary<string, object>>();
 
-        public IList<ExplorerView> Items { get => _Items; set { _Items = value; Changed(); } }
-        private IList<ExplorerView> _Items = new List<ExplorerView>();
+        public IList<ExplorerView> ProjectItems { get => _ProjectItems; set { _ProjectItems = value; Changed(); } }
+        private IList<ExplorerView> _ProjectItems = new List<ExplorerView>();
+
+        public IList<ExplorerView> TeamItems { get => _TeamItems; set { _TeamItems = value; Changed(); } }
+        private IList<ExplorerView> _TeamItems = new List<ExplorerView>();
 
         //public int exp_TreeLevel { get => _exp_TreeLevel; set { _exp_TreeLevel = value; Changed(); } }
         //private int _exp_TreeLevel;
@@ -255,6 +269,8 @@ namespace JsonTreeView.ViewModels
                 // 트리뷰 영역(DepthDatas)에 추가될 데이터(List 객체 depthDatas) 생성
                 List<ExplorerLevel> levelDatas = new List<ExplorerLevel>();
 
+                // Dictionary<string, object> levelDictionary = ToDictionary(datas);
+
                 foreach (var data in datas)
                 {
                     object projectIdValue;
@@ -270,43 +286,60 @@ namespace JsonTreeView.ViewModels
 
                         ExplorerView projectDic = new ExplorerView();
 
-                        projectDic.DataInfo = ToDictionary(data["projectEntity"]);
+                        projectDic.DataInfo = ToDictionary(data);
+                        projectDic.ProjectDataInfo = ToDictionary(data["projectEntity"]);
+                        projectDic.TeamDataInfo = ToDictionary(data["teamEntity"]);
 
-                        if (projectDic.DataInfo.TryGetValue("projectId", out projectIdValue) && projectDic.DataInfo.TryGetValue("projectName", out projectNameValue))
+                        // TODO : 추후 아래 3줄 코드 "lv.DataInfo". "lv.ProjectDataInfo", "lv.TeamDataInfo" 필요 없을시 수정 예정 (2023.09.05 jbh)
+                        lv.DataInfo = projectDic.DataInfo;
+                        lv.ProjectDataInfo = projectDic.ProjectDataInfo;
+                        lv.TeamDataInfo = projectDic.TeamDataInfo;
+
+
+                        if (projectDic.ProjectDataInfo.TryGetValue("projectId", out projectIdValue) && projectDic.ProjectDataInfo.TryGetValue("projectName", out projectNameValue))
                         {
+                            // projectDic.exp_TreeFolderName = "테스트";
+
                             lv.exp_TreeProjectIdLevel = projectIdValue.ToString();
 
                             lv.exp_TreeName = projectNameValue.ToString();
 
-                            lv.Items.Add(projectDic);
+                            lv.ProjectItems.Add(projectDic);
 
                             levelDatas.Add(lv);
                         }
                     }
 
-                    // 하위 디렉토리 (폴더)
+                    // 프로젝트 하위 디렉토리 (팀)
                     // var teamDic = ToDictionary(data["teamEntity"]);
 
                     ExplorerView teamDic = new ExplorerView();
 
-                    teamDic.DataInfo = ToDictionary(data["teamEntity"]);
+                    teamDic.DataInfo = ToDictionary(data);
+                    teamDic.ProjectDataInfo = ToDictionary(data["projectEntity"]);
+                    teamDic.TeamDataInfo = ToDictionary(data["teamEntity"]);
 
                     foreach (var level in levelDatas)
                     {
 
-                        if (teamDic.DataInfo.TryGetValue("projectId", out teamprojectIdValue) && teamDic.DataInfo.TryGetValue("teamName", out teamNameValue))
+                        if (teamDic.TeamDataInfo.TryGetValue("projectId", out teamprojectIdValue) && teamDic.TeamDataInfo.TryGetValue("teamName", out teamNameValue))
                         {
                             if (level.exp_TreeProjectIdLevel.Equals(teamprojectIdValue.ToString()))
                             {
                                 // teamDic.exp_TreeFolderName = teamNameValue.ToString();
                                 teamDic.exp_TreeFolderName = teamNameValue.ToString();
-                                level.Items.Add(teamDic);
+                                level.TeamItems.Add(teamDic);
 
                                 bContains = true;
                                 break; // foreach문 종료
                             }
                         }
                     }
+
+                    // 팀 하위 디렉토리 (폴더)
+                    ExplorerFolderView folderDic = new ExplorerFolderView();
+
+
                 }
 
                 // var testDatas = levelDatas.

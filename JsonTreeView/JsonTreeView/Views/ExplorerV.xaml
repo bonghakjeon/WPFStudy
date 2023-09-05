@@ -29,7 +29,7 @@
             <!--  트리  -->
             <TreeView.Resources>
                 <!--  루트 디렉토리 영역 : exp_TreeName  -->
-                <HierarchicalDataTemplate DataType="{x:Type vm:ExplorerLevel}" ItemsSource="{Binding Items}">
+                <HierarchicalDataTemplate DataType="{x:Type vm:ExplorerLevel}" ItemsSource="{Binding TeamItems}">
                     <StackPanel Orientation="Horizontal">
                         <!-- TODO : 프로젝트 클릭시 폴더 목록 출력해주는 버튼(FolderListCommand) 실행 안되는 원인 파악하기(2023.09.01 jbh) -->
                         <!-- 버튼(FolderListCommand) 실행 안되는 원인은 해당 루트 디렉토리 영역은 vm:ExplorerLevel(ExplorerVM.cs -> "ExplorerLevel" 클래스)에 
