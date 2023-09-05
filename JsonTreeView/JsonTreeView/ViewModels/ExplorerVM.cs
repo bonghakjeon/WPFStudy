@@ -41,6 +41,9 @@ namespace JsonTreeView.ViewModels
         public IDictionary<string, object> TeamDataInfo { get => _TeamDataInfo; set { _TeamDataInfo = value; Changed(); } }
         private IDictionary<string, object> _TeamDataInfo = new Dictionary<string, object>();
 
+        public string exp_TreeTeamName { get => _exp_TreeTeamName; set { _exp_TreeTeamName = value; Changed(); } }
+        private string _exp_TreeTeamName;
+
         public string exp_TreeFolderName { get => _exp_TreeFolderName; set { _exp_TreeFolderName = value; Changed(); } }
         private string _exp_TreeFolderName;
     }
@@ -327,7 +330,7 @@ namespace JsonTreeView.ViewModels
                             if (level.exp_TreeProjectIdLevel.Equals(teamprojectIdValue.ToString()))
                             {
                                 // teamDic.exp_TreeFolderName = teamNameValue.ToString();
-                                teamDic.exp_TreeFolderName = teamNameValue.ToString();
+                                teamDic.exp_TreeTeamName = teamNameValue.ToString();
                                 level.TeamItems.Add(teamDic);
 
                                 bContains = true;

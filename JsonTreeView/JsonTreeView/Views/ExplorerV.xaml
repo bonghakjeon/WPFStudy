@@ -34,8 +34,7 @@
                         <!-- TODO : 프로젝트 클릭시 폴더 목록 출력해주는 버튼(FolderListCommand) 실행 안되는 원인 파악하기(2023.09.01 jbh) -->
                         <!-- 버튼(FolderListCommand) 실행 안되는 원인은 해당 루트 디렉토리 영역은 vm:ExplorerLevel(ExplorerVM.cs -> "ExplorerLevel" 클래스)에 
                              바인딩 되어 있기 때문에 "ExplorerVM.cs -> ExplorerVM 클래스" 가 아니라 (ExplorerVM.cs -> "ExplorerLevel" 클래스)에 FolderListCommand를 구현해야 한다. -->
-                        <Button CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                Command="{Binding FolderListCommand}">
+                        <Button>
                             <StackPanel Orientation="Horizontal">
                                 <!--  루트 디렉토리 이미지 파일  -->
                                 <!--<Image/>-->
@@ -50,13 +49,16 @@
                 <!--  <TextBlock> 영역 Text 프로퍼티 Binding Path에 프로퍼티 "exp_SubTreeNameDesc" 설정 (2023.09.04 jbh) -->
                 <!--  참고 URL - https://stackoverflow.com/questions/20568767/binding-dictionarystring-listclass-to-treeview -->
                 <HierarchicalDataTemplate DataType="{x:Type vm:ExplorerView}">
-                    <StackPanel Orientation="Horizontal">
-                        <!--하위 디렉토리 이미지 파일-->  
-                        <!--<Image/>-->
-                        
-                        <!--하위 디렉토리 폴더(또는 파일 이름)-->  
-                        <TextBlock Text="{Binding exp_TreeFolderName}"/>
-                    </StackPanel>
+                    <Button CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                            Command="{Binding FolderListCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <!--  하위 디렉토리 이미지 파일  -->
+                            <!--<Image/>-->
+
+                            <!--  하위 디렉토리 (팀)  -->
+                            <TextBlock Text="{Binding exp_TreeTeamName}"/>
+                        </StackPanel>
+                    </Button>
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
         </TreeView>
