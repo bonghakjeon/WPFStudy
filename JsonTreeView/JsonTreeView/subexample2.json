@@ -1,0 +1,26 @@
+{
+    "resultData": [{
+            "useYn": "Y",
+            "createIp": "127.0.0.1",
+            "updateIp": null,
+            "createDateTime": "2023-08-10T15:10:34.819+00:00",
+            "updateDateTime": null,
+            "createUserId": "zzomi",
+            "updateUserId": null,
+            "folderId": "99e84fc605504ed98d7211fb417c259c",
+            "folderName": "건설2팀",
+            "parentFolderId": null,
+            "folderGroupId": "99e84fc605504ed98d7211fb417c259c",
+            "levelNo": 0,
+            "fileList": []
+        }
+    ],
+    "resultCount": 0,
+    "resultMessage": null,
+    "tenantId": "inc-001",
+    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJvcmdhbml6YXRpb25JZCI6ImlqaW5jIiwic3ViIjoic2lnbiIsInRlYW1zIjoiaW5jLTAwMS1qYy1jb25zdHJjdC10MDAxLGluYy0wMDEtcHJvamVjdC0wOS0wMS1hYS10MDAyIiwicm9sZXMiOiJyb2xlXzAwMSxyb2xlXzAwMCIsInRlbmFudElkIjoiaW5jLTAwMSIsInByb2plY3QiOiJqYy1jb25zdHJjdCxrYWZhayxwcm9qZWN0LTA5LTAxLWFhLHBzeSIsInVzZXJOYW1lIjoi6rCc67Cc7J6QLTAwMSIsImV4cCI6MTY5Mzk5MDY0MiwidXNlcklkIjoiZHZsMDAxIn0.0X-wWpDoV0whKeDHTnLN25dnjhQYC4ab8rzfsVJlnuM, eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJvcmdhbml6YXRpb25JZCI6ImlqaW5jIiwic3ViIjoic2lnbiIsInRlYW1zIjoiaW5jLTAwMS1qYy1jb25zdHJjdC10MDAxLGluYy0wMDEtcHJvamVjdC0wOS0wMS1hYS10MDAyIiwicm9sZXMiOiJyb2xlXzAwMSxyb2xlXzAwMCIsInRlbmFudElkIjoiaW5jLTAwMSIsInByb2plY3QiOiJqYy1jb25zdHJjdCxrYWZhayxwcm9qZWN0LTA5LTAxLWFhLHBzeSIsInVzZXJOYW1lIjoi6rCc67Cc7J6QLTAwMSIsImV4cCI6MTY5Mzk5MDY0MiwidXNlcklkIjoiZHZsMDAxIn0.0X-wWpDoV0whKeDHTnLN25dnjhQYC4ab8rzfsVJlnuM",
+    "refreshToken": null,
+    "param": null,
+    "payload": null,
+    "actionUserInfo": null
+}
