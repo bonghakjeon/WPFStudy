@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using JsonTreeView.Commands;
 using CobimExplorerNet;
+using CobimExplorer.Rest.Api.CobimBase.Explorer;
+using System.Net.Http;
 // using JsonTreeView.Models.Tree;
 // using JsonTreeView.Models.Explorer;
 
@@ -27,8 +29,8 @@ namespace JsonTreeView.ViewModels
 
     public class ExplorerFolderView : BindableBase // ExplorerLevelView<ExplorerLevelView>
     {
-        public IDictionary<string, object> FolderDataInfo { get => _FolderDataInfo; set { _FolderDataInfo = value; Changed(); } }
-        private IDictionary<string, object> _FolderDataInfo = new Dictionary<string, object>();
+        public Dictionary<string, object> FolderDataInfo { get => _FolderDataInfo; set { _FolderDataInfo = value; Changed(); } }
+        private Dictionary<string, object> _FolderDataInfo = new Dictionary<string, object>();
 
         public string exp_TreeFolderName { get => _exp_TreeFolderName; set { _exp_TreeFolderName = value; Changed(); } }
         private string _exp_TreeFolderName;
@@ -36,14 +38,14 @@ namespace JsonTreeView.ViewModels
 
     public class ExplorerView : ExplorerFolderView
     {
-        public IDictionary<string, object> DataInfo { get => _DataInfo; set { _DataInfo = value; Changed(); } }
-        private IDictionary<string, object> _DataInfo = new Dictionary<string, object>();
+        public Dictionary<string, object> DataInfo { get => _DataInfo; set { _DataInfo = value; Changed(); } }
+        private Dictionary<string, object> _DataInfo = new Dictionary<string, object>();
 
-        public IDictionary<string, object> ProjectDataInfo { get => _ProjectDataInfo; set { _ProjectDataInfo = value; Changed(); } }
-        private IDictionary<string, object> _ProjectDataInfo = new Dictionary<string, object>();
+        public Dictionary<string, object> ProjectDataInfo { get => _ProjectDataInfo; set { _ProjectDataInfo = value; Changed(); } }
+        private Dictionary<string, object> _ProjectDataInfo = new Dictionary<string, object>();
 
-        public IDictionary<string, object> TeamDataInfo { get => _TeamDataInfo; set { _TeamDataInfo = value; Changed(); } }
-        private IDictionary<string, object> _TeamDataInfo = new Dictionary<string, object>();
+        public Dictionary<string, object> TeamDataInfo { get => _TeamDataInfo; set { _TeamDataInfo = value; Changed(); } }
+        private Dictionary<string, object> _TeamDataInfo = new Dictionary<string, object>();
 
         public string exp_TreeTeamName { get => _exp_TreeTeamName; set { _exp_TreeTeamName = value; Changed(); } }
         private string _exp_TreeTeamName;
@@ -60,20 +62,20 @@ namespace JsonTreeView.ViewModels
         /// <summary>
         /// 프로젝트 목록 리스트
         /// </summary>
-        public IList<ExplorerView> ProjectItems { get => _ProjectItems; set { _ProjectItems = value; Changed(); } }
-        private IList<ExplorerView> _ProjectItems = new List<ExplorerView>();
+        public List<ExplorerView> ProjectItems { get => _ProjectItems; set { _ProjectItems = value; Changed(); } }
+        private List<ExplorerView> _ProjectItems = new List<ExplorerView>();
 
         /// <summary>
         /// 팀 목록 리스트
         /// </summary>
-        public IList<ExplorerView> TeamItems { get => _TeamItems; set { _TeamItems = value; Changed(); } }
-        private IList<ExplorerView> _TeamItems = new List<ExplorerView>();
+        public List<ExplorerView> TeamItems { get => _TeamItems; set { _TeamItems = value; Changed(); } }
+        private List<ExplorerView> _TeamItems = new List<ExplorerView>();
 
         /// <summary>
         /// 폴더 목록 리스트
         /// </summary>
-        public IList<ExplorerView> FolderItems { get => _FolderItems; set { _FolderItems = value; Changed(); } }
-        private IList<ExplorerView> _FolderItems = new List<ExplorerView>();
+        public List<ExplorerView> FolderItems { get => _FolderItems; set { _FolderItems = value; Changed(); } }
+        private List<ExplorerView> _FolderItems = new List<ExplorerView>();
 
         //public int exp_TreeLevel { get => _exp_TreeLevel; set { _exp_TreeLevel = value; Changed(); } }
         //private int _exp_TreeLevel;
@@ -229,8 +231,34 @@ namespace JsonTreeView.ViewModels
 
         public BindableCollection<ExplorerLevel> DepthDatas { get; } = new BindableCollection<ExplorerLevel>();
 
+        /// <summary>
+        /// 프로젝트 아이디 리스트 
+        /// </summary>
+        public List<string> ProjectIdList { get => _ProjectIdList; set { _ProjectIdList = value; NotifyOfPropertyChange(); } }
+        private List<string> _ProjectIdList = new List<string>();
+
+        /// <summary>
+        /// 프로젝트 아이디, 팀 아이디 Dictionary
+        /// Key = 프로젝트 아이디, Value = 팀 아이디
+        /// </summary>
+        public Dictionary <string, string> ProjectTeamDic { get => _ProjectTeamDic; set { _ProjectTeamDic = value; NotifyOfPropertyChange(); } }
+        private Dictionary<string, string> _ProjectTeamDic = new Dictionary<string, string>(); 
+
+        /// <summary>
+        /// 폴더 목록 리스트 
+        /// </summary>
         public List<Dictionary<string, object>> FolderList { get => _FolderList; set { _FolderList = value; NotifyOfPropertyChange(); } }
         private List<Dictionary<string, object>> _FolderList = new List<Dictionary<string, object>>();
+
+        /// <summary>
+        /// HttpClient client (계속 호출하지 말고 싱글톤으로 사용해야함.)
+        /// </summary>
+        public HttpClient client { get; set; } = new HttpClient();
+
+        /// <summary>
+        /// 프로젝트(+팀) 정보
+        /// </summary>
+        public ProjectHelper.ProjectPack ProjectPack { get; set; }
 
         #endregion 프로퍼티 
 
@@ -363,24 +391,24 @@ namespace JsonTreeView.ViewModels
                         }
                     }
 
-                    // 팀 하위 디렉토리 (폴더)
-                    ExplorerFolderView folderDic = new ExplorerFolderView();
+                    // 팀 하위 디렉토리 (폴더) 추가 
+                    levelDatas = AddFolderList(levelDatas);
+                    //teamDic.FolderDataInfo = 
+                    //ExplorerFolderView folderDic = new ExplorerFolderView();
+                    //folderDic.FolderDataInfo.Add();
 
+                    //foreach (var level in levelDatas)
+                    //{
+                    //    level.
+                    //}
 
                 }
 
-                // var testDatas = levelDatas.
-
-                //LevelDatas.Clear();
-                //LevelDatas.AddRange(depthDatas.ToArray());
-
-                // levelDatas.Where(x => x.Items)
 
                 LevelDatas.Clear();
                 LevelDatas.AddRange(levelDatas.ToArray());
 
-                // 폴더 리스트 목록 가져오기 (재귀함수 식으로 호출)
-                GetFolderList(LevelDatas);
+                
 
                 // var testDatas = levelDatas.Where(x => x.Items[0].).ToList();
 
@@ -392,7 +420,8 @@ namespace JsonTreeView.ViewModels
 
             catch (Exception e)
             {
-
+                Log.Logger.Information(e.Message);
+                throw;
             }
         });
         private ICommand _TestCommand;
@@ -400,89 +429,151 @@ namespace JsonTreeView.ViewModels
 
         #region GetFolderList
 
-        // TODO : 메서드 "GetFolderList" 구현 진행하기 (2023.09.06 jbh)
-        private void GetFolderList(BindableCollection<ExplorerLevel> pLevelDatas)
+        // TODO : 메서드 "AddFolderList" 구현 진행하기 (2023.09.06 jbh)
+        /// <summary>
+        /// 폴더 리스트 추가
+        /// </summary>
+        /// <param name="pLevelDatas"> List<ExplorerLevel> pLevelDatas </param>
+        private async List<ExplorerLevel> AddFolderList(List<ExplorerLevel> pLevelDatas)
         {
-            // 1. pLevelDatas에서 프로젝트 리스트 가져오기
-            // pLevelDatas -> 인덱스 [0], [1] 번지에 속하는 프로퍼티 "ProjectDataInfo" 접근 -> 프로젝트 리스트 객체 "ProjectList"에 값 할당 
-            var projectList = pLevelDatas.Select(x => x.ProjectDataInfo["projectId"].ToString()).ToList();
+            try
+            {
+                string tokenKey = string.Empty;  // 로그인 토큰 키 
 
-            // 2. pLevelDatas에서 팀 Dictionary 가져오기 (Key = projectId / Value = teamId)
-            // pLevelDatas -> 인덱스 [0], [1] 번지에 속하는 프로퍼티 "TeamDataInfo" 접근 -> 팀 리스트 객체 "teamList"에 값 할당 
-            //Dictionary<string, string> teamDictionary = pLevelDatas.Select(x => x.TeamDataInfo)
-            //                                .ToList()
-            //                                .ToDictionary(key => key.Keys, value => value.Values.ToString());
+                // TODO : 프로젝트 아이디 리스트 "ProjectIdList" 필요 시 구현 예정(2023.09.07 jbh)
+                // 1. pLevelDatas에서 프로젝트 아이디 리스트 가져오기
+                // pLevelDatas -> 인덱스 [0], [1] 번지에 속하는 프로퍼티 "ProjectDataInfo" 접근 -> 프로젝트 리스트 객체 "ProjectList"에 값 할당 
+                // ProjectIdList = pLevelDatas.Select(x => x.ProjectDataInfo["projectId"].ToString()).ToList();
 
-            // TODO : 팀 리스트 "teamList"에서 프로젝트 아이디 "projectId"를 key 값으로 가져오고,
-            //        팀 아이디 "teamId" 정보를 value 값으로 가져와서 Dictionary로 구현 (2023.09.07 jbh)
-            // 참고 URL - https://qawithexperts.com/article/c-sharp/convert-list-to-dictionary-in-c-various-ways/439
+                // 2. pLevelDatas에서 팀 Dictionary 가져오기 (Key = projectId / Value = teamId)
+                // pLevelDatas -> 인덱스 [0], [1] 번지에 속하는 프로퍼티 "TeamDataInfo" 접근 -> 팀 리스트 객체 "teamList"에 값 할당 
+                var teamList = pLevelDatas.Select(x => x.TeamDataInfo).ToList();
 
-            // TryGetValue 사용 방법 
-            // 참고 URL - https://codingcoding.tistory.com/812
-            //if (teamDictionary.TryGetValue("projectId", out object projectId) && teamDictionary.TryGetValue("testId", out string testId))
-            //{
+                foreach (var team in teamList)
+                {
+                    // TODO : 팀 리스트 "teamList"에서 프로젝트 아이디 "projectId"를 key 값으로 가져오고,
+                    //        팀 아이디 "teamId" 정보를 value 값으로 가져와서 Dictionary로 구현 (2023.09.07 jbh)
+                    // 참고 URL - https://qawithexperts.com/article/c-sharp/convert-list-to-dictionary-in-c-various-ways/439
+
+                    // TryGetValue 사용 방법 
+                    // 참고 URL - https://codingcoding.tistory.com/812
+                    if (team.TryGetValue("projectId", out object projectId) && team.TryGetValue("teamId", out object teamId))
+                    {
+                        ProjectTeamDic.Add(projectId.ToString(), teamId.ToString());
+                    }
+                }
+
                 
-            //}
 
-            // Dictionary<string, object> jDic = jsonDic.Where(x => x.Key.Equals("projectName")).ToDictionary(x => x.Key, x => x.Value);
+                // 3. 반복문 사용 -> 각각의 프로젝트 아이디 및 팀 아이디 접근
+                foreach (var ProjectTeamInfo in ProjectTeamDic)
+                {
+                    // 4. ProjectHelper.cs -> ProjectPack 클래스 프로퍼티 "ProjectPack" 구현 및 프로젝트 아이디(ProjectId), 팀 아이디(TeamId) 값 할당 (2023.09.07 jbh)
+                    ProjectPack = new ProjectHelper.ProjectPack
+                    {
+                        projectId = ProjectTeamInfo.Key,
+                        teamId = ProjectTeamInfo.Value
+                    };
 
-            //var teamDictionary = teamList.Where(x => x.Keys.Contains("projectId") && x.Keys.Contains(""));
+                    // 5. 해당 프로젝트 아이디 및 팀 아이디 메서드 파라미터 전달 -> http 통신 진행 
+                    var folderList = await ExplorerRestServer.GetExplorerFolderListAsync(client, ProjectPack, tokenKey);
 
-            // 3. 반복문 사용 -> 프로젝트 리스트에 속한 프로젝트 아이디 접근
-            //foreach (var project in projectList)
-            //{
-            //    // 4. 반복문 사용 -> 프로젝트 하위에 속하는 팀 리스트에 속한 팀 아이디 접근 
-            //    foreach ()
-            //    {
-            // 5. projectList에 속하는 "projectId"와 teamDictionary에 속하는 Key 값("projectId")이 일치하는 경우 6번 진행 
-            // if ()
-            //        {
-            //              // 6. 해당 프로젝트 및 팀에 속하는 폴더 리스트 정보를 Http 통신(Get) 방식으로 폴더 리스트 데이터 가져와서 pLevelDatas에 추가 
-            //              // 6-1. 프로젝트 아이디, 팀 아이디 데이터를 ProjectHelper 클래스 객체에 담기
-            //              // ProjectHelper.
+                    ExplorerFolderView folderDic = new ExplorerView(); // 폴더 정보를 담을 껍데기 클래스 "ExplorerFolderView" 객체 "folderDic" 생성
 
-            //              // 6-2. Http 통신(Get) 방식으로 폴더 리스트 데이터 가져오기
-            //        } 
+                    // 6. 해당 프로젝트 및 팀 하위에 파일 데이터 추가
+                    // (ExplorerVM - FolderList, ExplorerLevel - FolderItems, ExplorerFolderView - FolderDataInfo)
+                    // pLevelDatas.Where(x => x.)
+                    foreach (var pLevel in pLevelDatas)
+                    {
+                        foreach (var folderData in folderList)
+                        {
+                            folderDic.FolderDataInfo = folderData;
 
-            //        // 7. 메서드 "GetFolderList" 재귀 호출
-            //    }
-            //}
+                            pLevel.FolderItems.Add(folderDic);
 
+                            // 클래스 "ExplorerFolderView" 프로퍼티 "FolderList"에 폴더 정보 리스트 "FolderDataInfo" 추가
+                            pLevel.FolderDataInfo.Add(folderData);
 
+                            // 클래스 "ExplorerLevel" 프로퍼티 "FolderItems"에 폴더 정보 리스트 "FolderList" 추가
+                            pLevel.FolderItems.Add(folderList);
 
-            // 1. 폴더 리스트 가져오기 
-            // pLevelDatas.Where(x => x.ProjectItems[]).ToList();
+                            FolderItems.Add(FolderList);      
+                            FolderDataInfo.Add(FolderList);   
+                            FolderList.Add(folderList);
+                        }
 
-            // TODO : JSON 파일 "subexample.json" 파일 경로 설정 및 File.ReadAllBytes 메서드 호출문 구현 (2023.09.06 jbh)
-            // 참고 URL - https://blog.naver.com/heennavi1004/222100360201
-            string jsonFolderPath = @"D:\bhjeon\WPFStudy\JsonTreeView\JsonTreeView\subexample.json";
+                        
 
-            //var jsonFolder = File.ReadAllText(jsonFolderPath);
-
-            //var jtmpFolder = (JsonObject.Parse(jsonFolder)["resultData"] as JsonArray).Select(x => x);
-
-            //var folderdatas = jtmpFolder.Select(x => JsonSerializer.Deserialize<Dictionary<string, object>>(x)).ToList();
-
-
-            var jsonFolder = File.ReadAllText(jsonFolderPath);
-
-            var jtmpFolder = (JsonObject.Parse(jsonFolder)["resultData"] as JsonArray).Select(x => x);
-
-            FolderList = jtmpFolder.Select(x => JsonSerializer.Deserialize<Dictionary<string, object>>(x)).ToList();
-
-            // 2. 해당 폴더 데이터가 상위 부모 폴더가 없는 경우 (상위 디렉토리로 추가)
-            // 2-2. 해당 폴더 데이터 하위 파일 데이터가 없는 경우 (continue)
-            // 2-3. 해당 폴더 데이터 하위 파일 데이터가 있는 경우 (해당 폴더 하위로 파일 데이터 추가)
-
-            // 3. 해당 폴더 데이터가 상위 부모 폴더가 있는 경우 (부모 폴더 밑에 하위 디렉토리로 추가)
-            // 3-2. 해당 폴더 데이터 하위 파일 데이터가 없는 경우 (continue)
-            // 3-3. 해당 폴더 데이터 하위 파일 데이터가 있는 경우 (해당 폴더 하위로 파일 데이터 추가)
+                        // 테스트용 재귀 호출 
+                        AddFolderList(pLevelDatas);
+                    }
+                }
 
 
-            // 폴더 + 파일 데이터 목록이 다 추가 될 때까지 재귀함수 호출 (재귀함수 - DFS 알고리즘 참고)
-            // 프로젝트 - 팀 목록 밑에 폴더 - 파일 순서대로 데이터 추가
-            // (Tree에 바인딩할 수 있도록 List 또는 Collection으로 팀 밑에 폴더 + 파일 데이터 추가 필요)
-            //GetFolderList();
+                return pLevelDatas;
+
+                // 3. 반복문 사용 -> 프로젝트 리스트에 속한 프로젝트 아이디 접근
+                //foreach (var project in projectList)
+                //{
+                //    // 4. 반복문 사용 -> 프로젝트 하위에 속하는 팀 리스트에 속한 팀 아이디 접근 
+                //    foreach ()
+                //    {
+                // 5. projectList에 속하는 "projectId"와 teamDictionary에 속하는 Key 값("projectId")이 일치하는 경우 6번 진행 
+                // if ()
+                //        {
+                //              // 6. 해당 프로젝트 및 팀에 속하는 폴더 리스트 정보를 Http 통신(Get) 방식으로 폴더 리스트 데이터 가져와서 pLevelDatas에 추가 
+                //              // 6-1. 프로젝트 아이디, 팀 아이디 데이터를 ProjectHelper 클래스 객체에 담기
+                //              // ProjectHelper.
+
+                //              // 6-2. Http 통신(Get) 방식으로 폴더 리스트 데이터 가져오기
+                //        } 
+
+                //        // 7. 메서드 "GetFolderList" 재귀 호출
+                //    }
+                //}
+
+
+
+                // 1. 폴더 리스트 가져오기 
+                // pLevelDatas.Where(x => x.ProjectItems[]).ToList();
+
+                // TODO : JSON 파일 "subexample.json" 파일 경로 설정 및 File.ReadAllBytes 메서드 호출문 구현 (2023.09.06 jbh)
+                // 참고 URL - https://blog.naver.com/heennavi1004/222100360201
+                //string jsonFolderPath = @"D:\bhjeon\WPFStudy\JsonTreeView\JsonTreeView\subexample.json";
+
+                //var jsonFolder = File.ReadAllText(jsonFolderPath);
+
+                //var jtmpFolder = (JsonObject.Parse(jsonFolder)["resultData"] as JsonArray).Select(x => x);
+
+                //var folderdatas = jtmpFolder.Select(x => JsonSerializer.Deserialize<Dictionary<string, object>>(x)).ToList();
+
+
+                //var jsonFolder = File.ReadAllText(jsonFolderPath);
+
+                //var jtmpFolder = (JsonObject.Parse(jsonFolder)["resultData"] as JsonArray).Select(x => x);
+
+                //FolderList = jtmpFolder.Select(x => JsonSerializer.Deserialize<Dictionary<string, object>>(x)).ToList();
+
+                // 2. 해당 폴더 데이터가 상위 부모 폴더가 없는 경우 (상위 디렉토리로 추가)
+                // 2-2. 해당 폴더 데이터 하위 파일 데이터가 없는 경우 (continue)
+                // 2-3. 해당 폴더 데이터 하위 파일 데이터가 있는 경우 (해당 폴더 하위로 파일 데이터 추가)
+
+                // 3. 해당 폴더 데이터가 상위 부모 폴더가 있는 경우 (부모 폴더 밑에 하위 디렉토리로 추가)
+                // 3-2. 해당 폴더 데이터 하위 파일 데이터가 없는 경우 (continue)
+                // 3-3. 해당 폴더 데이터 하위 파일 데이터가 있는 경우 (해당 폴더 하위로 파일 데이터 추가)
+
+
+                // 폴더 + 파일 데이터 목록이 다 추가 될 때까지 재귀함수 호출 (재귀함수 - DFS 알고리즘 참고)
+                // 프로젝트 - 팀 목록 밑에 폴더 - 파일 순서대로 데이터 추가
+                // (Tree에 바인딩할 수 있도록 List 또는 Collection으로 팀 밑에 폴더 + 파일 데이터 추가 필요)
+                //GetFolderList();
+            }
+            catch (Exception e)
+            {
+                Log.Logger.Information(e.Message);
+                return;
+            }
+            return;
         }
 
         #endregion GetFolderList
