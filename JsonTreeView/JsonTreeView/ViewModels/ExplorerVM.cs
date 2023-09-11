@@ -308,7 +308,6 @@ namespace JsonTreeView.ViewModels
         {
             try
             {
-
                 TestAsync();
             }
 
@@ -805,7 +804,7 @@ namespace JsonTreeView.ViewModels
 
         #endregion AddFolderList
 
-        #region 
+        #region ToDictionary
 
         private Dictionary<string, object> ToDictionary(object obj)
         {
@@ -814,7 +813,7 @@ namespace JsonTreeView.ViewModels
             return dictionary;
         }
 
-        #endregion 
+        #endregion ToDictionary
 
 
         #region LoadCommand
