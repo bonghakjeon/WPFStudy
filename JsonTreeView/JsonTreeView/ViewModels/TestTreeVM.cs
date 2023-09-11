@@ -288,8 +288,8 @@ namespace JsonTreeView.ViewModels
         {
             try
             {
-                FileList.Add(new FileView { exp_TreeName = "Sub File 1" });
-                FileList.Add(new FileView { exp_TreeName = "Sub File 2" });
+                FileList.Add(new FileView { exp_TreeName = "테스트 파일 3" });
+                FileList.Add(new FileView { exp_TreeName = "테스트 파일 4" });
 
                 //var TestList = new List<ITreeNode> 
                 //{  
@@ -297,10 +297,10 @@ namespace JsonTreeView.ViewModels
                 //    new FileView { exp_TreeName = "Sub File 2" }
                 //};
 
-                FileAndFolderList.Add(new FileView { exp_TreeName = "File 1" });
-                FileAndFolderList.Add(new FileView { exp_TreeName = "File 2" });
-                FileAndFolderList.Add(new SubFolderView { exp_TreeName = "Sub Folder 1", ChildNodes = FileList });
-                FileAndFolderList.Add(new SubFolderView { exp_TreeName = "Sub Folder 2", ChildNodes = FileList });
+                FileAndFolderList.Add(new FileView { exp_TreeName = "테스트 파일 1" });
+                FileAndFolderList.Add(new FileView { exp_TreeName = "테스트 파일 2" });
+                FileAndFolderList.Add(new SubFolderView { exp_TreeName = "테스트 서브폴더 1", ChildNodes = FileList });
+                FileAndFolderList.Add(new SubFolderView { exp_TreeName = "테스트 서브폴더 2", ChildNodes = FileList });
 
                 //var FileList = new List<ITreeNode>
                 //{
