@@ -133,11 +133,15 @@
     <Compile Include="ViewModels\ExplorerLevel.cs" />
     <Compile Include="ViewModels\ExplorerVM.cs" />
     <Compile Include="ViewModels\MainVM.cs" />
+    <Compile Include="ViewModels\TestTreeVM.cs" />
     <Compile Include="Views\ExplorerV.xaml.cs">
       <DependentUpon>ExplorerV.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainV.xaml.cs">
       <DependentUpon>MainV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestTreeV.xaml.cs">
+      <DependentUpon>TestTreeV.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +189,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TestTreeV.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
