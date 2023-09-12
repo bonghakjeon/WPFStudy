@@ -35,8 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CobimExplorer.Rest.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="CobimExplorer.Rest.Api">
       <HintPath>..\..\..\COBIM-Explorer\CobimExplorer\CobimExplorer.Rest.Api\bin\Debug\CobimExplorer.Rest.Api.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AppCenter, Version=0.0.0.0, Culture=neutral, PublicKeyToken=8a600e2fee7ba272, processorArchitecture=MSIL">
@@ -175,6 +174,7 @@
     </None>
     <None Include="subexample.json" />
     <None Include="subexample2.json" />
+    <None Include="subexample3.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

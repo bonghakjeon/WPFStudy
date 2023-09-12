@@ -1,0 +1,68 @@
+{
+    "resultData": [
+        {
+            "useYn": "Y",
+            "createIp": "127.0.0.1",
+            "updateIp": null,
+            "createDateTime": "2023-09-06T15:26:53.500+00:00",
+            "updateDateTime": null,
+            "createUserId": "bonanza",
+            "updateUserId": null,
+            "folderId": "a01831d2f42c44edb13c525c494fc1ca",
+            "folderName": "탐색기구축팀",
+            "parentFolderId": null,
+            "folderGroupId": "a01831d2f42c44edb13c525c494fc1ca",
+            "levelNo": 0
+        },
+        {
+            "useYn": "Y",
+            "createIp": "127.0.0.1",
+            "updateIp": null,
+            "createDateTime": "2023-09-06T17:17:44.641+00:00",
+            "updateDateTime": null,
+            "createUserId": "ldh0906",
+            "updateUserId": null,
+            "folderId": "4d1e74ca1fd54d29a97351f83667360a",
+            "folderName": "분석",
+            "parentFolderId": "a01831d2f42c44edb13c525c494fc1ca",
+            "folderGroupId": "a01831d2f42c44edb13c525c494fc1ca",
+            "levelNo": 1
+        },
+        {
+            "useYn": "Y",
+            "createIp": "127.0.0.1",
+            "updateIp": null,
+            "createDateTime": "2023-09-07T00:35:24.214+00:00",
+            "updateDateTime": null,
+            "createUserId": "ldh0906",
+            "updateUserId": null,
+            "folderId": "be21feed610547e6aa5a2c83b2757512",
+            "folderName": "테스트폴더",
+            "parentFolderId": "4d1e74ca1fd54d29a97351f83667360a",
+            "folderGroupId": "a01831d2f42c44edb13c525c494fc1ca",
+            "levelNo": 2
+        },
+        {
+            "useYn": "Y",
+            "createIp": "127.0.0.1",
+            "updateIp": null,
+            "createDateTime": "2023-09-07T01:17:36.364+00:00",
+            "updateDateTime": null,
+            "createUserId": "ldh0906",
+            "updateUserId": null,
+            "folderId": "b79fb8c2567a410cbfb8f142653f05e2",
+            "folderName": "COBIM테스트",
+            "parentFolderId": "4d1e74ca1fd54d29a97351f83667360a",
+            "folderGroupId": "a01831d2f42c44edb13c525c494fc1ca",
+            "levelNo": 2
+        }
+    ],
+    "resultCount": 0,
+    "resultMessage": null,
+    "tenantId": "inc-001",
+    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJvcmdhbml6YXRpb25JZCI6ImltYnUiLCJzdWIiOiJzaWduIiwidGVhbXMiOiJpbmMtMDAxLWJtY2ItdDAwNSIsInJvbGVzIjoiIiwidGVuYW50SWQiOiJpbmMtMDAxIiwicHJvamVjdCI6ImJtY2IiLCJ1c2VyTmFtZSI6IuyehOuPme2biCIsImV4cCI6MTY5NDQ5NjIxNCwidXNlcklkIjoibGRoMDkwNiJ9.rZ52PX8PhY2NDoHgRuqUTZzYZVKW6rtg8Hp66eM-WYg",
+    "refreshToken": null,
+    "param": null,
+    "payload": null,
+    "actionUserInfo": null
+}
