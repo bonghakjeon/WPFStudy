@@ -582,11 +582,11 @@ namespace JsonTreeView.ViewModels
                         folderLevelNo = folder[FolderHelper.levelNo].ToString();
 
                         // 서브 폴더 추가 
-
+                        pFileAndFolderList
 
 
                         // 3 단계 : 상위 폴더 하위 서브폴더(또는 하위 폴더) 데이터 추가	
-
+                        pFolderList
 
 
 
