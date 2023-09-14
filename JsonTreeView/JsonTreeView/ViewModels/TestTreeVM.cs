@@ -24,6 +24,8 @@ namespace JsonTreeView.ViewModels
         string exp_TreeName { get; set; }
         
         List<ITreeNode> ChildNodes { get; set; }
+
+        List<List<ITreeNode>> TestChildNodes { get; set; }
     }
 
     public class ExplorerView : BindableBase
@@ -51,7 +53,23 @@ namespace JsonTreeView.ViewModels
     public class ProjectView : ITreeNode
     {
         public string exp_TreeName { get; set; }
-        public List<ITreeNode> ChildNodes { get; set; }
+
+        //public List<ITreeNode> ChildNodes { get; set; }
+
+        public List<ITreeNode> ChildNodes 
+        { 
+            get
+            {
+                // 싱글톤 패턴 
+                if (_ChildNodes == null)
+                {
+                    _ChildNodes = new List<ITreeNode>();
+                }
+                return _ChildNodes;
+            }
+            set => _ChildNodes = value;
+        }
+        private List<ITreeNode> _ChildNodes;
 
         /// <summary>
         /// 프로젝트 아이디
@@ -66,12 +84,45 @@ namespace JsonTreeView.ViewModels
             // = new List<Dictionary<string, object>>();
 
         public Dictionary<string, object> ProjectDataInfo { get; set; } = new Dictionary<string, object>();
+
+        public List<List<ITreeNode>> TestChildNodes { get; set; } = new List<List<ITreeNode>>();
     }
 
     public class TeamView : ITreeNode
     {
         public string exp_TreeName { get; set; }
-        public List<ITreeNode> ChildNodes { get; set; }
+        //public List<ITreeNode> ChildNodes { get; set; }
+
+        public List<ITreeNode> ChildNodes
+        {
+            get
+            {
+                // 싱글톤 패턴 
+                if (_ChildNodes == null)
+                {
+                    _ChildNodes = new List<ITreeNode>();
+                }
+                return _ChildNodes;
+            }
+            set => _ChildNodes = value;
+        }
+        private List<ITreeNode> _ChildNodes;
+
+
+        public List<List<ITreeNode>> TestChildNodes
+        {
+            get
+            {
+                // 싱글톤 패턴 
+                if (_TestChildNodes == null)
+                {
+                    _TestChildNodes = new List<List<ITreeNode>>();
+                }
+                return _TestChildNodes;
+            }
+            set => _TestChildNodes = value;
+        }
+        private List<List<ITreeNode>> _TestChildNodes;
 
         /// <summary>
         /// 팀 아이디
@@ -90,12 +141,29 @@ namespace JsonTreeView.ViewModels
         /// 소속된 팀의 사용자 리스트 
         /// </summary>
         public List<Dictionary<string, object>> TeamUserList { get; set; }
+
+        //public List<List<ITreeNode>> TestChildNodes { get; set; } = new List<List<ITreeNode>>();
     }
 
     public class FolderView : ITreeNode
     {
         public string exp_TreeName { get; set; }
-        public List<ITreeNode> ChildNodes { get; set; }
+        //public List<ITreeNode> ChildNodes { get; set; }
+
+        public List<ITreeNode> ChildNodes
+        {
+            get
+            {
+                // 싱글톤 패턴 
+                if (_ChildNodes == null)
+                {
+                    _ChildNodes = new List<ITreeNode>();
+                }
+                return _ChildNodes;
+            }
+            set => _ChildNodes = value;
+        }
+        private List<ITreeNode> _ChildNodes;
 
         /// <summary>
         /// 부모 폴더 아이디
@@ -113,31 +181,103 @@ namespace JsonTreeView.ViewModels
         public string exp_TreeFolderId { get; set; }
 
         /// <summary>
+        /// 폴더 레벨
+        /// </summary>
+        public string exp_TreeFolderLevelNo { get; set; }
+
+        /// <summary>
         /// 폴더 목록 리스트
         /// </summary>
         //public List<ExplorerView> FolderItems { get; set; }
         public List<Dictionary<string, object>> FolderItems { get; set; }
 
         public Dictionary<string, object> FolderDataInfo { get; set; }  = new Dictionary<string, object>();
+
+        public List<List<ITreeNode>> TestChildNodes { get; set; } = new List<List<ITreeNode>>();
     }
 
     public class SubFolderView : ITreeNode
     {
         public string exp_TreeName { get; set; }
-        public List<ITreeNode> ChildNodes { get; set; }
+        //public List<ITreeNode> ChildNodes { get; set; }
+
+        public List<ITreeNode> ChildNodes
+        {
+            get
+            {
+                // 싱글톤 패턴 
+                if (_ChildNodes == null)
+                {
+                    _ChildNodes = new List<ITreeNode>();
+                }
+                return _ChildNodes;
+            }
+            set => _ChildNodes = value;
+        }
+        private List<ITreeNode> _ChildNodes;
+
+        /// <summary>
+        /// 부모 폴더 리스트 
+        /// </summary>
+        public List<ITreeNode> ParentNodes 
+        {
+            get 
+            { 
+                // 싱글톤 패턴 
+                if (_ParentNodes == null)
+                {
+                    _ParentNodes = new List<ITreeNode>();
+                }
+                return _ParentNodes;
+            } 
+            set => _ParentNodes = value; 
+        }
+        private List<ITreeNode> _ParentNodes;
+
+        /// <summary>
+        /// 부모 폴더 아이디
+        /// </summary>
+        public string exp_TreeParentFolderId { get; set; }
+
+        /// <summary>
+        /// 폴더 그룹 아이디
+        /// </summary>
+        public string exp_TreeFolderGroupId { get; set; }
+
+        /// <summary>
+        /// 폴더 아이디
+        /// </summary>
+        public string exp_TreeFolderId { get; set; }
 
         /// <summary>
         /// 서브 폴더 목록 리스트
         /// </summary>
-        public List<ExplorerView> SubFolderItems { get; set; } = new List<ExplorerView>();
+        public List<Dictionary<string, object>> SubFolderItems { get; set; } = new List<Dictionary<string, object>>();
 
         public Dictionary<string, object> SubFolderDataInfo { get; set; } = new Dictionary<string, object>();
+
+        public List<List<ITreeNode>> TestChildNodes { get; set; } = new List<List<ITreeNode>>();
     }
 
     public class FileView : ITreeNode
     {
         public string exp_TreeName { get; set; }
-        public List<ITreeNode> ChildNodes { get; set; }
+        //public List<ITreeNode> ChildNodes { get; set; }
+
+        public List<ITreeNode> ChildNodes
+        {
+            get
+            {
+                // 싱글톤 패턴 
+                if (_ChildNodes == null)
+                {
+                    _ChildNodes = new List<ITreeNode>();
+                }
+                return _ChildNodes;
+            }
+            set => _ChildNodes = value;
+        }
+        private List<ITreeNode> _ChildNodes;
 
         /// <summary>
         /// 파일 목록 리스트
@@ -145,6 +285,8 @@ namespace JsonTreeView.ViewModels
         public List<ExplorerView> FileItems { get; set; } = new List<ExplorerView>();
 
         public Dictionary<string, object> FileDataInfo { get; set; } = new Dictionary<string, object>();
+
+        public List<List<ITreeNode>> TestChildNodes { get; set; } = new List<List<ITreeNode>>();
     }
 
     public class TestTreeVM : Screen
@@ -156,34 +298,144 @@ namespace JsonTreeView.ViewModels
         public ICommand TestCommand { get; set; }
 
         /// <summary>
-        /// 
+        /// 프로젝트 리스트 
         /// </summary>
-        public List<ProjectView> ProjectList { get; set; } = new List<ProjectView>();
+        //public List<ProjectView> ProjectList { get; set; } = new List<ProjectView>();
+        public List<ProjectView> ProjectList 
+        { 
+            get
+            {
+                // 싱글톤 패턴 
+                if (_ProjectList == null)
+                {
+                    _ProjectList = new List<ProjectView>();
+                }
+                return _ProjectList;
+            }
+            set => _ProjectList = value;
+        } 
+        private List<ProjectView> _ProjectList;
 
         /// <summary>
-        /// 
+        /// 팀 리스트 
         /// </summary>
-        public List<ITreeNode> TeamList { get; set; } = new List<ITreeNode>();
+        public List<ITreeNode> TeamList 
+        { 
+            get
+            {
+                // 싱글톤 패턴 
+                if (_TeamList == null)
+                {
+                    _TeamList = new List<ITreeNode>();
+                }
+                return _TeamList;
+            }
+            set => _TeamList = value;
+        } 
+        private List<ITreeNode> _TeamList;
 
         /// <summary>
-        /// 
+        /// 폴더 리스트 
         /// </summary>
-        public List<ITreeNode> FolderList { get; set; } = new List<ITreeNode>();
+        //public List<ITreeNode> FolderList { get; set; } = new List<ITreeNode>();
 
+        /// <summary>
+        /// 서브 폴더 리스트 
+        /// </summary>
+        //public List<ITreeNode> SubFolderList 
+        //{ 
+        //    get
+        //    {
+        //        // 싱글톤 패턴 
+        //        if (_SubFolderList == null)
+        //        {
+        //            _SubFolderList = new List<ITreeNode>();
+        //        }
+        //        return _SubFolderList;
+        //    }
+        //    set => _SubFolderList = value;
+        //} 
+        //private List<ITreeNode> _SubFolderList;
+
+        public List<ITreeNode> SubFolderList { get; set; }
+
+        /// <summary>
+        /// 테스트용 폴더(+서브 폴더) 2차원 리스트 
+        /// </summary>
+        public List<List<ITreeNode>> FolderList 
+        { 
+            get
+            {
+                // 싱글톤 패턴
+                if (_FolderList == null)
+                {
+                    _FolderList = new List<List<ITreeNode>>();
+                }
+                return _FolderList;
+            }
+            set => _FolderList = value;
+        } 
+        private List<List<ITreeNode>> _FolderList;
+
+
+        public List<List<ITreeNode>> TestFolderNodes
+        {
+            get
+            {
+                // 싱글톤 패턴 
+                if (_TestFolderNodes == null)
+                {
+                    _TestFolderNodes = new List<List<ITreeNode>>();
+                }
+                return _TestFolderNodes;
+            }
+            set => _TestFolderNodes = value;
+        }
+        private List<List<ITreeNode>> _TestFolderNodes;
+
+        // TODO : FileAndFolderList 필요 없을 시 삭제 예정 (2023.09.14 jbh)
         /// <summary>
         /// 
         /// </summary>
         public List<ITreeNode> FileAndFolderList { get; set; } = new List<ITreeNode>();
 
         /// <summary>
-        /// 
+        /// 파일 리스트 
         /// </summary>
-        public List<ITreeNode> FileList { get; set; } = new List<ITreeNode>();
+        //public List<ITreeNode> FileList { get; set; } = new List<ITreeNode>();
+        public List<List<ITreeNode>> FileList 
+        { 
+            get
+            {
+                // 싱글톤 패턴
+                if (_FileList == null)
+                {
+                    _FileList = new List<List<ITreeNode>>();
+                }
+                return _FileList;
+            }
+            set => _FileList = value;
+        } 
+        private List<List<ITreeNode>> _FileList;
 
         /// <summary>
-        /// 
+        /// 전체 (프로젝트 + 팀 + 폴더 + 서브폴더 + 파일) 데이터 Collection
         /// </summary>
-        public BindableCollection<ProjectView> LevelDatas { get; set; } = new BindableCollection<ProjectView>();
+        //public BindableCollection<ProjectView> LevelDatas { get; set; } = new BindableCollection<ProjectView>();
+        public BindableCollection<ProjectView> LevelDatas 
+        { 
+            get
+            {
+                // 싱글톤 패턴
+                if (_LevelDatas == null)
+                {
+                    _LevelDatas = new BindableCollection<ProjectView>();
+                }
+                return _LevelDatas;
+            }
+            set => _LevelDatas = value;
+        } 
+        private BindableCollection<ProjectView> _LevelDatas;
 
         /// <summary>
         /// 프로젝트 정보
@@ -199,6 +451,11 @@ namespace JsonTreeView.ViewModels
         /// 폴더 정보
         /// </summary>
         public FolderView FolderInfo { get; set; }
+
+        /// <summary>
+        /// 테스트 서브 폴더 정보
+        /// </summary>
+        public FolderView TestSubFolderInfo { get; set; }
 
         /// <summary>
         /// 폴더 하위 서브 폴더 정보
@@ -268,8 +525,8 @@ namespace JsonTreeView.ViewModels
             try
             {
                 // await CreateList();
-                FileList.Add(new FileView { exp_TreeName = "테스트 파일 3" });
-                FileList.Add(new FileView { exp_TreeName = "테스트 파일 4" });
+                // FileList.Add(new FileView { exp_TreeName = "테스트 파일 3" });
+                // FileList.Add(new FileView { exp_TreeName = "테스트 파일 4" });
 
                 //var TestList = new List<ITreeNode> 
                 //{  
@@ -277,10 +534,10 @@ namespace JsonTreeView.ViewModels
                 //    new FileView { exp_TreeName = "Sub File 2" }
                 //};
 
-                FileAndFolderList.Add(new FileView { exp_TreeName = "테스트 파일 1" });
-                FileAndFolderList.Add(new FileView { exp_TreeName = "테스트 파일 2" });
-                FileAndFolderList.Add(new SubFolderView { exp_TreeName = "테스트 서브폴더 1", ChildNodes = FileList });
-                FileAndFolderList.Add(new SubFolderView { exp_TreeName = "테스트 서브폴더 2", ChildNodes = FileList });
+                // FileAndFolderList.Add(new FileView { exp_TreeName = "테스트 파일 1" });
+                // FileAndFolderList.Add(new FileView { exp_TreeName = "테스트 파일 2" });
+                // FileAndFolderList.Add(new SubFolderView { exp_TreeName = "테스트 서브폴더 1", ChildNodes = FileList });
+                // FileAndFolderList.Add(new SubFolderView { exp_TreeName = "테스트 서브폴더 2", ChildNodes = FileList });
 
                 //var FileList = new List<ITreeNode>
                 //{
@@ -450,15 +707,17 @@ namespace JsonTreeView.ViewModels
 
         //#endregion AddFolderAndFileList
 
-        #region AddProjectList
+        #region CreateListAsync
 
         // TODO : 프로젝트 - 팀 - 폴더 - 서브폴더/파일 리스트 생성 해주는 메서드 "CreateListAsync" 구현 (2023.09.12 jbh)
         /// <summary>
         /// 프로젝트 - 팀 - 폴더 - 서브폴더/파일 리스트 생성
+        /// 메서드 파라미터 List<ITreeNode> pSubFolderFileList 추가 여부 확인 
         /// </summary>
-        private async Task CreateListAsync(List<ProjectView> pProjectList, List<ITreeNode> pTeamList, List<ITreeNode> pFolderList, List<ITreeNode> pFileAndFolderList)
+        private async Task CreateListAsync(List<ProjectView> pProjectList, List<ITreeNode> pTeamList, List<List<ITreeNode>> pFolderList, List<ITreeNode> pFileAndFolderList)
         {
             string projectId = string.Empty;                // JSON 프로젝트 아이디
+            string projectName = string.Empty;              // JSON 프로젝트 이름 
             string jsonProjectTeamPath = string.Empty;      // JSON 프로젝트 + 팀 테스트 데이터 경로
             string jsonFolderPath = string.Empty;           // JSON 폴더 테스트 데이터 경로 
 
@@ -474,7 +733,8 @@ namespace JsonTreeView.ViewModels
             string folderLevelNo = string.Empty;            // JSON 폴더 레벨 (상위 폴더 또는 하위 폴더 분류 기준) 
 
             string fileJson = string.Empty;                 // JSON 파일 리스트 문자열 
-            
+            int folderIndex = 0;                            // JSON 파일 폴더 인덱스
+
             try
             {
                 // TODO : JSON 파일 "example.json" 파일 경로 설정 및 File.ReadAllBytes 메서드 호출문 구현 (2023.08.31 jbh)
@@ -503,10 +763,11 @@ namespace JsonTreeView.ViewModels
                     // Dictionary 객체 projectDic 특정 키(Key) "projectId"에 속하는 값(Value) 문자열로 변환 (2023.09.11 jbh)
                     // 참고 URL - https://developer-talk.tistory.com/694
                     projectId = projectDic[ProjectHelper.projectId].ToString();
+                    projectName = projectDic[ProjectHelper.projectName].ToString();
 
                     // var jsonList = jtmp.Select(x => JsonSerializer.Deserialize<Dictionary<string, object>>(x)).ToList();
                     // var teamList = jtmp.Select(x => JsonSerializer.Deserialize<Dictionary<string, object>>(x["teamEntity"])).ToList(); // (data["teamEntity"] as JsonArray);
-                    var teamDic = ToDictionary(data[TeamHelper.teamEntity]);
+
 
 
                     // jsonteam = data["teamEntity"].ToString();
@@ -522,14 +783,33 @@ namespace JsonTreeView.ViewModels
                     // 참고 URL - https://yeko90.tistory.com/entry/difference-between-select-selectmany
                     // var teamUserDic = teamUserList.SelectMany(value => value).ToDictionary(key => key.Key, value => value.Value);
 
+                    var teamDic = ToDictionary(data[TeamHelper.teamEntity]);
                     teamProjectId = teamDic[ProjectHelper.projectId].ToString();
                     teamId = teamDic[TeamHelper.teamId].ToString();
                     teamName = teamDic[TeamHelper.teamName].ToString();
 
+                    // TODO : 파일 리스트 JSON 데이터 인재 INC 로부터 REST API 공유 받으면 구현 진행 예정 (2023.09.12 jbh)
+                    // TODO : JSON 문자열 객체 fileJson에 데이터가 존재하지 않을 경우 NULL 예외처리 삼항 연산자 구현 (2023.09.11 jbh)
+                    // 참고 URL - https://jellyho.com/blog/54/
+                    // 참고 2 URL - https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=traeumen927&logNo=220968723242
+                    //fileJson = folder[FileHelper.fileList].ToString();
 
+                    // TODO : 파일 리스트(fileList) 구할 때에 부모 폴더(루트 폴더) 아이디만 존재하는 파일 목록만 추출하도록 Linq로 구현하기(2023.09.13 jbh)
+                    //var fileList = (fileJson.Length <= 2) ? new List<Dictionary<string, object>>() : fileJson.Select(x => JsonSerializer.Deserialize<Dictionary<string, object>>(x)).ToList();
+
+                    // TODO : 서브폴더 하위 파일 리스트 데이터 추가 구현 예정 (2023.09.13 jbh)
                     // 1 단계 : 서브폴더 하위 파일 리스트 데이터 추가 
+                    //for (var file in fileList)
+                    //{
+                    //    if ()
+                    //    {
+                    //        FileInfo = new FileView()
+                    //        {
 
-
+                    //        }
+                    //        pFileList
+                    //    }
+                    //}
 
                     // 2 단계 : 서브 폴더 하위 파일 데이터(FileList) 추가 + 폴더 없이 파일 데이터 추가 
                     if (projectId.Equals(ProjectHelper.testProjectId) && teamId.Equals(ProjectHelper.testTeamId))
@@ -563,12 +843,16 @@ namespace JsonTreeView.ViewModels
                     //        할당 받은 데이터 var jsonList 조사식 -> 키워드 "jsonList" 입력 및 엔터(또는 해당 var jsonList 클릭 및 조사식으로 드래그) 확인 가능
                     //var folderList = jtmpFolder.Select(x => JsonSerializer.Deserialize<Dictionary<string, object>>(x)).ToList();
 
-                    // TODO : 폴더 리스트에 속한 폴더 데이터 Dictionary 객체의 Key "levelNo"의 값(Value)을 기준으로 내림차순 정렬하여 리스트 구현 (2023.09.12 jbh)
+                    // TODO : 폴더 리스트에 속한 폴더 데이터 Dictionary 객체의 Key "levelNo"의 값(Value)을 기준으로 내림차순(OrderByDescending) 정렬하여 리스트 구현 (2023.09.12 jbh)
                     // 참고 URL - https://codechacha.com/ko/csharp-sort-list/
                     // 참고 2 URL - https://developer-talk.tistory.com/694
                     // 참고 3 URL - https://developer-talk.tistory.com/210
-                    var folderList = jtmpFolder.Select(x => JsonSerializer.Deserialize<Dictionary<string, object>>(x)).OrderByDescending(x => Convert.ToInt64(x[FolderHelper.levelNo].ToString())).ToList();
+                    var folderList = jtmpFolder.Select(x => JsonSerializer.Deserialize<Dictionary<string, object>>(x)).OrderByDescending(x => Int32.Parse(x[FolderHelper.levelNo].ToString())).ToList();
 
+                    // TODO : 폴더 리스트에 속한 폴더 데이터 Dictionary 객체의 Key "levelNo"의 값(Value)을 기준으로 오름차순(OrderBy) 정렬하여 리스트 구현 (2023.09.12 jbh)
+                    // Int32.Parse 메서드 사용 방법 
+                    // 참고 URL - https://2-nan.tistory.com/43
+                    // var folderList = jtmpFolder.Select(x => JsonSerializer.Deserialize<Dictionary<string, object>>(x)).OrderBy(x => Int32.Parse(x[FolderHelper.levelNo].ToString())).ToList();
 
                     foreach (var folder in folderList)
                     {
@@ -580,14 +864,211 @@ namespace JsonTreeView.ViewModels
                         folderId = folder[FolderHelper.folderId].ToString();
                         folderName = folder[FolderHelper.folderName].ToString();
                         folderLevelNo = folder[FolderHelper.levelNo].ToString();
+                        
 
-                        // 서브 폴더 추가 
-                        pFileAndFolderList
+                        // 3 단계 : 팀 밑에 루트 디렉토리(폴더) 하위 서브폴더(또는 하위 폴더) 데이터 추가	
+
+                        // TODO : 파일 리스트 JSON 데이터 인재 INC 로부터 REST API 공유 받으면 구현 진행 예정 (2023.09.12 jbh)
+                        // TODO : JSON 문자열 객체 fileJson에 데이터가 존재하지 않을 경우 NULL 예외처리 삼항 연산자 구현 (2023.09.11 jbh)
+                        // 참고 URL - https://jellyho.com/blog/54/
+                        // 참고 2 URL - https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=traeumen927&logNo=220968723242
+                        //fileJson = folder[FileHelper.fileList].ToString();
+
+                        // TODO : 파일 리스트(fileList) 구할 때에 부모 폴더(루트 폴더 또는 서브폴더) 아이디가 존재하는 파일 목록만 추출하도록 Linq로 구현하기(2023.09.13 jbh)
+                        //var fileList = (fileJson.Length <= 2) ? new List<Dictionary<string, object>>() : fileJson.Select(x => JsonSerializer.Deserialize<Dictionary<string, object>>(x)).ToList();
 
 
-                        // 3 단계 : 상위 폴더 하위 서브폴더(또는 하위 폴더) 데이터 추가	
-                        pFolderList
+                        // TODO : 팀 밑에 루트 디렉토리(폴더) 하위 파일 존재하지 않을 경우 새로 생성 구현 예정 (2023.09.13 jbh)
+                        //if (1. 부모 폴더 id 값이 null이 아니고 
+                        //    && 2. 파일 id 값이 null이 아니고 
+                        //    && 3.부모 폴더 존재
+                        //    && 4. 부모폴더가 루트 디렉토리("levelNo": 0) 조건 만족)
+                        //{
+                        //    // 하위 파일 
+                        //    FileInfo = new FileView()
+                        //    {
 
+                        //    };
+
+                        //    pFileAndFolderList.Add(FileInfo);
+                        //}
+
+                        // 폴더(+ 서브 폴더) 생성 
+                        // !string.IsNullOrWhiteSpace(parentFolderId)
+                        if (!string.IsNullOrWhiteSpace(folderGroupId)
+                            && !string.IsNullOrWhiteSpace(folderId)
+                            && !string.IsNullOrWhiteSpace(folderName)
+                            && !string.IsNullOrWhiteSpace(folderLevelNo))
+                        {
+                            if (TestSubFolderInfo != null)
+                            {
+                                SubFolderList = new List<ITreeNode>();
+
+                                SubFolderList.Add(TestSubFolderInfo);
+                            }
+                            
+
+                            FolderInfo = new FolderView()
+                            {
+                                FolderDataInfo = ToDictionary(folder),
+                                FolderItems = new List<Dictionary<string, object>> { folder },
+                                exp_TreeParentFolderId = parentFolderId,
+                                exp_TreeFolderGroupId = folderGroupId,
+                                exp_TreeFolderId = folderId,
+                                exp_TreeName = folderName,
+                                exp_TreeFolderLevelNo = folderLevelNo,
+                                // TODO : 파일 리스트 추가 작업시 ChildNodes 사용 예정 (2023.09.14 jbh)
+                                //ChildNodes = pFileAndFolderList
+                                ChildNodes = SubFolderList
+                            };
+
+                            TestSubFolderInfo = FolderInfo;
+
+                            // FolderView 클래스 객체 FolderInfo 가 들어갈 자리(껍데기) 만들어 줌.
+                            pFolderList.Add(new List<ITreeNode>());
+
+                            pFolderList[folderIndex].Add(FolderInfo);
+
+                            folderIndex += 1;
+
+                            // await CreateFolderAsync(FolderInfo);
+                        }
+
+                      
+
+
+                        // 서브 폴더 밑에 서브 폴더 (Level2 이상) 존재하지 않을 경우 새로 생성 
+                        // 서브 폴더 존재하지 않을 경우 새로 생성  
+                        //if (!string.IsNullOrWhiteSpace(parentFolderId)
+                        //    && !string.IsNullOrWhiteSpace(folderGroupId)
+                        //    && !string.IsNullOrWhiteSpace(folderId)
+                        //    && !string.IsNullOrWhiteSpace(folderName)
+                        //    && !folderLevelNo.Equals(FolderHelper.level1SubFolder))
+                        //{
+
+
+                        //    // 서브 폴더
+                        //    SubFolderInfo = new SubFolderView()
+                        //    {
+                        //        SubFolderDataInfo = ToDictionary(folder),
+                        //        SubFolderItems = new List<Dictionary<string, object>> { folder },
+                        //        exp_TreeParentFolderId = parentFolderId,
+                        //        exp_TreeFolderGroupId = folderGroupId,
+                        //        exp_TreeFolderId = folderId,
+                        //        exp_TreeName = folderName,
+                        //        // TODO : 서브 폴더 밑의 하위 파일 리스트 "FileList" 구현 및 ChildNodes에 추가 예정 (2023.09.14 jbh)
+                        //        //ChildNodes = , // pSubFolderFileList
+                        //    };
+
+                        //    // 테스트용 루트 폴더 
+                        //    FolderInfo = new FolderView()
+                        //    {
+                        //        FolderDataInfo = ToDictionary(folder),
+                        //        FolderItems = new List<Dictionary<string, object>> { folder },
+                        //        exp_TreeParentFolderId = parentFolderId,
+                        //        exp_TreeFolderGroupId = folderGroupId,
+                        //        exp_TreeFolderId = folderId,
+                        //        exp_TreeFolderLevelNo = folderLevelNo,
+                        //        exp_TreeName = folderName,
+
+                        //        // ChildNodes = pFileAndFolderList
+                        //    };
+
+                        //    // var folderNodes = new List<ITreeNode>();
+
+                        //    // folderNodes.Add(FolderInfo);
+                        //    // folderNodes.Add(SubFolderInfo);
+
+                        //    await CreateFolderAsync(FolderInfo);
+
+                        //    // SubFolderList.Add(SubFolderInfo);
+
+                        //    // SubFolderInfo.ChildNodes.Add(SubFolderInfo);
+
+                        //    // pFileAndFolderList.Add(SubFolderInfo);
+                        //}
+
+
+                        // 루트 디렉토리(Level 0) 바로 밑 서브 폴더(Level 1) 존재하지 않을 경우 새로 생성  
+                        //if (!string.IsNullOrWhiteSpace(parentFolderId)
+                        //    && !string.IsNullOrWhiteSpace(folderGroupId)
+                        //    && !string.IsNullOrWhiteSpace(folderId)
+                        //    && !string.IsNullOrWhiteSpace(folderName)
+                        //    && folderLevelNo.Equals(FolderHelper.level1SubFolder)
+                        //    && folderGroupId.Equals(parentFolderId))
+                        //{
+                        //    // 서브 폴더
+                        //    SubFolderInfo = new SubFolderView()
+                        //    {
+                        //        SubFolderDataInfo = ToDictionary(folder),
+                        //        SubFolderItems = new List<Dictionary<string, object>> { folder },
+                        //        exp_TreeParentFolderId = parentFolderId,
+                        //        exp_TreeFolderGroupId = folderGroupId,
+                        //        exp_TreeFolderId = folderId,
+                        //        exp_TreeName = folderName,
+                        //        // ChildNodes = pSubFolderFileList
+                        //        ChildNodes = SubFolderList,   // SubFolderInfo.ChildNodes
+                        //        TestChildNodes = testSubFolderList
+                        //    };
+
+                        //    pFileAndFolderList.Add(SubFolderInfo);
+
+                        //    // TODO : 파일 타입일 경우 구현 예정 (2023.09.13) 
+                        //    FileInfo = new FileView()
+                        //    {
+                        //        exp_TreeName = "파일 테스트"
+                        //    };
+
+                        //    pFileAndFolderList.Add(FileInfo);
+                        //}
+
+                        //// 루트 디렉토리(Level 0) 바로 밑 서브 폴더(Level 1) 존재하지 않을 경우 새로 생성  
+                        //if (!string.IsNullOrWhiteSpace(parentFolderId)
+                        //    && !string.IsNullOrWhiteSpace(folderGroupId)
+                        //    && !string.IsNullOrWhiteSpace(folderId)
+                        //    && !string.IsNullOrWhiteSpace(folderName)
+                        //    && folderLevelNo.Equals(FolderHelper.level1SubFolder)
+                        //    && folderGroupId.Equals(parentFolderId))
+                        //{
+                        //    // 서브 폴더
+                        //    SubFolderInfo = new SubFolderView()
+                        //    {
+                        //        SubFolderDataInfo = ToDictionary(folder),
+                        //        SubFolderItems = new List<Dictionary<string, object>> { folder },
+                        //        exp_TreeParentFolderId = parentFolderId,
+                        //        exp_TreeFolderGroupId = folderGroupId,
+                        //        exp_TreeFolderId = folderId,
+                        //        exp_TreeName = folderName,
+                        //        // ChildNodes = pSubFolderFileList
+                        //        ChildNodes = SubFolderNode
+                        //    };
+
+                        //    pFileAndFolderList.Add(SubFolderInfo);
+                        //}
+
+
+                        // 팀 밑에 루트 디렉토리 (폴더) 존재하지 않을 경우 새로 생성 및 하위 서브폴더(또는 하위 파일) 데이터(pFileAndFolderList) 추가	
+                        //if (string.IsNullOrWhiteSpace(parentFolderId)
+                        //    && !string.IsNullOrWhiteSpace(folderGroupId)
+                        //    && !string.IsNullOrWhiteSpace(folderId)
+                        //    && !string.IsNullOrWhiteSpace(folderName)
+                        //    && !string.IsNullOrWhiteSpace(folderLevelNo)
+                        //    && folderLevelNo.Equals(FolderHelper.rootFolder)
+                        //    && folderGroupId.Equals(folderId))
+                        //{
+                        //    FolderInfo = new FolderView()
+                        //    {
+                        //        FolderDataInfo = ToDictionary(folder),
+                        //        FolderItems = new List<Dictionary<string, object>> { folder },
+                        //        exp_TreeParentFolderId = parentFolderId,
+                        //        exp_TreeFolderGroupId = folderGroupId,
+                        //        exp_TreeFolderId = folderId,
+                        //        exp_TreeName = folderName,
+                        //        ChildNodes = pFileAndFolderList
+                        //    };
+
+                        //    pFolderList.Add(FolderInfo);
+                        //}
 
 
 
@@ -652,35 +1133,34 @@ namespace JsonTreeView.ViewModels
 
 
                         // 팀 하위 디렉토리 (폴더) 존재하지 않을 경우 새로 생성 
-                        if (string.IsNullOrWhiteSpace(parentFolderId)
-                            && !string.IsNullOrWhiteSpace(folderGroupId)
-                            && !string.IsNullOrWhiteSpace(folderId)
-                            && !string.IsNullOrWhiteSpace(folderName)
-                            && !string.IsNullOrWhiteSpace(folderLevelNo)
-                            && folderLevelNo.Equals(FolderHelper.topLevelFolder))
-                        {
-                            FolderInfo = new FolderView()
-                            {
-                                FolderDataInfo = ToDictionary(folder),
-                                FolderItems = new List<Dictionary<string, object>> { folder },
-                                exp_TreeParentFolderId = parentFolderId,
-                                exp_TreeFolderGroupId = folderGroupId,
-                                exp_TreeFolderId = folderId,
-                                exp_TreeName = folderName,
-                                ChildNodes = pFileAndFolderList
-                            };
+                        //if (string.IsNullOrWhiteSpace(parentFolderId)
+                        //    && !string.IsNullOrWhiteSpace(folderGroupId)
+                        //    && !string.IsNullOrWhiteSpace(folderId)
+                        //    && !string.IsNullOrWhiteSpace(folderName)
+                        //    && !string.IsNullOrWhiteSpace(folderLevelNo)
+                        //    && folderLevelNo.Equals(FolderHelper.topLevelFolder))
+                        //{
+                        //    FolderInfo = new FolderView()
+                        //    {
+                        //        FolderDataInfo = ToDictionary(folder),
+                        //        FolderItems = new List<Dictionary<string, object>> { folder },
+                        //        exp_TreeParentFolderId = parentFolderId,
+                        //        exp_TreeFolderGroupId = folderGroupId,
+                        //        exp_TreeFolderId = folderId,
+                        //        exp_TreeName = folderName,
+                        //        ChildNodes = pFileAndFolderList
+                        //    };
 
-                            pFolderList.Add(FolderInfo);
-                        }
+                        //    pFolderList.Add(FolderInfo);
+                        //}
 
-                        else
-                        {
 
-                        }
                     }
 
-                    
-                    
+
+                    // 폴더 (+ 서브 폴더) 리스트 역순 정렬 
+                    // 참고 URL - https://shoney.tistory.com/entry/C-%EB%94%95%EC%85%94%EB%84%88%EB%A6%AC-%EB%B0%8F-2%EC%B0%A8%EC%9B%90-List-%EC%A0%95%EB%A0%AC-%EB%B0%A9%EB%B2%95
+                    TestFolderNodes = pFolderList.OrderByDescending(x => x[0]);
 
 
                     // 프로젝트 하위 디렉토리 (팀) 존재하지 않을 경우 새로 생성 
@@ -699,9 +1179,12 @@ namespace JsonTreeView.ViewModels
                                 TeamItems = new List<Dictionary<string, object>> { teamDic },
                                 // TODO : 팀에 소속된 사용자 리스트 JSON 데이터 인재 INC 로부터 REST API 공유 받으면 구현 진행 예정 (2023.09.12 jbh)
                                 // TeamUserList = new List<Dictionary<string, object>> { teamUserDic },
-                                exp_TreeTeamId = teamId.ToString(),
-                                exp_TreeName = teamName.ToString(),
-                                ChildNodes = pFolderList.Where(key => key.exp_TreeName.Equals(folderName)).ToList()
+                                exp_TreeTeamId = teamId,
+                                exp_TreeName = teamName,
+                                // TestChildNodes = pFolderList
+
+                                TestChildNodes = TestFolderNodes
+                                // ChildNodes = pFolderList
                             };
 
                             pTeamList.Add(TeamInfo);
@@ -711,16 +1194,16 @@ namespace JsonTreeView.ViewModels
 
                     // 루트 디렉토리 (프로젝트) 존재하지 않을 경우 새로 생성
                     if (!string.IsNullOrWhiteSpace(projectId)
-                        && projectId.Equals(teamProjectId)
-                        && projectDic.TryGetValue(ProjectHelper.projectName, out object projectNameValue))
+                        && !string.IsNullOrWhiteSpace(projectName)
+                        && projectId.Equals(teamProjectId))
                     {
                         ProjectInfo = new ProjectView()
                         {
                             ProjectDataInfo = projectDic,
                             // TODO : ProjectItems값이 NULL인 원인 파악 후 해결하기(2023.09.11 jbh)
                             ProjectItems = new List<Dictionary<string, object>> { projectDic },
-                            exp_TreeProjectId = projectId.ToString(),
-                            exp_TreeName = projectNameValue.ToString(),
+                            exp_TreeProjectId = projectId,
+                            exp_TreeName = projectName,
                             ChildNodes = pTeamList.Where(key => key.exp_TreeName.Equals(teamName)).ToList()
                         };
 
@@ -735,7 +1218,145 @@ namespace JsonTreeView.ViewModels
             }
         }
 
-        #endregion AddProjectList
+        #endregion CreateListAsync
+
+        #region CreateSubFolderAsync
+
+        /// <summary>
+        /// 폴더(+서브 폴더) 생성
+        /// </summary>
+        /// <param name="subFolderView"></param>
+        /// <returns></returns>
+        private async Task CreateFolderAsync (FolderView folderNodes)
+        {
+            // string folderLevelNo = string.Empty; // 생성할 폴더 레벨 
+
+            // Int32.Parse 메서드 사용 방법 
+            // 참고 URL - https://2-nan.tistory.com/43
+            int levelNo = Int32.Parse(folderNodes.exp_TreeFolderLevelNo);   // 생성할 폴더 레벨 
+            int rootLevelNo = Int32.Parse(FolderHelper.rootFolder);         // 루트 폴더 레벨 
+            int index = 0;
+
+            try
+            {
+                // C# 2차원 리스트 참고 자료 
+                // 참고 URL - https://codechacha.com/ko/csharp-init-2d-list/
+
+                // C# 2차원 리스트 데이터(요소) 추가 
+                // 참고 URL - https://gamedevst.tistory.com/11
+
+                if (FolderList.ElementAtOrDefault(levelNo) == null)
+                {
+                    SubFolderList = new List<ITreeNode>();
+                    // SubFolderList.Add(folderNodes);
+                    // FolderList.Add(SubFolderList);
+                }
+                else
+                {
+                    folderNodes.ChildNodes = SubFolderList;
+
+                }
+
+                // FolderList[index].Add(folderNodes);
+
+                index++;
+
+                // SubFolderList.Add(folderNodes);
+
+
+
+                    // 루트 폴더 아닐 경우 
+                //else
+                //{
+                //    folderNodes.ChildNodes = SubFolderList;
+                //}
+
+                //FolderList[LevelNo].Add(folderNodes);
+
+
+                // folderNodes.ChildNodes = 
+
+                // folderNodes.ChildNodes = ;
+
+
+
+
+
+
+                //if (FolderList.ElementAtOrDefault(LevelNo) == null)
+                //{
+                //    SubFolderList = new List<ITreeNode>();
+
+                //    FolderList.Add(SubFolderList);
+                //}
+
+                //SubFolderList = new List<ITreeNode>();
+
+                //SubFolderList.Add(folderNodes);
+
+                //folderNodes.ChildNodes = SubFolderList;
+
+                //FolderList[LevelNo].Add(folderNodes);
+
+
+
+
+                // 생성할 폴더가 루트 폴더인 경우 
+                //if (LevelNo.Equals(rootLevelNo))
+                //{
+                //    SubFolderList.Add(folderNodes);
+                //}
+
+                // 생성할 폴더가 루트 폴더가 아닌 경우 SubFolderList에 데이터 folderNodes 추가 
+                // if (!LevelNo.Equals(rootLevelNo))
+                // {
+                //     SubFolderList.Add(folderNodes);
+                // }
+
+                // FolderList[0].Add(folderNodes);
+                //FolderList.Add(SubFolderList);
+
+                // FolderList[0].Add(folderNodes);
+
+
+                // TODO : (루트 폴더 + 서브 폴더)를 포함하는 리스트를 2차원 리스트 객체 "testSubFolderList"로 구현 예정 (2023.09.14 jbh)
+                // 1. FolderList에 루트 폴더(exp_TreeFolderLevelNo = "0") 데이터 추가 
+                //if (folderLevelNo.Equals(FolderHelper.rootFolder))
+                //{
+                //    FolderList[].Add(folderNodes);
+                //}
+
+                // 2. FolderList에 서브 폴더 데이터 추가 및 부모폴더(또는 루트폴더)와 연결  
+                //else
+                //{
+                //    FolderList.Add(folderNodes);
+                //}
+
+                // C# 2차원 리스트 참고 자료 
+                // 참고 URL - https://codechacha.com/ko/csharp-init-2d-list/
+
+                //if (1. 해당 부모 폴더 아이디 
+                //    && 2. 폴더 그룹 아이디 ) 
+                //{
+                //    SubFolderList.Add(subFolderView);
+                //}
+                //testSubFolderList.Where().Select().ToList().Add(subFolderView);
+
+                //FolderList.Add(folderNodes);
+
+
+
+
+
+            }
+            catch (Exception e)
+            {
+                Log.Logger.Information(e.Message);
+                throw;
+            }
+        }
+
+        #endregion CreateSubFolderAsync
 
         #region TestCommand
 
