@@ -42,15 +42,16 @@
                     <TextBlock Margin="3" Text="{Binding exp_TreeName}"/>
                 </HierarchicalDataTemplate>
 
-                <HierarchicalDataTemplate DataType="{x:Type vm:TeamView}" ItemsSource="{Binding TestChildNodes}">
+                <HierarchicalDataTemplate DataType="{x:Type vm:TeamView}" ItemsSource="{Binding ChildNodes}">
+                    <TextBlock Margin="3" Text="{Binding exp_TreeName}"/>
+                </HierarchicalDataTemplate>
+
+                <!--  TODO : 폴더의 버튼 클릭시 이벤트 메서드 "GetFileList" 실행 되도록 구현 예정 (2023.09.15 jbh) -->
+                <HierarchicalDataTemplate DataType="{x:Type vm:FolderView}" ItemsSource="{Binding ChildNodes}">
                     <TextBlock Margin="3" Text="{Binding exp_TreeName}"/>
                 </HierarchicalDataTemplate>
                 
-                <!--<HierarchicalDataTemplate DataType="{x:Type vm:FolderView}" ItemsSource="{Binding ChildNodes}">
-                    <TextBlock Margin="3" Text="{Binding exp_TreeName}"/>
-                </HierarchicalDataTemplate>
-                
-                <HierarchicalDataTemplate DataType="{x:Type vm:SubFolderView}" ItemsSource="{Binding ChildNodes}">
+                <!--<HierarchicalDataTemplate DataType="{x:Type vm:SubFolderView}" ItemsSource="{Binding ChildNodes}">
                     <TextBlock Margin="3" Text="{Binding exp_TreeName}"/>
                 </HierarchicalDataTemplate>
                 
